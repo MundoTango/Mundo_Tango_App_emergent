@@ -7,13 +7,15 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Shield, Activity, Database, Server, Users, 
   AlertCircle, CheckCircle, Clock, TrendingUp, Loader2,
-  RefreshCw
+  RefreshCw, Sparkles
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
+import { OpenSourceAgentTab } from './OpenSourceAgentTab';
 
 interface SystemHealth {
   success: boolean;

@@ -66,6 +66,8 @@ import breadcrumbRoutes from "./routes/breadcrumbRoutes"; // Breadcrumb Tracking
 import intentRoutes from "./routes/intentRoutes"; // Intent Detection - MB.MD Option A - Oct 21, 2025
 import journeyTestRoutes from "./routes/journeyTestRoutes"; // Journey Testing - MB.MD Option A - Oct 21, 2025
 import learningRoutes from "./routes/learningRoutes"; // Agent #80 Learning Coordinator API - MB.MD Phase 1B - Oct 21, 2025
+import openSourceRoutes from "./routes/openSourceRoutes"; // Open Source Agent (Layer 59) - Cost Optimization - Oct 28, 2025
+import errorRecoveryRoutes from "./routes/errorRecoveryRoutes"; // Error Recovery & Circuit Breakers - MB.MD SIMULTANEOUS Stream 2 - Oct 28, 2025
 import voiceConversationRoutes from "./routes/voiceConversationRoutes"; // Voice Conversation History - GPT-4o Realtime API (4 Streams - Oct 22, 2025)
 import chatSummarizationRoutes from "./routes/chatSummarizationRoutes"; // Chat Summarization API - Unified Voice Modal - Oct 22, 2025
 import multiAgentRoutes from "./routes/multiAgentRoutes"; // Multi-Agent Orchestration API - MB.MD Phase 3R-T - Oct 21, 2025
@@ -1485,6 +1487,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/subscriptions', subscriptionRoutes); // Stripe subscription management
   app.use('/api/admin', adminHealthRoutes); // Admin health & system metrics
   app.use('/api/infrastructure', infrastructureRoutes); // All 13 Tracks Infrastructure (Analytics, Testing, Mobile, Performance, etc.)
+  app.use('/api/open-source', openSourceRoutes); // Open Source Agent (Layer 59) - Cost Optimization - Oct 28, 2025
+  app.use('/api/error-recovery', errorRecoveryRoutes); // Error Recovery & Circuit Breakers - MB.MD SIMULTANEOUS Stream 2 - Oct 28, 2025
   app.use('/api/conversations', isAuthenticated, conversationRoutes); // Conversation Search, Export, Analytics - MB.MD SIMULTANEOUS Build Tracks B, C - Oct 23, 2025
   app.use('/api/autonomous', autonomousRoutes); // Autonomous File Editing - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025
   app.use('/api/terminal', terminalRoutes); // Terminal Command Execution - Agent #142 - MB.MD SIMULTANEOUS Build Phase 2 - Oct 26, 2025

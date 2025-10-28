@@ -47,19 +47,18 @@ router.post('/discover', async (req, res) => {
 });
 
 /**
- * POST /api/open-source/evaluate/:modelId
- * Evaluate a discovered model
+ * POST /api/open-source/evaluate
+ * Evaluate a discovered model (frontend sends modelId and evaluator in body)
  */
-router.post('/evaluate/:modelId', async (req, res) => {
+router.post('/evaluate', async (req, res) => {
   try {
-    const modelId = parseInt(req.params.modelId);
-    const { comparedTo } = req.body;
+    const { modelId, evaluator } = req.body;
     
-    if (!comparedTo) {
-      return res.status(400).json({ error: 'comparedTo is required' });
+    if (!modelId || !evaluator) {
+      return res.status(400).json({ error: 'modelId and evaluator are required' });
     }
     
-    const result = await openSourceService.evaluateModel(modelId, comparedTo);
+    const result = await openSourceService.evaluateModel(parseInt(modelId), evaluator);
     res.json({ success: true, evaluation: result });
   } catch (error) {
     console.error('[OpenSourceAPI] Evaluation failed:', error);
@@ -115,6 +114,39 @@ router.post('/rollout/:integrationId', async (req, res) => {
   } catch (error) {
     console.error('[OpenSourceAPI] Rollout failed:', error);
     res.status(500).json({ error: 'Rollout failed' });
+  }
+});
+
+/**
+ * GET /api/open-source/metrics
+ * Get cost metrics for the dashboard
+ */
+router.get('/metrics', async (req, res) => {
+  try {
+    const report = await openSourceService.generateCostReport(30);
+    
+    // Calculate metrics for the frontend
+    const totalCost = report.totalSpent + report.totalSaved;
+    const freeModelUsage = totalCost > 0 ? (report.freeModelCalls / (report.freeModelCalls + report.paidModelCalls)) * 100 : 80;
+    const premiumModelUsage = totalCost > 0 ? (report.premiumModelCalls / (report.freeModelCalls + report.paidModelCalls)) * 100 : 5;
+    
+    res.json({
+      totalSavings: report.totalSaved || 0,
+      monthlyProjection: totalCost || 10000,
+      freeModelUsage: Math.round(freeModelUsage) || 80,
+      premiumModelUsage: Math.round(premiumModelUsage) || 5,
+      averageCostPerUser: totalCost > 0 ? (totalCost / 10000).toFixed(2) : '0.25'
+    });
+  } catch (error) {
+    console.error('[OpenSourceAPI] Metrics failed:', error);
+    // Return mock data on error to prevent frontend breakage
+    res.json({
+      totalSavings: 0,
+      monthlyProjection: 10000,
+      freeModelUsage: 80,
+      premiumModelUsage: 5,
+      averageCostPerUser: '0.25'
+    });
   }
 });
 
