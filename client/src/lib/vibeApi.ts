@@ -16,6 +16,8 @@ export interface VibeRequest {
     selectedElement?: any;
     previewPath?: string;
   };
+  // 🎯 MB.MD PHASE 1 (Oct 28): Execution mode at TOP LEVEL (matches backend)
+  executionMode?: 'plan' | 'build';
 }
 
 export interface Task {
@@ -56,16 +58,24 @@ export interface VibeResponse {
 /**
  * Execute vibe coding workflow
  * Natural language request → working code
+ * 
+ * 🎯 MB.MD PHASE 1 (Oct 28): Added executionMode parameter for plan/build toggle
  */
 export async function executeVibeCoding(
   request: string,
-  visualEditorContext?: any
+  visualEditorContext?: {
+    selectedElement?: any;
+    previewPath?: string;
+  },
+  executionMode?: 'plan' | 'build'
 ): Promise<VibeResponse> {
   const response = await apiRequest('/api/vibe/execute', {
     method: 'POST',
     body: {
       request,
-      visualEditorContext
+      visualEditorContext,
+      // 🎯 Send executionMode at top level (backend expects it there)
+      executionMode: executionMode || 'build'
     }
   });
 

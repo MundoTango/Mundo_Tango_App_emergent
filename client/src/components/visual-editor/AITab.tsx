@@ -69,11 +69,15 @@ export default function AITab({ selectedElement, visualEditorContext, onGenerate
       }
       
       // Call vibe coding API with visual editor context AND execution mode
-      const result = await executeVibeCoding(aiPrompt, {
-        selectedElement,
-        previewPath: window.location.pathname,
-        executionMode: executionMode, // Pass mode to backend
-      });
+      // 🎯 FIX (Oct 28): executionMode goes at top level, not inside visualEditorContext
+      const result = await executeVibeCoding(
+        aiPrompt,
+        {
+          selectedElement,
+          previewPath: window.location.pathname,
+        },
+        executionMode // Pass mode separately to match backend expectations
+      );
 
       // 🎯 PLAN MODE: If AI needs clarification, show question
       if (executionMode === 'plan' && result.status === 'needs_clarification') {
