@@ -257,6 +257,10 @@ app.use('/api/models', modelMonitorRoutes);
 import openSourceRoutes from './routes/openSourceRoutes';
 app.use('/api/open-source', openSourceRoutes);
 
+// Voice Mode Migration - Week 1: Whisper STT (Oct 28, 2025)
+import voiceRoutes from './routes/voiceRoutes';
+app.use('/api/voice', voiceRoutes);
+
 // VIBE CODING: File Editing Routes (MB.MD 100% Plan - Oct 26, 2025)
 // ❌ OLD: vibeEditRoutes removed - use vibeRoutes instead (Oct 27, 2025)
 // VIBE routes are registered in routes.ts now
