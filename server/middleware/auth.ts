@@ -66,7 +66,7 @@ declare global {
  */
 export function generateAccessToken(userId: number, expiresIn: string = '15m'): string {
   const payload: JWTPayload = { userId, type: 'access' };
-  return jwt.sign(payload, JWT_SECRET as string, { expiresIn });
+  return jwt.sign(payload, JWT_SECRET!, { expiresIn } as jwt.SignOptions);
 }
 
 /**
@@ -75,9 +75,9 @@ export function generateAccessToken(userId: number, expiresIn: string = '15m'): 
  * @param expiresIn - Token expiration (default: 7 days)
  */
 export function generateRefreshToken(userId: number, expiresIn: string = '7d'): string {
-  const secret = (JWT_REFRESH_SECRET || JWT_SECRET) as string;
+  const secret = (JWT_REFRESH_SECRET || JWT_SECRET)!;
   const payload: JWTPayload = { userId, type: 'refresh' };
-  return jwt.sign(payload, secret, { expiresIn });
+  return jwt.sign(payload, secret, { expiresIn } as jwt.SignOptions);
 }
 
 /**

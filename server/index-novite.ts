@@ -261,6 +261,10 @@ app.use('/api/open-source', openSourceRoutes);
 import voiceRoutes from './routes/voiceRoutes';
 app.use('/api/voice', voiceRoutes);
 
+// Voice Mode Migration - Week 2: Bark TTS (Oct 28, 2025)
+import barkRoutes from './routes/barkRoutes';
+app.use('/api/bark', barkRoutes);
+
 // VIBE CODING: File Editing Routes (MB.MD 100% Plan - Oct 26, 2025)
 // ❌ OLD: vibeEditRoutes removed - use vibeRoutes instead (Oct 27, 2025)
 // VIBE routes are registered in routes.ts now
