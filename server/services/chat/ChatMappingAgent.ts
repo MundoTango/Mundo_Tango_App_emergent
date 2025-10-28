@@ -4,6 +4,7 @@
  */
 
 import { createMBMDLogger } from '../mbmd/Logger';
+import { mbmdSessionManager } from '../mbmd/SessionManager';
 
 export interface ChatMappingResult {
   intent: 'simple_query' | 'tool_use' | 'complex_operation' | 'build_request';
@@ -18,7 +19,7 @@ export interface ChatMappingResult {
 export class ChatMappingAgent {
   private logger = createMBMDLogger('chat', undefined);
 
-  async mapUserIntent(userMessage: string, context: any): Promise<ChatMappingResult> {
+  async mapUserIntent(userMessage: string, context: any, sessionId?: number): Promise<ChatMappingResult> {
     this.logger.mapping('Starting intent classification...', { messageLength: userMessage.length });
 
     // 1. Classify request type
@@ -53,6 +54,11 @@ export class ChatMappingAgent {
       toolsRequired,
       requiresArchitectReview
     };
+
+    // FIX #4: Notify session manager of mapping completion
+    if (sessionId) {
+      await mbmdSessionManager.notifyChatMapping(sessionId, result);
+    }
 
     this.logger.phaseComplete('MAPPING', JSON.stringify(result, null, 2));
     return result;

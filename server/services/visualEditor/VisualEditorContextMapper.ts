@@ -4,6 +4,7 @@
  */
 
 import { createMBMDLogger } from '../mbmd/Logger';
+import { mbmdSessionManager } from '../mbmd/SessionManager';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -20,7 +21,7 @@ export interface VisualEditorMappingResult {
 export class VisualEditorContextMapper {
   private logger = createMBMDLogger('visual-editor', undefined);
 
-  async mapSelectedElement(element: any): Promise<VisualEditorMappingResult> {
+  async mapSelectedElement(element: any, sessionId?: number): Promise<VisualEditorMappingResult> {
     this.logger.mapping('Starting element context mapping...', { elementId: element?.id });
 
     // 1. Read component documentation
@@ -53,6 +54,11 @@ export class VisualEditorContextMapper {
       existingStyles,
       parentComponent: this.findParentComponentPath(element)
     };
+
+    // FIX #4: Notify session manager of mapping completion
+    if (sessionId) {
+      await mbmdSessionManager.notifyVisualEditorMapping(sessionId, result);
+    }
 
     this.logger.phaseComplete('MAPPING', JSON.stringify(result, null, 2));
     return result;

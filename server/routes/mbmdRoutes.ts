@@ -50,10 +50,21 @@ router.post('/session/start', async (req: any, res) => {
 /**
  * POST /api/mbmd/evidence/upload
  * Upload evidence for a phase
+ * FIX #5: Added authentication check
  */
-router.post('/evidence/upload', async (req: any, res) => {
+router.post('/evidence/upload', isAuthenticated, async (req: any, res) => {
   try {
     const validated = insertMbmdEvidenceSchema.parse(req.body);
+    
+    // Verify session belongs to user
+    const [session] = await db.select()
+      .from(mbmdSessions)
+      .where(eq(mbmdSessions.id, validated.sessionId))
+      .limit(1);
+    
+    if (!session || session.userId !== req.user.id) {
+      return res.status(403).json({ error: 'Session not found or unauthorized' });
+    }
     
     const [evidence] = await db.insert(mbmdEvidence).values(validated).returning();
     
@@ -75,18 +86,44 @@ router.post('/evidence/upload', async (req: any, res) => {
 /**
  * POST /api/mbmd/evidence/upload-file
  * Get presigned URL for file upload (screenshots, logs)
+ * FIX #1: Added authentication + session scoping
  */
-router.post('/evidence/upload-file', async (req: any, res) => {
+router.post('/evidence/upload-file', isAuthenticated, async (req: any, res) => {
   try {
+    const { sessionId } = req.body;
+    
+    // Validate sessionId is provided
+    if (!sessionId) {
+      return res.status(400).json({ error: 'sessionId is required' });
+    }
+    
+    // Verify session belongs to authenticated user
+    const [session] = await db.select()
+      .from(mbmdSessions)
+      .where(eq(mbmdSessions.id, sessionId))
+      .limit(1);
+    
+    if (!session || session.userId !== req.user.id) {
+      return res.status(403).json({ error: 'Session not found or unauthorized' });
+    }
+    
     // Use Object Storage for file uploads
     const { ObjectStorageService } = await import('../objectStorage');
     const objectStorageService = new ObjectStorageService();
     
+    // Scope upload URL to user/session directory
     const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+    
+    console.log('[MB.MD] File upload URL generated:', {
+      sessionId,
+      userId: req.user.id,
+      scoped: true
+    });
     
     res.json({
       success: true,
-      uploadURL
+      uploadURL,
+      scope: `evidence/${req.user.id}/${sessionId}/`
     });
   } catch (error: any) {
     console.error('[MB.MD] File upload URL generation error:', error);
@@ -100,8 +137,9 @@ router.post('/evidence/upload-file', async (req: any, res) => {
 /**
  * POST /api/mbmd/review/request
  * Request a review (architect or QA)
+ * FIX #5: Added authentication check
  */
-router.post('/review/request', async (req: any, res) => {
+router.post('/review/request', isAuthenticated, async (req: any, res) => {
   try {
     const { sessionId, reviewer, phase } = req.body;
     
@@ -109,6 +147,16 @@ router.post('/review/request', async (req: any, res) => {
       return res.status(400).json({ 
         error: 'sessionId, reviewer, and phase are required' 
       });
+    }
+    
+    // Verify session ownership
+    const [session] = await db.select()
+      .from(mbmdSessions)
+      .where(eq(mbmdSessions.id, sessionId))
+      .limit(1);
+    
+    if (!session || session.userId !== req.user.id) {
+      return res.status(403).json({ error: 'Session not found or unauthorized' });
     }
     
     // Fetch session evidence
@@ -144,8 +192,9 @@ router.post('/review/request', async (req: any, res) => {
 /**
  * POST /api/mbmd/review/submit
  * Submit a review result (architect or QA agent uses this)
+ * FIX #5: Added authentication check
  */
-router.post('/review/submit', async (req: any, res) => {
+router.post('/review/submit', isAuthenticated, async (req: any, res) => {
   try {
     const { reviewId, approved, feedback } = req.body;
     
@@ -155,10 +204,30 @@ router.post('/review/submit', async (req: any, res) => {
       });
     }
     
+    // Verify review session ownership
+    const [review] = await db.select()
+      .from(mbmdReviews)
+      .where(eq(mbmdReviews.id, reviewId))
+      .limit(1);
+    
+    if (!review) {
+      return res.status(404).json({ error: 'Review not found' });
+    }
+    
+    const [session] = await db.select()
+      .from(mbmdSessions)
+      .where(eq(mbmdSessions.id, review.sessionId))
+      .limit(1);
+    
+    if (!session || session.userId !== req.user.id) {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
+    
     await db.update(mbmdReviews)
       .set({ 
         approved, 
-        feedback: feedback || (approved ? 'Approved' : 'Rejected')
+        feedback: feedback || (approved ? 'Approved' : 'Rejected'),
+        reviewedAt: new Date()
       })
       .where(eq(mbmdReviews.id, reviewId));
     
@@ -327,6 +396,57 @@ router.put('/session/:id/fail', async (req, res) => {
     res.status(500).json({ 
       error: 'Failed to mark session as failed',
       details: error.message 
+    });
+  }
+});
+
+/**
+ * GET /api/mbmd/dashboard
+ * Get dashboard data with sessions and stats
+ * FIX #3: Dashboard data endpoint
+ */
+router.get('/dashboard', isAuthenticated, async (req: any, res) => {
+  try {
+    // Get user's sessions
+    const sessions = await db.select()
+      .from(mbmdSessions)
+      .where(eq(mbmdSessions.userId, req.user.id))
+      .orderBy(desc(mbmdSessions.startedAt))
+      .limit(50);
+
+    // Calculate stats
+    const stats = {
+      total: sessions.length,
+      completed: sessions.filter(s => s.status === 'complete').length,
+      inProgress: sessions.filter(s => s.status === 'in-progress').length,
+      failed: sessions.filter(s => s.status === 'failed').length,
+      complianceRate: sessions.length > 0
+        ? Math.round((sessions.filter(s => s.status === 'complete').length / sessions.length) * 100)
+        : 0
+    };
+
+    // Get evidence count
+    const evidenceCount = await db.select()
+      .from(mbmdEvidence)
+      .where(eq(mbmdEvidence.sessionId, sessions.map(s => s.id)[0] || 0));
+
+    console.log('[MB.MD] Dashboard loaded:', {
+      userId: req.user.id,
+      sessions: sessions.length,
+      stats
+    });
+
+    res.json({
+      success: true,
+      sessions,
+      stats,
+      evidenceCount: evidenceCount.length
+    });
+  } catch (error: any) {
+    console.error('[MB.MD] Dashboard error:', error);
+    res.status(500).json({
+      error: 'Failed to load dashboard',
+      details: error.message
     });
   }
 });
