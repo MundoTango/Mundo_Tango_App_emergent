@@ -1,19 +1,47 @@
 /**
  * MB.MD Compliance Dashboard
  * Squad D: Governance & QA - Oct 27, 2025
+ * FIX: Wait for authentication before querying
  */
 
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '@/hooks/useAuth';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 export function MBMDDashboard() {
-  const { data, isLoading } = useQuery({
+  const { user, isLoading: isAuthLoading } = useAuth();
+  
+  const { data, isLoading, error } = useQuery({
     queryKey: ['/api/mbmd/dashboard'],
+    queryFn: async () => {
+      const res = await fetch('/api/mbmd/dashboard', {
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      return res.json();
+    },
+    enabled: !!user, // Only run query when user is authenticated
+    staleTime: 30000, // Cache for 30 seconds
   });
+
+  if (isAuthLoading) {
+    return <div className="p-8">Authenticating...</div>;
+  }
+
+  if (!user) {
+    return <div className="p-8">Please log in to view the dashboard.</div>;
+  }
 
   if (isLoading) {
     return <div className="p-8">Loading dashboard...</div>;
+  }
+
+  if (error) {
+    return <div className="p-8 text-red-600">Error loading dashboard: {String(error)}</div>;
   }
 
   const { sessions, stats } = data || { sessions: [], stats: {} };

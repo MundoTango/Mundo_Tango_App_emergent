@@ -20,7 +20,7 @@ const router = Router();
  */
 router.post('/session/start', async (req: any, res) => {
   try {
-    // Ensure user is authenticated
+    // Ensure user is authenticated (middleware ensures req.user exists)
     if (!req.user || !req.user.id) {
       return res.status(401).json({ error: 'Authentication required' });
     }
@@ -51,8 +51,9 @@ router.post('/session/start', async (req: any, res) => {
  * POST /api/mbmd/evidence/upload
  * Upload evidence for a phase
  * FIX #5: Added authentication check
+ * Note: isAuthenticated already applied at app.use level
  */
-router.post('/evidence/upload', isAuthenticated, async (req: any, res) => {
+router.post('/evidence/upload', async (req: any, res) => {
   try {
     const validated = insertMbmdEvidenceSchema.parse(req.body);
     
@@ -87,8 +88,9 @@ router.post('/evidence/upload', isAuthenticated, async (req: any, res) => {
  * POST /api/mbmd/evidence/upload-file
  * Get presigned URL for file upload (screenshots, logs)
  * FIX #1: Added authentication + session scoping
+ * Note: isAuthenticated already applied at app.use level
  */
-router.post('/evidence/upload-file', isAuthenticated, async (req: any, res) => {
+router.post('/evidence/upload-file', async (req: any, res) => {
   try {
     const { sessionId } = req.body;
     
@@ -138,8 +140,9 @@ router.post('/evidence/upload-file', isAuthenticated, async (req: any, res) => {
  * POST /api/mbmd/review/request
  * Request a review (architect or QA)
  * FIX #5: Added authentication check
+ * Note: isAuthenticated already applied at app.use level
  */
-router.post('/review/request', isAuthenticated, async (req: any, res) => {
+router.post('/review/request', async (req: any, res) => {
   try {
     const { sessionId, reviewer, phase } = req.body;
     
@@ -193,8 +196,9 @@ router.post('/review/request', isAuthenticated, async (req: any, res) => {
  * POST /api/mbmd/review/submit
  * Submit a review result (architect or QA agent uses this)
  * FIX #5: Added authentication check
+ * Note: isAuthenticated already applied at app.use level
  */
-router.post('/review/submit', isAuthenticated, async (req: any, res) => {
+router.post('/review/submit', async (req: any, res) => {
   try {
     const { reviewId, approved, feedback } = req.body;
     
@@ -404,8 +408,9 @@ router.put('/session/:id/fail', async (req, res) => {
  * GET /api/mbmd/dashboard
  * Get dashboard data with sessions and stats
  * FIX #3: Dashboard data endpoint
+ * Note: isAuthenticated already applied at app.use level
  */
-router.get('/dashboard', isAuthenticated, async (req: any, res) => {
+router.get('/dashboard', async (req: any, res) => {
   try {
     // Get user's sessions
     const sessions = await db.select()
