@@ -54,8 +54,20 @@ export class DeploymentGate {
       };
     }
 
+    // Build proper evidence package with required fields
+    const evidence = {
+      task_id: `deployment-${request.sessionId}`,
+      screenshots: request.evidencePackage.screenshots,
+      browser_logs: request.evidencePackage.browserLogs,
+      server_logs: request.evidencePackage.serverLogs,
+      test_results: request.evidencePackage.testResults,
+      integration_proof: request.evidencePackage.integrationProof,
+      architect_reviewed: request.evidencePackage.architectReviewed,
+      architect_approval: request.evidencePackage.architectApproval
+    };
+
     // Run comprehensive MB.MD validation
-    const canDeploy = await this.enforcer.canDeploy(request.sessionId, request.evidencePackage);
+    const canDeploy = await this.enforcer.canDeploy(request.sessionId, evidence);
 
     if (!canDeploy.allowed) {
       return {

@@ -79,6 +79,7 @@ import commandRoutes from "./routes/commandRoutes"; // Safe Command Runner API -
 import pagesRoutes from "./routes/pagesRoutes"; // Pages Discovery API - MB.MD Maximum Parallel Build - Oct 21, 2025
 import vibeRoutes from "./routes/vibeRoutes"; // Vibe Coding API - Agent #131 - MB.MD SIMULTANEOUS Build - Oct 23, 2025
 import deployRoutes from "./routes/deployRoutes"; // Deployment API - Agent #127 - MB.MD Parallel Build - Oct 22, 2025
+import mbmdDeploymentRoutes from "./routes/mbmdDeploymentRoutes"; // MB.MD Controlled Deployment - QA Agent Veto Power - Oct 28, 2025
 import modelMonitorRoutes from "./routes/modelMonitorRoutes"; // Model Monitoring & Auto-Update API - MB.MD Stream G - Oct 22, 2025
 import qualityRoutes from "./routes/qualityRoutes"; // Quality Validation API - Agent #79 Integration - Phase 3 Stream 4 - Oct 22, 2025
 import subscriptionRoutes from "./routes/subscriptionRoutes"; // Stripe Subscription API - MB.MD Maximum Parallel Build - Oct 21, 2025
@@ -1481,6 +1482,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/commands', commandRoutes); // Safe command runner (whitelisted)
   app.use('/api/pages', pagesRoutes); // Dynamic page discovery
   app.use('/api/vibe', isAuthenticated, vibeRoutes); // Vibe Coding: edit-file, map-repository, execute (Agent #131 - Oct 23, 2025)
+  app.use('/api/mbmd/deploy', isAuthenticated, mbmdDeploymentRoutes); // MB.MD Controlled Deployment with QA Agent (Oct 28, 2025)
   app.use('/api/ai', isAuthenticated, aiStreamRoutes); // AI Work Feed SSE Streaming - Real-time activity feed (MB.MD SIMULTANEOUS - Oct 27, 2025)
   app.use('/api/mbmd', isAuthenticated, mbmdRoutes); // MB.MD Evidence System - Phase 0: Shared Infrastructure (Oct 27, 2025)
   app.use('/api/deploy', deployRoutes); // Staging & production deployment

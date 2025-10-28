@@ -60,7 +60,8 @@ export class EnhancedModelRouter {
       for (const integration of integrations) {
         random -= (integration.routingPercentage || 0);
         if (random <= 0 && integration.model) {
-          return this.routeToOpenSource(integration.model.name, integration.model.category, taskType);
+          const model = integration.model as any;
+          return this.routeToOpenSource(model.name, model.category, taskType);
         }
       }
     }
@@ -111,24 +112,26 @@ export class EnhancedModelRouter {
   /**
    * Route to cheap commercial model (LOW COST)
    * Updated Oct 28: Prioritize Gemini 2.5 Flash/Pro for 15x cost reduction
+   * Fixed: Restored 'reasoning' and 'planning' task types to match classifier output
    */
   private routeToCheap(taskType: TaskType): EnhancedRoutingDecision {
-    // PRIORITY 1: Gemini 2.5 Flash for simple tasks (150x cheaper than Claude)
-    if (taskType === 'chat' || taskType === 'simple_query') {
+    // PRIORITY 1: Gemini Flash for simple/cheap tasks (150x cheaper than Claude)
+    // Match existing task classifier outputs: reasoning, planning, cost_sensitive
+    if (taskType === 'cost_sensitive' || taskType === 'reasoning' || taskType === 'planning') {
       return {
         provider: 'google' as any,
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.0-flash-exp',
         reason: 'Ultra cost-optimized with Gemini Flash ($0.001/request)',
         estimatedCost: 'free', // Practically free
         openSource: false
       };
     }
 
-    // PRIORITY 2: Gemini 2.5 Pro for code tasks (15x cheaper than Claude)
+    // PRIORITY 2: Gemini Pro for code tasks (15x cheaper than Claude)
     if (taskType === 'code_generation' || taskType === 'code_review') {
       return {
         provider: 'google' as any,
-        model: 'gemini-2.5-pro',
+        model: 'gemini-1.5-pro-latest',
         reason: 'Cost-optimized for code tasks with Gemini Pro ($0.01/request)',
         estimatedCost: 'low',
         openSource: false,
@@ -139,7 +142,7 @@ export class EnhancedModelRouter {
       };
     }
     
-    // FALLBACK: Claude Haiku
+    // FALLBACK: Claude Haiku (for unclassified tasks)
     return {
       provider: 'claude',
       model: 'claude-3-haiku-20240307',
