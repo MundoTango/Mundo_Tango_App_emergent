@@ -1,46 +1,3 @@
-# 🧪 MANDATORY TESTING PROTOCOL
-
-**Applies to:** ALL agents (105+)  
-**Enforcement:** BLOCKING - No task completion without evidence  
-**Updated:** October 24, 2025 (Week 1 Rollout)
-
----
-
-## THE 4 MANDATORY CHECKPOINTS
-
-Every agent MUST follow these checkpoints before marking any task complete:
-
-### ✅ CHECKPOINT 1: DATA INSPECTION
-**Rule:** NEVER assume data structures. Always inspect first.
-```typescript
-console.log('🔍 DATA INSPECTION:', JSON.stringify(data, null, 2));
-// Run it, see the output, THEN write conditional
-```
-
-### ✅ CHECKPOINT 2: UNIT TESTING  
-**Rule:** Test individual functions in isolation.
-- Test regex patterns with sample inputs
-- Verify IF conditions with actual data
-- Validate file operations with dummy files
-
-### ✅ CHECKPOINT 3: INTEGRATION TESTING
-**Rule:** Test the FULL user journey end-to-end.
-- Run complete flow as user would
-- Check server logs for errors
-- Screenshot successful execution
-
-### ✅ CHECKPOINT 4: ARCHITECT REVIEW
-**Rule:** Architect reviews BEHAVIOR, not just code.
-- Proof it runs (screenshot)
-- Proof it works (before/after)
-- Proof no crashes (logs)
-
-**Full documentation:** `docs/TESTING_REQUIREMENTS_MANDATORY.md`
-
----
-
----
-
 # Agent #64: Documentation Architect
 ## Training Materials & Knowledge Base Creator
 
@@ -75,7 +32,6 @@ console.log('🔍 DATA INSPECTION:', JSON.stringify(data, null, 2));
 ### Collaborates With:
 - **Agent #0 (ESA CEO):** Documentation governance and strategic alignment
 - **Agent #63 (Sprint Manager):** Training coordination and scheduling
-- **Agent #65 (Project Tracker Manager):** **BIDIRECTIONAL LINKING** - Documentation → Tracker items
 - **Domain #9 (Master Control):** Operational oversight of training execution
 - **All 105 Agents:** Content creation, review, and feedback
 
@@ -83,7 +39,6 @@ console.log('🔍 DATA INSPECTION:', JSON.stringify(data, null, 2));
 - **Meta-Agent Status:** Trains other agents by creating their learning materials
 - **Training Infrastructure:** Owns all agent bootcamp and methodology documentation
 - **Knowledge Architect:** Designs information architecture for 105-agent system
-- **Bidirectional Linking (NEW):** Creates Project Tracker items with `documentationLinks` field pointing to docs, enables humans to see documentation directly in tracker
 
 ---
 

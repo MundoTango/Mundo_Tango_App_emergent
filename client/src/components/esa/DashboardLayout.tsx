@@ -42,10 +42,19 @@ export default function DashboardLayout({
     { path: '/role-invitations', label: 'Role Invitations', icon: Mail }
   ];
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch real global statistics from API
   const { data: globalStats, isLoading: statsLoading, error: statsError } = useQuery({
-    queryKey: ['/api/community/global-stats'],
+    queryKey: ['community', 'global-stats'],
+    queryFn: async () => {
+      const response = await fetch('/api/community/global-stats', {
+        credentials: 'include'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch global statistics');
+      }
+      const result = await response.json();
+      return result.data;
+    },
     staleTime: 5 * 60 * 1000, // Cache for 5 minutes
     gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
     retry: 2,

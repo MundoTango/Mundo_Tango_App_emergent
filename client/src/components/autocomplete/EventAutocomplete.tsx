@@ -51,13 +51,27 @@ export default function EventAutocomplete({
     setInputValue(value?.title || '');
   }, [value]);
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
-  const { data: eventsData, isLoading } = useQuery({
-    queryKey: ['/api/events/enhanced', { search: debouncedSearch, limit: '10' }],
+  // Search events API
+  const { data: events, isLoading } = useQuery({
+    queryKey: ['/api/events/enhanced', { search: debouncedSearch }],
+    queryFn: async () => {
+      if (!debouncedSearch || debouncedSearch.length < 2) return [];
+      
+      const params = new URLSearchParams({
+        search: debouncedSearch,
+        limit: '10'
+      });
+      
+      const response = await fetch(`/api/events/enhanced?${params}`, {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) throw new Error('Failed to search events');
+      const result = await response.json();
+      return result.data || [];
+    },
     enabled: debouncedSearch.length >= 2 && isOpen
   });
-  
-  const events = eventsData || [];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

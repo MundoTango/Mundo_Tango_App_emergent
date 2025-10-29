@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mundo Tango - Global Tango Community</title>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
-    
     <!-- PWA Meta Tags -->
     <meta name="application-name" content="Mundo Tango">
     <meta name="description" content="The global tango community platform with Life CEO AI assistant, events, housing, and social features">
@@ -35,14 +31,37 @@
     <!-- ESA Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://nominatim.openstreetmap.org">
-    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://plausible.io">
+    <link rel="dns-prefetch" href="https://maps.googleapis.com">
     
-    <!-- Removed Plausible - using PostHog instead (more features, same privacy) -->
+    <script>
+      const domain = window.location.hostname.includes('replit.dev')
+        ? 'mundo-tango.replit.dev'
+        : 'mundotango.life';
+      const script = document.createElement('script');
+      script.setAttribute('defer', '');
+      script.setAttribute('data-domain', domain);
+      script.src = 'https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js';
+      document.head.appendChild(script);
+
+      window.plausible = window.plausible || function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments)
+      }
+    </script>
     
-    <!-- Removed Google Maps API - now using Leaflet + OpenStreetMap + LocationIQ (see docs/INTEGRATION_STATUS.md) -->
+    <!-- Google Maps API for Community World Map -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNTpCEGecFMPYg_1OOYiAFn9z6dCr0X8Y&libraries=places"></script>
     
-    <!-- Removed Cloudinary Upload Widget - now using Replit Object Storage (native integration) -->
+    <!-- ESA LIFE CEO 56x21: Cloudinary Upload Widget for 500MB+ videos -->
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <script>
+      // ESA LIFE CEO 61x21 - Layer 58: Use Server-Side Upload Instead of Widget
+      window.CLOUDINARY_CONFIG = {
+        cloudName: 'dwlfq9gec',
+        useServerUpload: true, // Flag to use server-side upload
+        apiKey: '216213869359644' // For signed uploads
+      };
+    </script>
   </head>
   <body>
     <!-- Life CEO 44x21s diagnostic removed - X-Frame-Options fix successful -->

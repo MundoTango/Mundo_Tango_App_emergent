@@ -57,10 +57,8 @@ export default function RecurringEventManager() {
 
   const createRecurringEventsMutation = useMutation({
     mutationFn: async (data: RecurringEventFormData) => {
-      return await apiRequest('/api/events/recurring', {
-        method: 'POST',
-        body: data
-      });
+      const response = await apiRequest('POST', '/api/events/recurring', data);
+      return response.json();
     },
     onSuccess: () => {
       toast({
@@ -115,8 +113,8 @@ export default function RecurringEventManager() {
     <div className="max-w-4xl mx-auto p-6">
       <Card className="glassmorphic-card">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent flex items-center gap-2">
-            <Repeat className="w-6 h-6 text-cyan-500" />
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-turquoise-400 to-cyan-500 bg-clip-text text-transparent flex items-center gap-2">
+            <Repeat className="w-6 h-6 text-turquoise-500" />
             Create Recurring Event Series
           </CardTitle>
         </CardHeader>

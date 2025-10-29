@@ -6,6 +6,7 @@ export function setupResourceHints() {
   const hints = [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
+    { rel: 'preconnect', href: 'https://maps.googleapis.com' },
   ];
 
   hints.forEach(hint => {

@@ -5,11 +5,9 @@
  * Shows current page without edit mode in scrollable iframe
  */
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { RefreshCw, Monitor, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
-import { useSocket } from '@/hooks/useSocket';
 
 interface PreviewTabProps {
   currentPath: string;
@@ -19,45 +17,16 @@ export default function PreviewTab({ currentPath }: PreviewTabProps) {
   const [previewMode, setPreviewMode] = useState<'desktop' | 'mobile'>('desktop');
   const [refreshKey, setRefreshKey] = useState(0);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const visualEditorContext = useVisualEditorOptional();
-  const { socket, isConnected } = useSocket();
-  
-  // 🎯 SYNC PREVIEW PATH TO CONTEXT (Oct 22, 2025)
-  // This tells Mr Blue what page is being shown in the preview
-  useEffect(() => {
-    if (visualEditorContext) {
-      visualEditorContext.setPreviewPath(currentPath);
-      console.log('📍 [PreviewTab] Updated preview path in context:', currentPath);
-    }
-  }, [currentPath, visualEditorContext]);
 
   const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);
+    if (iframeRef.current) {
+      iframeRef.current.src = iframeRef.current.src;
+    }
   };
 
-  // 🚀 STREAM B2: Auto-refresh on code updates via Socket.io
-  useEffect(() => {
-    if (!socket || !isConnected) return;
-
-    const handleCodeUpdate = (notification: any) => {
-      if (notification.type === 'code-updated') {
-        console.log('🔄 [PreviewTab] Code updated, auto-refreshing preview:', notification);
-        handleRefresh();
-      }
-    };
-
-    socket.on('notification', handleCodeUpdate);
-
-    return () => {
-      socket.off('notification', handleCodeUpdate);
-    };
-  }, [socket, isConnected]);
-
-  // Build preview URL without edit mode + cache-busting timestamp
-  // MB.MD: Add refreshKey to force browser to bypass cache (Oct 22, 2025)
-  const previewUrl = `${window.location.origin}${currentPath}${
-    currentPath.includes('?') ? '&' : '?'
-  }_preview=${refreshKey}`;
+  // Build preview URL without edit mode
+  const previewUrl = `${window.location.origin}${currentPath}`;
 
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-900">

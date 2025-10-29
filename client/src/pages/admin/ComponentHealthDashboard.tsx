@@ -7,7 +7,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Sidebar from '@/components/layout/sidebar';
+import Sidebar from '@/components/Sidebar';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -38,17 +38,15 @@ export default function ComponentHealthDashboard() {
   const { user } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [filterHealth, setFilterHealth] = useState<string>('all');
-  
-  const isAdmin = user?.customerJourneyState === 'J4' || (user?.tangoRoles as string[])?.includes('super_admin');
 
   const { data: components, isLoading } = useQuery<ComponentHealth[]>({
     queryKey: ['/api/components'],
-    enabled: isAdmin,
+    enabled: user?.role === 'super_admin',
   });
 
   const { data: stats } = useQuery({
     queryKey: ['/api/components/stats'],
-    enabled: isAdmin,
+    enabled: user?.role === 'super_admin',
   });
 
   const filteredComponents = components?.filter(c =>
@@ -64,7 +62,7 @@ export default function ComponentHealthDashboard() {
     }
   };
 
-  if (!isAdmin) {
+  if (user?.role !== 'super_admin') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
         <div className="text-center text-white">
@@ -79,7 +77,7 @@ export default function ComponentHealthDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Sidebar
         isOpen={isSidebarOpen}
-        setIsOpen={setIsSidebarOpen}
+        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
       />
 
       <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>

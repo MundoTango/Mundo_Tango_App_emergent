@@ -1,17 +1,3 @@
-/**
- * @deprecated This Sidebar is DEPRECATED - Use @/components/layout/sidebar instead
- * 
- * MIGRATION GUIDE:
- * 1. Change import from '@/components/Sidebar' to '@/components/layout/sidebar'
- * 2. Update props: Replace `onToggle={() => ...}` with `setIsOpen={setState}`
- * 3. Aurora Tide design: New sidebar has cyan/turquoise gradients
- * 
- * WHY DEPRECATED: This component uses old deep blue design, not Aurora Tide
- * CANONICAL COMPONENT: client/src/components/layout/sidebar.tsx
- * 
- * See docs/COMPONENT_REGISTRY.json for details
- */
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useLocation, Link } from 'wouter';
@@ -60,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
     {
       icon: <UsersRound className="w-5 h-5" />,
       title: t('navigation.tangoCommunity'), 
-      link: "/community-world-map",  // Mundo Tango ESA LIFE CEO - Direct to world map
+      link: "/community-world-map",  // ESA LIFE CEO 56x21 - Direct to world map
     },
     {
       icon: <UserCheck className="w-5 h-5" />,
@@ -97,10 +83,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   // Use standard sidebar routes
   const allRoutes = [...sidebarRoutes];
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch real statistics from API
+  // MB.MD FIX: Add explicit queryFn to prevent "No queryFn" warning
   const { data: statsData } = useQuery({
     queryKey: ['/api/admin/stats'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/stats', {
+        credentials: 'include'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch admin stats');
+      }
+      return response.json();
+    },
     refetchInterval: 60000, // Refresh every minute
   });
 
@@ -180,7 +175,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
         {/* Ocean Header - Simplified */}
         <div className="h-16 flex justify-between items-center px-4 border-b border-ocean-divider">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg bg-gradient-to-br from-teal-400 to-cyan-500 text-white">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base shadow-lg bg-brand-icon">
               MT
             </div>
             <div className="text-lg font-bold tracking-wide text-ocean">
@@ -218,8 +213,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
               {user?.tangoRoles && user.tangoRoles.length > 0 ? (
                 <RoleEmojiDisplay 
                   tangoRoles={user.tangoRoles} 
-                  leaderLevel={user.leaderLevel ?? undefined}
-                  followerLevel={user.followerLevel ?? undefined}
+                  leaderLevel={user.leaderLevel}
+                  followerLevel={user.followerLevel}
                   size="lg" 
                 />
               ) : (

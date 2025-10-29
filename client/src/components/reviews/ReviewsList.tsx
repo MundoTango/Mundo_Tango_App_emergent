@@ -13,9 +13,13 @@ interface ReviewsListProps {
 export function ReviewsList({ homeId, hostId, currentUserId }: ReviewsListProps) {
   const { t } = useTranslation();
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: reviewsData, isLoading } = useQuery({
-    queryKey: [`/api/reviews/home/${homeId}`],
+    queryKey: ["/api/reviews", "home", homeId],
+    queryFn: async () => {
+      const response = await fetch(`/api/reviews/home/${homeId}`);
+      if (!response.ok) throw new Error("Failed to fetch reviews");
+      return response.json();
+    },
   });
 
   const reviews = reviewsData?.reviews || [];

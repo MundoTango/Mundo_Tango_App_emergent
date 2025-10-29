@@ -7,33 +7,6 @@
 
 ---
 
-## 🔴 MANDATORY: Quality Assurance Protocol
-
-**Before starting work on this agent's responsibilities:**
-
-1. **Read:** [MB.MD QA Protocol](../MB_MD_QA_PROTOCOL.md) (1009 lines - THE LAW)
-2. **Read:** [QA Protocol Header](./QA_PROTOCOL_HEADER.md) (Quick reference)
-3. **Read:** [MB.MD Documentation Phase Map](../MB_MD_DOCUMENTATION_PHASE_MAP.md)
-4. **Read:** [Agent Session Log](../AGENT_SESSION_LOG.md) (Previous learnings)
-
-**The 5 Non-Negotiable Rules:**
-1. ✅ VERIFY BEFORE BUILD - Check what exists first
-2. ✅ INTEGRATE IMMEDIATELY - Import as you build
-3. ✅ SCREENSHOT EVERYTHING - Visual proof required
-4. ✅ TEST USER JOURNEY - Users must be able to access it
-5. ✅ ARCHITECT VALIDATES - Independent review required
-
-**Build-Integrate-Verify Loop:**
-```
-VERIFY → BUILD → INTEGRATE → SCREENSHOT → TEST → ARCHITECT → UPDATE DOCS → COMPLETE
-```
-
-**Failure to follow this protocol = Work rejected**
-
-See [QA_PROTOCOL_HEADER.md](./QA_PROTOCOL_HEADER.md) for full checklists and failure patterns.
-
----
-
 ## 1. RESPONSIBILITIES
 **What I'm supposed to do:**
 

@@ -7,7 +7,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Sidebar from '@/components/layout/sidebar';
+import Sidebar from '@/components/Sidebar';
 import { GlassCard } from '@/components/glass/GlassComponents';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -31,10 +31,9 @@ export default function PageAgentsDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   // This would fetch from an API endpoint that reads routes.ts
-  const isAdmin = user?.customerJourneyState === 'J4' || (user?.tangoRoles as string[])?.includes('super_admin');
   const { data: pageAgents, isLoading } = useQuery<PageAgent[]>({
     queryKey: ['/api/page-agents'],
-    enabled: isAdmin,
+    enabled: user?.role === 'super_admin',
   });
 
   const filteredAgents = pageAgents?.filter(agent =>
@@ -43,7 +42,7 @@ export default function PageAgentsDashboard() {
     agent.pageAgentId.toLowerCase().includes(searchQuery.toLowerCase())
   ) || [];
 
-  if (!isAdmin) {
+  if (user?.role !== 'super_admin') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
         <div className="text-center text-white">
@@ -58,7 +57,7 @@ export default function PageAgentsDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Sidebar
         isOpen={isSidebarOpen}
-        setIsOpen={setIsSidebarOpen}
+        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
       />
 
       <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
@@ -170,12 +169,7 @@ export default function PageAgentsDashboard() {
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => {
-                          // MB.MD FIX (Oct 22): Use URL API to prevent double-encoding
-                          const url = new URL(window.location.origin + agent.path);
-                          url.searchParams.set('edit', 'true');
-                          window.location.href = url.toString();
-                        }}
+                        onClick={() => setLocation(`${agent.path}?edit=true`)}
                         data-testid={`button-edit-${agent.pageAgentId}`}
                       >
                         <Edit className="w-4 h-4" />

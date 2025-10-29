@@ -4,22 +4,13 @@ import { Music, Users, Calendar, MapPin, Heart, Star } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import UnifiedTopBar from "@/components/navigation/UnifiedTopBar";
 import Sidebar from "@/components/layout/sidebar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslation } from 'react-i18next';
-// import { usePageAgent } from "@/hooks/usePageAgent"; // DISABLED - Vite HMR file deletion bug
 
 export default function Landing() {
   const { t } = useTranslation();
-  const { isAuthenticated, isLoading, user } = useAuth();
-  // const pageAgent = usePageAgent(); // DISABLED - Vite HMR file deletion bug
+  const { isAuthenticated, isLoading } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
-  // Phase 0 Task 0.4: DISABLED - Page agent context (Vite HMR bug)
-  // useEffect(() => {
-  //   if (import.meta.env.DEV && pageAgent.hasContext) {
-  //     console.log(`📄 [Landing] Built by: ${pageAgent.agents[0]?.name}`, pageAgent);
-  //   }
-  // }, [pageAgent]);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = localStorage.getItem('theme');
     return (savedTheme as 'light' | 'dark') || 'light';
@@ -69,6 +60,7 @@ export default function Landing() {
           <main className={`flex-1 transition-all duration-300 ${
             isSidebarOpen ? 'lg:ml-64' : ''
           }`}>
+            <div className="max-w-7xl mx-auto p-4">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Main Content */}
                 <div className="lg:col-span-8">
@@ -76,7 +68,7 @@ export default function Landing() {
                     {/* Welcome Header */}
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-turquoise-200 to-cyan-300 rounded-3xl blur-2xl opacity-30" />
-                      <div className="relative p-8 rounded-3xl bg-white/80 shadow-xl border-2 border-turquoise-200/50 backdrop-blur-sm">
+                      <div className="relative p-8 rounded-3xl bg-gradient-to-r from-turquoise-50 via-cyan-50 to-blue-50 shadow-xl border-2 border-turquoise-200/50 backdrop-blur-sm">
                         <div className="flex items-center gap-4 mb-2">
                           <div className="p-3 bg-gradient-to-r from-turquoise-400 to-cyan-500 rounded-xl animate-float shadow-lg">
                             <Music className="h-6 w-6 text-white" />
@@ -90,8 +82,7 @@ export default function Landing() {
                     </div>
 
                     {/* Quick Actions Grid */}
-                    <div className="grid md:grid-cols-4 gap-8">👋
-                      {/* Name Display */}
+                    <div className="grid md:grid-cols-2 gap-6">
                       <Card className="bg-white dark:bg-gray-900/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => window.location.href = '/memories'}>
                         <CardHeader className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-br from-turquoise-500 to-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -158,6 +149,7 @@ export default function Landing() {
                   </div>
                 </div>
               </div>
+            </div>
           </main>
         </div>
       </div>

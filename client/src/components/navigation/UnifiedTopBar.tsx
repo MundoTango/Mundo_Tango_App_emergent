@@ -38,19 +38,6 @@ interface UnifiedTopBarProps {
   showMenuButton?: boolean;
 }
 
-interface CountData {
-  count: number;
-}
-
-interface SearchResults {
-  users?: any[];
-  events?: any[];
-  groups?: any[];
-  memories?: any[];
-  posts?: any[];
-  totalCount?: number;
-}
-
 export default function UnifiedTopBar({ 
   onMenuToggle,
   theme = 'light',
@@ -130,42 +117,45 @@ export default function UnifiedTopBar({
     };
   }, [user]);
 
-  // MB.MD SIMULTANEOUS: Explicit queryFn to prevent console errors
-  const { data: notificationCountData } = useQuery<CountData>({
+  // Fetch notifications count
+  const { data: notificationCount } = useQuery({
     queryKey: ['/api/notifications/count'],
     queryFn: async () => {
-      const res = await fetch('/api/notifications/count', { credentials: 'include' });
-      if (!res.ok) return { count: 0 };
-      return res.json();
-    },
-    refetchInterval: 30000
-  });
-  const notificationCount = notificationCountData?.count || 0;
-
-  const { data: messageCountData } = useQuery<CountData>({
-    queryKey: ['/api/messages/unread-count'],
-    queryFn: async () => {
-      const res = await fetch('/api/messages/unread-count', { credentials: 'include' });
-      if (!res.ok) return { count: 0 };
-      return res.json();
-    },
-    refetchInterval: 30000
-  });
-  const messageCount = messageCountData?.count || 0;
-
-  // MB.MD SIMULTANEOUS: Explicit queryFn for search with query params
-  const { data: searchResultsData, isLoading: searchLoading } = useQuery<SearchResults>({
-    queryKey: ['/api/search/user/global-search', { q: searchQuery }],
-    queryFn: async () => {
-      const res = await fetch(`/api/search/user/global-search?q=${encodeURIComponent(searchQuery)}`, {
+      const response = await fetch('/api/notifications/count', {
         credentials: 'include'
       });
-      if (!res.ok) return null;
-      return res.json();
+      const data = await response.json();
+      return data.count || 0;
+    },
+    refetchInterval: 30000 // Refetch every 30 seconds
+  });
+
+  // Fetch messages count
+  const { data: messageCount } = useQuery({
+    queryKey: ['/api/messages/unread-count'],
+    queryFn: async () => {
+      const response = await fetch('/api/messages/unread-count', {
+        credentials: 'include'
+      });
+      const data = await response.json();
+      return data.count || 0;
+    },
+    refetchInterval: 30000
+  });
+
+  // Global search
+  const { data: searchResults, isLoading: searchLoading } = useQuery({
+    queryKey: ['/api/search/global', searchQuery],
+    queryFn: async () => {
+      if (!searchQuery.trim()) return null;
+      const response = await fetch(`/api/user/global-search?q=${encodeURIComponent(searchQuery)}`, {
+        credentials: 'include'
+      });
+      const result = await response.json();
+      return result.data;
     },
     enabled: !!searchQuery.trim()
   });
-  const searchResults = searchResultsData || null;
 
   const handleLogout = async () => {
     try {
@@ -194,13 +184,13 @@ export default function UnifiedTopBar({
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full border-b backdrop-blur-xl shadow-lg",
+      "sticky top-0 z-50 w-full border-b backdrop-blur-xl",
       theme === 'light' 
-        ? "bg-gradient-to-r from-cyan-50/95 via-turquoise-50/95 to-cyan-100/95 border-cyan-200/50" 
-        : "bg-gradient-to-r from-gray-900/95 via-cyan-900/30 to-gray-900/95 border-cyan-800/50"
+        ? "bg-white/95 border-gray-200" 
+        : "bg-slate-900/95 border-slate-800"
     )}>
-      {/* Aurora Tide Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 via-turquoise-400/5 to-blue-400/5 pointer-events-none" />
+      {/* MT Ocean Theme Gradient Overlay */}
+      <div className="absolute inset-0 overlay-ocean pointer-events-none" />
       
       <div className="relative flex items-center justify-between h-16 px-4 lg:px-8">
         {/* Left Section - Menu & Brand */}
@@ -211,21 +201,19 @@ export default function UnifiedTopBar({
               size="icon"
               onClick={onMenuToggle}
               className={cn(
-                "hover:bg-cyan-100/50 dark:hover:bg-cyan-800/30 min-h-[44px] min-w-[44px]",
-                theme === 'light' ? "text-cyan-700" : "text-cyan-400"
+                "hover:bg-gray-100 dark:hover:bg-slate-800",
+                theme === 'light' ? "text-gray-600" : "text-slate-400"
               )}
-              data-testid="button-menu-toggle"
-              aria-label="Toggle navigation menu"
             >
               <Menu className="h-5 w-5" />
             </Button>
           )}
           
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg group-hover:shadow-xl transition-all bg-gradient-to-br from-cyan-500 to-turquoise-600 text-white">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg group-hover:shadow-xl transition-all bg-brand-icon">
               MT
             </div>
-            <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-cyan-600 via-turquoise-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="hidden sm:block text-xl font-bold text-brand-gradient">
               Mundo Tango
             </span>
           </Link>
@@ -276,7 +264,7 @@ export default function UnifiedTopBar({
               ) : searchResults ? (
                 <div className="grid grid-cols-4 gap-4 p-4">
                   {/* Posts Section */}
-                  {searchResults.posts && searchResults.posts.length > 0 && (
+                  {searchResults.posts?.length > 0 && (
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
@@ -302,7 +290,7 @@ export default function UnifiedTopBar({
                   )}
 
                   {/* Events Section */}
-                  {searchResults.events && searchResults.events.length > 0 && (
+                  {searchResults.events?.length > 0 && (
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
@@ -326,7 +314,7 @@ export default function UnifiedTopBar({
                   )}
 
                   {/* People Section */}
-                  {searchResults.users && searchResults.users.length > 0 && (
+                  {searchResults.users?.length > 0 && (
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
@@ -356,7 +344,7 @@ export default function UnifiedTopBar({
                   )}
 
                   {/* Groups Section */}
-                  {searchResults.groups && searchResults.groups.length > 0 && (
+                  {searchResults.groups?.length > 0 && (
                     <div>
                       <h3 className={cn(
                         "font-semibold text-sm mb-2",
@@ -490,7 +478,7 @@ export default function UnifiedTopBar({
                 )}
               >
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={user?.profileImage || undefined} className="object-cover" />
+                  <AvatarImage src={user?.profileImage} className="object-cover" />
                   <AvatarFallback className={cn(
                     "font-medium",
                     theme === 'light' ? "bg-avatar-light" : "bg-avatar-dark"
@@ -531,7 +519,7 @@ export default function UnifiedTopBar({
                 )}>
                   @{user?.username || 'guest'}
                 </p>
-                {((user?.tangoRoles as string[])?.includes('admin') || (user?.tangoRoles as string[])?.includes('super_admin')) && (
+                {user?.roles?.includes('admin') && (
                   <Badge className="mt-1 bg-emerald-500/20 text-emerald-600">
                     {t('common.admin')}
                   </Badge>
@@ -555,7 +543,7 @@ export default function UnifiedTopBar({
                   <span>{t('navigation.billing')}</span>
                 </DropdownMenuItem>
 
-                {((user?.tangoRoles as string[])?.includes('admin') || (user?.tangoRoles as string[])?.includes('super_admin')) && (
+                {user?.roles?.includes('admin') && (
                   <DropdownMenuItem onClick={() => setLocation('/admin')}>
                     <Shield className="mr-3 h-4 w-4" />
                     <span>{t('navigation.adminAccess')}</span>

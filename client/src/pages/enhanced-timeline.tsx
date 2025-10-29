@@ -60,9 +60,13 @@ const EnhancedTimeline = () => {
   // ESA Layer 7: All post content state handled by BeautifulPostCreator
 
   // Fetch posts with visibility filter
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: postsData, isLoading: postsLoading } = useQuery({
-    queryKey: ["/api/posts/feed", { visibility }],
+    queryKey: ["/api/posts/feed", visibility],
+    queryFn: async () => {
+      const visibilityParam = visibility === "All" ? "" : visibility.toLowerCase();
+      const response = await fetch(`/api/posts/feed?visibility=${visibilityParam}`);
+      return response.json();
+    },
   });
 
   const posts: Post[] = postsData?.data || [];

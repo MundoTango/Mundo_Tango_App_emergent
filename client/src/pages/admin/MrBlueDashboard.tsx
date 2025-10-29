@@ -5,7 +5,7 @@ import { Sparkles, Wand2, Globe, CreditCard, BookOpen, Shield } from 'lucide-rea
 import { AdminSuperpowers } from '@/lib/mrBlue/admin/AdminSuperpowers';
 import { AISiteBuilder } from '@/lib/mrBlue/siteBuilder/AISiteBuilder';
 import { SubscriptionManager } from '@/lib/mrBlue/subscriptions/SubscriptionManager';
-import VisualPageEditor from '@/lib/mrBlue/visualEditor/VisualPageEditor';
+import { VisualPageEditor } from '@/lib/mrBlue/visualEditor/VisualPageEditor';
 // Temporarily disabled due to React version conflict with @react-three packages
 // TODO: Fix by downgrading @react-three/fiber and @react-three/drei to React 18 compatible versions
 // import { MrBlueAvatar } from '@/lib/mrBlue/avatar/MrBlueAvatar';
@@ -13,7 +13,6 @@ import { startTour, TourType } from '@/lib/mrBlue/tours/InteractiveTour';
 import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import { isSuperAdmin as checkSuperAdmin } from '@/utils/accessControl';
 
 /**
  * ESA Mr Blue Dashboard - Super Admin Control Center
@@ -22,11 +21,10 @@ import { isSuperAdmin as checkSuperAdmin } from '@/utils/accessControl';
 
 export default function MrBlueDashboard() {
   const { user } = useAuth();
-  const { t } = useTranslation();
   const [visualEditMode, setVisualEditMode] = useState(false);
 
-  // Use centralized access control
-  const isSuperAdmin = checkSuperAdmin(user);
+  const isSuperAdmin = user?.profile?.role === 'super_admin' || 
+                       user?.profile?.primary_role === 'super_admin';
 
   if (!isSuperAdmin) {
     return (

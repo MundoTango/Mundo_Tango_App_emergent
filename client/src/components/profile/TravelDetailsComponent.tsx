@@ -40,9 +40,17 @@ export const TravelDetailsComponent: React.FC<TravelDetailsComponentProps> = ({ 
   const [deletingTravelId, setDeletingTravelId] = useState<number | null>(null);
 
   // Fetch travel details
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: travelDetails, isLoading } = useQuery({
     queryKey: isOwnProfile ? ['/api/user/travel-details'] : [`/api/user/travel-details/${userId}`],
+    queryFn: async () => {
+      const endpoint = isOwnProfile ? '/api/user/travel-details' : `/api/user/travel-details/${userId}`;
+      const response = await fetch(endpoint, {
+        credentials: 'include'
+      });
+      if (!response.ok) throw new Error('Failed to fetch travel details');
+      const result = await response.json();
+      return result.data || [];
+    },
     enabled: !!userId
   });
 

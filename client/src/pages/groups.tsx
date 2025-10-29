@@ -10,13 +10,12 @@ import EnhancedCityGroupCard from '@/components/Community/EnhancedCityGroupCard'
 import GroupSearch from '@/components/groups/GroupSearch';
 import RecommendedGroups from '@/components/groups/RecommendedGroups';
 import { useTranslation } from 'react-i18next';
-import type { ApiResponse, Group } from '@shared/types/api-responses';
 
 export default function GroupsPage() {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
-  const [searchResults, setSearchResults] = useState<Group[] | null>(null);
+  const [searchResults, setSearchResults] = useState<any[] | null>(null);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -32,7 +31,7 @@ export default function GroupsPage() {
     }
   );
   
-  const handleSearchResults = (results: Group[]) => {
+  const handleSearchResults = (results: any[]) => {
     setSearchResults(results);
   };
   
@@ -40,12 +39,19 @@ export default function GroupsPage() {
     setSearchResults(null);
   };
 
-  // MB.MD SIMULTANEOUS: Use default fetcher (properly typed groups API response)
-  const { data: groupsData, isLoading } = useQuery<ApiResponse<Group[]>>({
+  // Fetch groups data with membership status
+  const { data: groupsData, isLoading } = useQuery({
     queryKey: ['/api/groups'],
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
     refetchOnWindowFocus: true,
+    queryFn: async () => {
+      const response = await fetch('/api/groups', {
+        credentials: 'include'
+      });
+      const data = await response.json();
+      return data;
+    }
   });
 
   // Join group mutation
@@ -88,24 +94,21 @@ export default function GroupsPage() {
     }
   });
 
-  // MB.MD FIX: Extract typed data array from API response
-  const groupsList: Group[] = groupsData?.data || [];
-
-  // Get statistics based on groups data (fully typed)
+  // Get statistics based on groups data
   const stats = {
-    totalCommunities: groupsList.length || 6,
-    joinedCommunities: groupsList.filter((g) => g.isJoined || g.membershipStatus === 'member').length || 2,
+    totalCommunities: groupsData?.length || 6,
+    joinedCommunities: groupsData?.filter((g: any) => g.isMember || g.membershipStatus === 'member').length || 2,
     totalEvents: 132, // This would come from a separate API
-    cities: new Set(groupsList.map((g) => g.city).filter(Boolean)).size || 4
+    cities: new Set(groupsData?.map((g: any) => g.city).filter(Boolean)).size || 4
   };
 
   // Get event counts per group (will be replaced with real API data)
-  const getEventCount = (groupId: number): number => {
+  const getEventCount = (groupId: number) => {
     return 0;
   };
 
-  // Filter groups based on active filter and search (fully typed)
-  const filteredGroups: Group[] = groupsList.filter((group) => {
+  // Filter groups based on active filter and search
+  const filteredGroups = groupsData?.filter((group: any) => {
     const matchesSearch = searchQuery === '' || 
       group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       group.description?.toLowerCase().includes(searchQuery.toLowerCase());
@@ -116,9 +119,9 @@ export default function GroupsPage() {
       case 'city':
         return group.type === 'city';
       case 'professional':
-        return group.roleType && ['teacher', 'performer', 'organizer'].includes(group.roleType);
+        return group.role_type && ['teacher', 'performer', 'organizer'].includes(group.role_type);
       case 'music':
-        return group.roleType && ['musician', 'dj'].includes(group.roleType);
+        return group.role_type && ['musician', 'dj'].includes(group.role_type);
       case 'practice':
         return group.type === 'practice';
       case 'festivals':
@@ -126,9 +129,9 @@ export default function GroupsPage() {
       default:
         return true;
     }
-  });
+  }) || [];
   
-  const displayedGroups: Group[] = searchResults !== null ? searchResults : filteredGroups;
+  const displayedGroups = searchResults !== null ? searchResults : filteredGroups;
 
   const filterButtons = [
     { key: 'all', label: t('groups.filter.all', 'All Communities'), icon: Globe },
@@ -153,8 +156,8 @@ export default function GroupsPage() {
           aria-label={t('groups.aria.page_header', 'Groups page header')}
           className="text-center mb-8"
         >
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent dark:from-turquoise-400 dark:to-cyan-400 mb-2" data-testid="text-page-title">{t('groups.title', 'Tango Communities')}</h1>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">{t('groups.subtitle', 'Connect with tango dancers around the world')}</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-testid="text-page-title">{t('groups.title', 'Tango Communities')}</h1>
+          <p className="text-gray-600 mb-3">{t('groups.subtitle', 'Connect with tango dancers around the world')}</p>
           <button
             onClick={() => setLocation('/community-world-map')}
             className="text-turquoise-600 hover:text-turquoise-700 font-medium text-sm"
@@ -174,11 +177,11 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_total', `${stats.totalCommunities} total communities`)}
-            className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 rounded-xl p-6 text-center shadow-xl border border-turquoise-100 dark:border-gray-700" 
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
             data-testid="card-stat-total-communities"
           >
             <div 
-              className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-turquoise-100 to-cyan-100 text-turquoise-600 rounded-full mx-auto mb-3"
+              className="flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mx-auto mb-3"
               aria-hidden="true"
             >
               <Users className="h-6 w-6" />
@@ -189,11 +192,11 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_joined', `${stats.joinedCommunities} joined communities`)}
-            className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 rounded-xl p-6 text-center shadow-xl border border-turquoise-100 dark:border-gray-700" 
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
             data-testid="card-stat-joined-communities"
           >
             <div 
-              className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-turquoise-100 to-cyan-100 text-turquoise-600 rounded-full mx-auto mb-3"
+              className="flex items-center justify-center w-12 h-12 bg-pink-100 text-pink-600 rounded-full mx-auto mb-3"
               aria-hidden="true"
             >
               <Heart className="h-6 w-6" />
@@ -204,11 +207,11 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_events', `${stats.totalEvents} total events`)}
-            className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 rounded-xl p-6 text-center shadow-xl border border-turquoise-100 dark:border-gray-700" 
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
             data-testid="card-stat-total-events"
           >
             <div 
-              className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-turquoise-100 to-cyan-100 text-turquoise-600 rounded-full mx-auto mb-3"
+              className="flex items-center justify-center w-12 h-12 bg-green-100 text-green-600 rounded-full mx-auto mb-3"
               aria-hidden="true"
             >
               <Calendar className="h-6 w-6" />
@@ -219,7 +222,7 @@ export default function GroupsPage() {
           <div 
             role="region"
             aria-label={t('groups.aria.stat_cities', `${stats.cities} cities`)}
-            className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 rounded-xl p-6 text-center shadow-xl border border-turquoise-100 dark:border-gray-700" 
+            className="glassmorphic-card rounded-xl p-6 text-center shadow-lg backdrop-blur-xl bg-white dark:bg-gray-900/70 border border-white/50" 
             data-testid="card-stat-cities"
           >
             <div 
@@ -266,8 +269,8 @@ export default function GroupsPage() {
                 onClick={() => setActiveFilter(filter.key)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                   activeFilter === filter.key
-                    ? 'bg-gradient-to-r from-turquoise-400 to-cyan-500 text-white shadow-lg'
-                    : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 hover:bg-turquoise-50 dark:hover:bg-gray-700 border border-turquoise-200 dark:border-gray-600'
+                    ? 'bg-gradient-to-r from-[#8E142E] to-[#0D448A] text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                 }`}
                 data-testid={`button-filter-${filter.key}`}
               >
@@ -296,8 +299,8 @@ export default function GroupsPage() {
             className="text-center py-12" 
             data-testid="loading-communities"
           >
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-500 mx-auto mb-4" aria-hidden="true"></div>
-            <p className="text-gray-700 dark:text-gray-300">{t('groups.loading', 'Loading communities...')}</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise-600 mx-auto mb-4" aria-hidden="true"></div>
+            <p className="text-gray-600">{t('groups.loading', 'Loading communities...')}</p>
           </div>
         ) : displayedGroups.length > 0 ? (
           <section
@@ -311,7 +314,7 @@ export default function GroupsPage() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" 
                 data-testid="list-communities"
               >
-              {displayedGroups.map((group: Group) => {
+              {displayedGroups.map((group: any) => {
                 // Use EnhancedCityGroupCard for city groups
                 if (group.type === 'city') {
                   return (
@@ -328,10 +331,10 @@ export default function GroupsPage() {
                           name: group.name,
                           slug: group.slug,
                           description: group.description,
-                          imageUrl: group.imageUrl || undefined,
+                          imageUrl: group.image_url || group.imageUrl,
                           city: group.city,
                           country: group.country,
-                          memberCount: group.memberCount,
+                          memberCount: group.member_count || group.memberCount || 0,
                           eventCount: getEventCount(group.id),
                           isJoined: group.membershipStatus === 'member',
                           type: group.type
@@ -358,9 +361,9 @@ export default function GroupsPage() {
                         id: group.id,
                         name: group.name,
                         description: group.description || t('groups.default_description', 'Connect with fellow tango enthusiasts and share your passion.'),
-                        imageUrl: group.imageUrl || undefined,
+                        imageUrl: group.image_url,
                         location: group.city && group.country ? `${group.city}, ${group.country}` : (group.city || group.country || t('groups.location_global', 'Global')),
-                        memberCount: group.memberCount,
+                        memberCount: group.member_count || 0,
                         eventCount: getEventCount(group.id),
                         isJoined: group.membershipStatus === 'member'
                       }}

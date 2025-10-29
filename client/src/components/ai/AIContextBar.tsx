@@ -38,7 +38,6 @@ export function AIContextBar({ position = 'top', collapsible = true }: AIContext
   const { user } = useAuth();
 
   // Get AI context - ESA Agent #33 (Context Management)
-  // NOTE: Keeping custom queryFn - API endpoint /api/ai-intelligence/context not yet implemented
   const { data: context, isLoading } = useQuery<AIContextData>({
     queryKey: ['/api/ai-intelligence/context', user?.id],
     queryFn: async () => {

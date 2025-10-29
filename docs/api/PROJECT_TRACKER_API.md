@@ -81,12 +81,9 @@ Create new epic.
   "status": "to_do",
   "priority": "medium",
   "labels": ["tag1", "tag2"],
-  "dueDate": "2025-12-31",
-  "documentationLinks": ["docs/MrBlue/mb.md", "docs/api/PROJECT_TRACKER_API.md"]
+  "dueDate": "2025-12-31"
 }
 ```
-
-**NEW (Oct 19, 2025):** `documentationLinks` array enables bidirectional navigation between Project Tracker and documentation files. Agent #64 (Documentation Architect) creates these links when generating documentation.
 
 **Response:**
 ```json

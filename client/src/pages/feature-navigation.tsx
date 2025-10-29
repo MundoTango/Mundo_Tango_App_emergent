@@ -199,7 +199,7 @@ export default function FeatureNavigation() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">

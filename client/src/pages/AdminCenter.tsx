@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLocation } from 'wouter';
 import { toast } from 'react-hot-toast';
 import { useToast } from '@/hooks/use-toast';
-import Sidebar from '@/components/layout/sidebar';
+import Sidebar from '@/components/Sidebar';
 import ProjectTrackerDashboard from '@/components/admin/ProjectTrackerDashboard';
 import EnhancedHierarchicalTreeView from '@/components/admin/EnhancedHierarchicalTreeView';
 import { PlatformFeatureDeepDive } from '@/components/admin/PlatformFeatureDeepDive';
@@ -296,13 +296,32 @@ const AdminCenter = memo(() => {
     }
   };
 
-  // MB.MD SIMULTANEOUS: Use default fetcher
+  // Fetch admin statistics
   const { data: stats, isLoading: statsLoading } = useQuery<AdminStats>({
     queryKey: ['/api/admin/stats'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/stats', {
+        credentials: 'include'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch admin stats');
+      }
+      return response.json();
+    }
   });
 
+  // Fetch compliance metrics
   const { data: compliance, isLoading: complianceLoading } = useQuery<ComplianceMetrics>({
     queryKey: ['/api/admin/compliance'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/compliance', {
+        credentials: 'include'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch compliance metrics');
+      }
+      return response.json();
+    }
   });
 
   // RBAC/ABAC Management Functions

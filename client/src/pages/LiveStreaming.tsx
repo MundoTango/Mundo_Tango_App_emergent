@@ -73,20 +73,32 @@ export default function LiveStreaming() {
   const socket = useSocket();
 
   // Get active streams
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
-  const { data: activeStreamsData, isLoading: loadingActive } = useQuery({
-    queryKey: ["/api/streaming/streams/active", { category: selectedCategory }],
+  const { data: activeStreams, isLoading: loadingActive } = useQuery({
+    queryKey: ["/api/streaming/streams/active", selectedCategory],
+    queryFn: async () => {
+      const params = selectedCategory !== "all" ? `?category=${selectedCategory}` : "";
+      const response = await fetch(`/api/streaming/streams/active${params}`, {
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to fetch active streams");
+      const data = await response.json();
+      return data.streams;
+    },
     refetchInterval: 30000, // Refresh every 30 seconds
   });
-  
-  const activeStreams = activeStreamsData || [];
 
-  // Get scheduled streams (MB.MD SIMULTANEOUS: Use default fetcher)
-  const { data: scheduledStreamsData, isLoading: loadingScheduled } = useQuery({
+  // Get scheduled streams
+  const { data: scheduledStreams, isLoading: loadingScheduled } = useQuery({
     queryKey: ["/api/streaming/streams/scheduled"],
+    queryFn: async () => {
+      const response = await fetch("/api/streaming/streams/scheduled", {
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to fetch scheduled streams");
+      const data = await response.json();
+      return data.streams;
+    },
   });
-  
-  const scheduledStreams = scheduledStreamsData?.streams || [];
 
   // Create stream mutation
   const createStreamMutation = useMutation({

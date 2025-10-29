@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, Camera, Video, X, CheckCircle, AlertCircle } from 'lucide-react';
+import { processMultipleMedia } from '@/utils/advancedMediaProcessor';
 
 interface UploadedFile {
   id: string;
@@ -89,9 +90,6 @@ export function InternalUploader({
       // PHASE 1: Compression (0-40%)
       currentPhase = 'compression';
       console.log(`🔄 [InternalUploader] Phase 1: Starting compression for ${files.length} files`);
-      
-      // Lazy load advanced media processor (1.4MB chunk)
-      const { processMultipleMedia } = await import('@/utils/advancedMediaProcessor');
       
       const processedFiles = await processMultipleMedia(
         files,

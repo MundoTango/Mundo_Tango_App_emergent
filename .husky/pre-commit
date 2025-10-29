@@ -3,66 +3,14 @@
 
 echo "🔍 Running pre-commit quality checks..."
 
-# FILE PROTECTION CHECKS - CRITICAL
-echo "→ Checking file protection rules..."
-
-# Check if critical directories are being deleted
-if git diff --cached --name-only --diff-filter=D | grep -q "^docs/"; then
-  echo ""
-  echo "❌ ERROR: Attempting to delete files from docs/ folder"
-  echo "📚 Documentation files are protected and cannot be deleted"
-  echo ""
-  echo "✅ To archive instead of delete:"
-  echo "   mkdir -p docs/archived/\$(date +%Y-%m)"
-  echo "   git mv docs/FILE.md docs/archived/\$(date +%Y-%m)/"
-  echo ""
-  echo "📖 See AGENT_LEARNING.md for full guidelines"
-  exit 1
-fi
-
-# Check if root .md files are being deleted
-if git diff --cached --name-only --diff-filter=D | grep -q "^[^/]*\.md$"; then
-  echo ""
-  echo "❌ ERROR: Attempting to delete root-level .md files"
-  echo "📚 Documentation files are protected and cannot be deleted"
-  echo ""
-  echo "📖 See AGENT_LEARNING.md for full guidelines"
-  exit 1
-fi
-
-# Check if critical scripts are being deleted
-if git diff --cached --name-only --diff-filter=D | grep -q "^scripts/.*\(backup\|restore\|critical\|pre-deploy\)"; then
-  echo ""
-  echo "❌ ERROR: Attempting to delete protection system scripts"
-  echo "🛡️  Protection scripts cannot be deleted"
-  echo ""
-  echo "📖 See AGENT_LEARNING.md for full guidelines"
-  exit 1
-fi
-
-# Check if agent files are being deleted
-if git diff --cached --name-only --diff-filter=D | grep -q "^server/agents/"; then
-  echo ""
-  echo "❌ ERROR: Attempting to delete agent system files"
-  echo "🤖 Agent files are protected and cannot be deleted"
-  echo ""
-  echo "📖 See AGENT_LEARNING.md for full guidelines"
-  exit 1
-fi
-
-# Check if schema is being deleted
-if git diff --cached --name-only --diff-filter=D | grep -q "^shared/schema.ts"; then
-  echo ""
-  echo "❌ ERROR: Attempting to delete database schema"
-  echo "🗄️  Schema file is protected and cannot be deleted"
-  echo ""
-  echo "📖 See AGENT_LEARNING.md for full guidelines"
-  exit 1
-fi
-
 # Token validation
 echo "→ Validating design tokens..."
-node design-system/scripts/validate-tokens.js 2>/dev/null || true
+node design-system/scripts/validate-tokens.js
+
+if [ $? -ne 0 ]; then
+  echo "❌ Token validation failed! Please fix hardcoded colors before committing."
+  exit 1
+fi
 
 # Bundle size check (quick)
 echo "→ Checking bundle size..."

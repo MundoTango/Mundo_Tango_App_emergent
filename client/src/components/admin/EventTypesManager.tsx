@@ -33,10 +33,13 @@ export const EventTypesManager: React.FC = () => {
     sort_order: 0
   });
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch event types
   const { data: eventTypes = [], isLoading } = useQuery({
-    queryKey: ['/api/admin/event-types', { includeInactive: showInactive }],
+    queryKey: ['/api/admin/event-types', showInactive],
+    queryFn: async () => {
+      const response = await apiRequest(`/api/admin/event-types?includeInactive=${showInactive}`);
+      return response.data;
+    }
   });
 
   // Create mutation

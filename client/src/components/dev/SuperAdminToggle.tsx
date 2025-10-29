@@ -13,11 +13,12 @@ export function SuperAdminToggle() {
   const [isDevSuperAdmin, setIsDevSuperAdmin] = useState(false);
   const { toast } = useToast();
 
-  // Phase 14 Fix: Call hooks unconditionally BEFORE any returns (Rules of Hooks)
+  // Only show in development
+  if (import.meta.env.PROD) {
+    return null;
+  }
+
   useEffect(() => {
-    // Skip in production
-    if (import.meta.env.PROD) return;
-    
     const savedMode = localStorage.getItem('dev_super_admin_mode');
     if (savedMode === 'true') {
       setIsDevSuperAdmin(true);
@@ -25,11 +26,6 @@ export function SuperAdminToggle() {
       (window as any).__DEV_SUPER_ADMIN__ = true;
     }
   }, []);
-
-  // Only show in development (after all hooks)
-  if (import.meta.env.PROD) {
-    return null;
-  }
 
   const toggleSuperAdmin = () => {
     const newMode = !isDevSuperAdmin;

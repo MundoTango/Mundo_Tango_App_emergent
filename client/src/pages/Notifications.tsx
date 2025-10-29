@@ -89,9 +89,22 @@ export default function Notifications() {
   }, [user, toast]);
 
   // Fetch notifications
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: notificationsData, isLoading } = useQuery({
-    queryKey: ['/api/notifications', { unread: filter === 'unread' ? 'true' : undefined }],
+    queryKey: ['/api/notifications', filter],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filter === 'unread') params.append('unread', 'true');
+      
+      const response = await fetch(`/api/notifications?${params}`, {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch notifications');
+      }
+      
+      return response.json();
+    },
     refetchInterval: 30000 // Refresh every 30 seconds
   });
 

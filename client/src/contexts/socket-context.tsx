@@ -29,7 +29,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
     
     // ESA Framework: Connect to Socket.io server
     const socketInstance = io('/', {
-      path: '/ws',
+      path: '/socket.io/',
       transports: ['websocket', 'polling'],
       withCredentials: true,
       reconnection: true,

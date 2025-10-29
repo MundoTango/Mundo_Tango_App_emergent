@@ -16,14 +16,10 @@ import {
   Wand2,
   ScrollText,
   Key,
-  X,
-  Inspect,
-  Palette,
-  Zap,
-  MessageSquare
+  X
 } from 'lucide-react';
 
-export type EditorTab = 'inspector' | 'chat' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'console' | 'secrets' | 'models';
+export type EditorTab = 'preview' | 'deploy' | 'git' | 'pages' | 'shell' | 'files' | 'ai' | 'console' | 'secrets';
 
 interface TabSystemProps {
   activeTab: EditorTab;
@@ -32,21 +28,20 @@ interface TabSystemProps {
 }
 
 const TABS = [
-  { id: 'inspector' as const, label: 'Inspector', icon: Inspect },
-  { id: 'chat' as const, label: 'Mr Blue', icon: MessageSquare },
+  { id: 'preview' as const, label: 'Preview', icon: Eye },
   { id: 'console' as const, label: 'Console', icon: ScrollText },
   { id: 'deploy' as const, label: 'Deploy', icon: Rocket },
   { id: 'git' as const, label: 'Git', icon: GitBranch },
-  { id: 'models' as const, label: 'Models', icon: Zap },
   { id: 'pages' as const, label: 'Pages', icon: FileText },
   { id: 'shell' as const, label: 'Shell', icon: Terminal },
   { id: 'files' as const, label: 'Files', icon: Folder },
-  { id: 'secrets' as const, label: 'Secrets', icon: Key }
+  { id: 'secrets' as const, label: 'Secrets', icon: Key },
+  { id: 'ai' as const, label: 'AI', icon: Wand2 }
 ];
 
 export default function TabSystem({ activeTab, onTabChange, onClose }: TabSystemProps) {
   return (
-    <div className="border-b border-gray-200 flex items-center justify-between px-2 bg-gray-50">
+    <div className="border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-2 bg-gray-50 dark:bg-gray-800">
       <div className="flex items-center gap-1 py-1">
         {TABS.map(tab => {
           const Icon = tab.icon;
@@ -58,8 +53,8 @@ export default function TabSystem({ activeTab, onTabChange, onClose }: TabSystem
               onClick={() => onTabChange(tab.id)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
               data-testid={`tab-${tab.id}`}
             >
@@ -72,7 +67,7 @@ export default function TabSystem({ activeTab, onTabChange, onClose }: TabSystem
       
       <button
         onClick={onClose}
-        className="p-1.5 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-200"
+        className="p-1.5 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
         data-testid="button-close-editor"
       >
         <X className="w-4 h-4" />

@@ -20,12 +20,6 @@ interface TripConfig {
   travelStyle: string;
 }
 
-interface TripResults {
-  events?: any[];
-  housing?: any[];
-  recommendations?: any[];
-}
-
 interface TripPlannerViewProps {
   city: string;
   country?: string;
@@ -35,8 +29,7 @@ interface TripPlannerViewProps {
 }
 
 export default function TripPlannerView({
-  city, country, cityLat, cityLng, groupId }: TripPlannerViewProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); city, country, cityLat, cityLng, groupId }: TripPlannerViewProps) {
   const { toast } = useToast();
   const [tripConfig, setTripConfig] = useState<TripConfig | null>(null);
   const [mapLayers, setMapLayers] = useState({
@@ -47,16 +40,25 @@ export default function TripPlannerView({
   const [itineraryItems, setItineraryItems] = useState<any[]>([]);
   const [currentTravelPlanId, setCurrentTravelPlanId] = useState<number | null>(null);
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
-  const { data: tripResults, isLoading } = useQuery<TripResults>({
-    queryKey: ['/api/trip-planner/results', { 
-      city, 
-      startDate: tripConfig?.startDate, 
-      endDate: tripConfig?.endDate, 
-      budget: tripConfig?.budget, 
-      interests: tripConfig?.interests?.join(',') || '' 
-    }],
+  // Fetch trip results based on configuration
+  const { data: tripResults, isLoading } = useQuery({
+    queryKey: ['/api/trip-planner/results', tripConfig],
     enabled: !!tripConfig,
+    queryFn: async () => {
+      if (!tripConfig) return null;
+      
+      const params = new URLSearchParams({
+        city,
+        startDate: tripConfig.startDate,
+        endDate: tripConfig.endDate,
+        budget: tripConfig.budget,
+        interests: tripConfig.interests.join(',')
+      });
+
+      const response = await fetch(`/api/trip-planner/results?${params}`);
+      if (!response.ok) throw new Error('Failed to fetch trip results');
+      return response.json();
+    }
   });
 
   // Create travel plan mutation

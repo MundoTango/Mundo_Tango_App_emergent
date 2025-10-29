@@ -56,10 +56,15 @@ export default function ModernPostCreator({ onPostCreated }: ModernPostCreatorPr
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch users for mention autocomplete
   const { data: users = [] } = useQuery({
     queryKey: ['/api/users/search'],
+    queryFn: async (): Promise<User[]> => {
+      const response = await fetch('/api/users/search');
+      if (!response.ok) throw new Error('Failed to fetch users');
+      const result = await response.json();
+      return result.data || [];
+    }
   });
 
   // Configure ReactQuill toolbar

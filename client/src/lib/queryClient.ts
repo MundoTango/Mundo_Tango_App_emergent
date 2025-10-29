@@ -1,35 +1,4 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
-import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
-import { persistQueryClient } from '@tanstack/react-query-persist-client';
-
-// MB.MD FIX: Clear ALL React Query caches to prevent queryFn errors
-if (typeof window !== 'undefined') {
-  try {
-    // Remove all possible cache keys
-    const keysToRemove = [
-      'MUNDO_TANGO_QUERY_CACHE',
-      'MUNDO_TANGO_QUERY_CACHE_V2',
-      'REACT_QUERY_OFFLINE_CACHE',
-      'tanstack.query.client',
-    ];
-    
-    keysToRemove.forEach(key => {
-      window.localStorage.removeItem(key);
-    });
-    
-    // Also clear any keys that match React Query patterns
-    const allKeys = Object.keys(window.localStorage);
-    allKeys.forEach(key => {
-      if (key.includes('QUERY') || key.includes('tanstack')) {
-        window.localStorage.removeItem(key);
-      }
-    });
-    
-    console.log('✅ Cleared ALL stale React Query caches');
-  } catch (e) {
-    console.warn('[Cache Clear] Failed:', e);
-  }
-}
 
 // Store CSRF token
 let csrfToken: string | null = null;
@@ -42,27 +11,16 @@ async function fetchCsrfToken() {
       credentials: 'include'
     });
     if (response.ok) {
-      // Safely parse JSON - catch parse errors
-      try {
-        const data = await response.json();
-        csrfToken = data.csrfToken;
-      } catch (parseError) {
-        console.warn('CSRF endpoint returned non-JSON response (expected during development)');
-      }
-    } else {
-      // CSRF endpoint not available - silent fail (not critical for app to load)
-      console.warn('CSRF token endpoint not available (expected during development)');
+      const data = await response.json();
+      csrfToken = data.csrfToken;
     }
   } catch (error) {
-    // Silent fail - don't block app loading
-    console.warn('CSRF token fetch failed (non-critical)');
+    console.error('Failed to fetch CSRF token:', error);
   }
 }
 
-// Initialize CSRF token on app start (non-blocking, don't await)
-fetchCsrfToken().catch(() => {
-  // Prevent uncaught promise rejection from breaking React render
-});
+// Initialize CSRF token on app start
+fetchCsrfToken();
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -173,7 +131,7 @@ export const queryClient = new QueryClient({
       queryFn: getQueryFn({ on401: "throw" }),
       refetchInterval: false,
       refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // Phase 14: 5 minutes - use cached data before refetching
+      staleTime: 0, // Allow immediate updates after mutations (Sept 30, 2025 fix)
       gcTime: 30 * 60 * 1000, // ESA Layer 14: Keep cache for 30min to prevent premature garbage collection
       retry: false,
     },
@@ -182,36 +140,3 @@ export const queryClient = new QueryClient({
     },
   },
 });
-
-// MB.MD FIX: Vite HMR cleanup - ensure old queryClient is disposed when this module reloads
-if (import.meta.hot) {
-  import.meta.hot.dispose(() => {
-    console.log('🔄 [HMR] Disposing old queryClient instance');
-    queryClient.clear();
-  });
-  
-  import.meta.hot.accept(() => {
-    console.log('🔄 [HMR] QueryClient module reloaded - forcing page refresh for stability');
-    window.location.reload();
-  });
-}
-
-// Phase 14 Batch 4: localStorage persistence DISABLED
-// MB.MD FIX: persistQueryClient rehydrates queries WITHOUT the default queryFn,
-// causing "No queryFn" errors. Disabling persistence until we implement proper
-// query dehydration/rehydration with queryFn preservation.
-// 
-// if (typeof window !== 'undefined') {
-//   const persister = createSyncStoragePersister({
-//     storage: window.localStorage,
-//     key: 'MUNDO_TANGO_QUERY_CACHE_V2',
-//   });
-//   persistQueryClient({
-//     queryClient,
-//     persister,
-//     maxAge: 1000 * 60 * 60 * 24,
-//     dehydrateOptions: {
-//       shouldDehydrateQuery: (query) => query.state.status === 'success',
-//     },
-//   });
-// }

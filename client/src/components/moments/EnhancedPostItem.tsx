@@ -122,9 +122,16 @@ function EnhancedPostItem({
   const [comments, setComments] = useState(post.comments || []);
 
   // Fetch comments when section is opened
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: fetchedComments } = useQuery({
     queryKey: [`${apiBasePath}/${post.id}/comments`],
+    queryFn: async () => {
+      const response = await fetch(`${apiBasePath}/${post.id}/comments`, {
+        credentials: 'include'
+      });
+      if (!response.ok) throw new Error('Failed to fetch comments');
+      const result = await response.json();
+      return result.data || [];
+    },
     enabled: showComments && post.id != null
   });
 
@@ -320,7 +327,7 @@ function EnhancedPostItem({
     }
   };
 
-  // Mundo Tango ESA LIFE CEO - Enhanced delete handler
+  // ESA LIFE CEO 61x21 - Enhanced delete handler
   const handleDelete = async () => {
     if (confirm('Are you sure you want to delete this post? This action cannot be undone.')) {
       try {
@@ -409,7 +416,7 @@ function EnhancedPostItem({
     shareToWallMutation.mutate({ postId: post.id, comment });
   };
 
-  // Mundo Tango ESA LIFE CEO - Layer 5 (Authorization) Fix
+  // ESA LIFE CEO 61x21 - Layer 5 (Authorization) Fix
   // Check if current user is the owner of the post (proper ID comparison)
   const isTestPost = post.content?.includes("TEST POST FOR REPORTING");
   const isOwner = isTestPost ? false : (post.userId === user?.id);
@@ -508,7 +515,7 @@ function EnhancedPostItem({
               </time>
             </div>
             
-            {/* Mundo Tango ESA LIFE CEO - Post Actions Menu with Edit/Delete */}
+            {/* ESA LIFE CEO 61x21 - Post Actions Menu with Edit/Delete */}
             <PostActionsMenu
               post={post}
               onEdit={onEdit} // ESA Layer 7: Pass edit to parent's unified composer
@@ -559,9 +566,9 @@ function EnhancedPostItem({
             {renderWithMentions ? renderWithMentions(post.content) : post.content}
           </div>
 
-          {/* Mundo Tango ESA LIFE CEO - FIXED media display with ALL fields */}
+          {/* ESA LIFE CEO 61x21 - FIXED media display with ALL fields */}
           {(() => {
-            // Mundo Tango ESA LIFE CEO - Check ALL possible media fields
+            // ESA LIFE CEO 61x21 - Check ALL possible media fields
             const mediaEmbeds = (post as any).mediaEmbeds || [];
             const mediaUrls = (post as any).mediaUrls || [];
             const hasDirectMedia = post.imageUrl || post.videoUrl;
@@ -626,7 +633,7 @@ function EnhancedPostItem({
                   <div key={`${post.id}-media-${index}`} className="rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200 bg-black">
                     {media.type === 'video' ? (
                       <div className="relative w-full">
-                        {/* Mundo Tango ESA LIFE CEO - Loading indicator */}
+                        {/* ESA LIFE CEO 61x21 - Loading indicator */}
                         <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none" id={`loading-${post.id}-${index}`}>
                           <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent"></div>
                         </div>

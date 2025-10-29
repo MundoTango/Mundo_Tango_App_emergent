@@ -1,5 +1,5 @@
 /**
- * Mundo Tango ESA LIFE CEO - Post Actions Menu
+ * ESA LIFE CEO 61x21 - Post Actions Menu
  * Comprehensive post actions with edit/delete for authors and report for non-authors
  */
 

@@ -25,7 +25,6 @@ interface PerformanceReport {
 export function LifeCeoPerformanceDashboard() {
   const [realTimeMetrics, setRealTimeMetrics] = useState<any>({});
   
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch performance report from Life CEO service
   const { data: report, isLoading } = useQuery<PerformanceReport>({
     queryKey: ['/api/performance/report'],

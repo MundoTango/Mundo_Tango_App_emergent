@@ -1,5 +1,5 @@
 // MT Ocean Form Date Picker Component
-// Mundo Tango ESA LIFE CEO Date Field
+// ESA LIFE CEO 61x21 Date Field
 
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
 import {

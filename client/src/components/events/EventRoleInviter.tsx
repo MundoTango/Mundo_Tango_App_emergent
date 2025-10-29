@@ -39,16 +39,16 @@ export default function EventRoleInviter({ eventId, eventTitle, isEventCreator }
   const queryClient = useQueryClient();
 
   // Search users
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: searchResults } = useQuery({
-    queryKey: ['/api/user/global-search', { query: searchQuery }],
+    queryKey: ['/api/user/global-search', searchQuery],
     enabled: searchQuery.length >= 2,
+    queryFn: () => apiRequest(`/api/user/global-search?query=${encodeURIComponent(searchQuery)}`),
   });
 
   // Get event participants
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: participantsData, isLoading: loadingParticipants } = useQuery({
     queryKey: ['/api/events', eventId, 'participants'],
+    queryFn: () => apiRequest(`/api/events/${eventId}/participants`),
   });
 
   // Invite user mutation

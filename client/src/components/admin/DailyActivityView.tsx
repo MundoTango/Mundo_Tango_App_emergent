@@ -37,10 +37,18 @@ function DailyActivityView() {
   today.setHours(0, 0, 0, 0); // Reset time to start of day
   const [selectedDate, setSelectedDate] = useState(today);
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch daily activities from API - no date filtering, show all activities
   const { data: apiActivities = [], isLoading, refetch } = useQuery({
     queryKey: ['/api/daily-activities'], // Remove date from cache key
+    queryFn: async () => {
+      const response = await apiRequest(
+        'GET',
+        `/api/daily-activities` // API returns all activities
+      );
+      const result = await response.json();
+      // The API returns { success: true, data: [...] }
+      return result.data || [];
+    },
     refetchInterval: 30000, // Refresh every 30 seconds
   });
 

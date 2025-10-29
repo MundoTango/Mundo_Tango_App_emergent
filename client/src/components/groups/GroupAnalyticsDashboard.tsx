@@ -10,9 +10,15 @@ interface GroupAnalyticsDashboardProps {
 }
 
 export default function GroupAnalyticsDashboard({ groupId }: GroupAnalyticsDashboardProps) {
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: analytics, isLoading } = useQuery({
     queryKey: [`/api/groups/${groupId}/analytics`],
+    queryFn: async () => {
+      const response = await fetch(`/api/groups/${groupId}/analytics`, {
+        credentials: 'include'
+      });
+      const data = await response.json();
+      return data.success ? data.data : null;
+    }
   });
   
   if (isLoading) {

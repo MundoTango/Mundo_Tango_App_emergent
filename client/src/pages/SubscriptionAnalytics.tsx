@@ -100,9 +100,11 @@ const SubscriptionAnalytics: React.FC = () => {
   const [timeRange, setTimeRange] = useState('30d');
   
   // Fetch analytics data
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: analytics, isLoading } = useQuery({
-    queryKey: ['/api/payments/analytics', { range: timeRange }],
+    queryKey: ['/api/payments/analytics', timeRange],
+    queryFn: async () => {
+      return apiRequest(`/api/payments/analytics?range=${timeRange}`, { method: 'GET' });
+    },
     enabled: isAuthenticated,
   });
 

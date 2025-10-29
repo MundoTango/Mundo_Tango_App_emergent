@@ -1,0 +1,243 @@
+{
+  "suiteName": "User Journey Tests",
+  "results": [
+    {
+      "journeyName": "user-signup-flow",
+      "status": "failed",
+      "steps": [
+        {
+          "step": 1,
+          "action": "navigate",
+          "status": "passed",
+          "duration": 5073
+        },
+        {
+          "step": 2,
+          "action": "fill",
+          "status": "failed",
+          "error": "page.fill: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"input-email\"]')\u001b[22m\n",
+          "duration": 10013
+        },
+        {
+          "step": 3,
+          "action": "fill",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 4,
+          "action": "click",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 5,
+          "action": "wait",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 6,
+          "action": "assert",
+          "status": "skipped",
+          "duration": 0
+        }
+      ],
+      "totalDuration": 15404,
+      "screenshotPath": "/home/runner/workspace/tests/journey/screenshots/user-signup-flow-failed-2025-10-09T08-13-30.png",
+      "timestamp": "2025-10-09T08:13:31.026Z"
+    },
+    {
+      "journeyName": "memory-creation-flow",
+      "status": "failed",
+      "steps": [
+        {
+          "step": 1,
+          "action": "navigate",
+          "status": "passed",
+          "duration": 6417
+        },
+        {
+          "step": 2,
+          "action": "click",
+          "status": "passed",
+          "duration": 313
+        },
+        {
+          "step": 3,
+          "action": "fill",
+          "status": "failed",
+          "error": "page.fill: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"input-memory-content\"]')\u001b[22m\n",
+          "duration": 10002
+        },
+        {
+          "step": 4,
+          "action": "click",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 5,
+          "action": "wait",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 6,
+          "action": "assert",
+          "status": "skipped",
+          "duration": 0
+        }
+      ],
+      "totalDuration": 20589,
+      "screenshotPath": "/home/runner/workspace/tests/journey/screenshots/memory-creation-flow-failed-2025-10-09T08-13-47.png",
+      "timestamp": "2025-10-09T08:13:51.846Z"
+    },
+    {
+      "journeyName": "housing-search-flow",
+      "status": "failed",
+      "steps": [
+        {
+          "step": 1,
+          "action": "navigate",
+          "status": "passed",
+          "duration": 4590
+        },
+        {
+          "step": 2,
+          "action": "wait",
+          "status": "failed",
+          "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"housing-listings\"]') to be visible\u001b[22m\n",
+          "duration": 10003
+        },
+        {
+          "step": 3,
+          "action": "fill",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 4,
+          "action": "click",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 5,
+          "action": "wait",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 6,
+          "action": "assert",
+          "status": "skipped",
+          "duration": 0
+        }
+      ],
+      "totalDuration": 15044,
+      "screenshotPath": "/home/runner/workspace/tests/journey/screenshots/housing-search-flow-failed-2025-10-09T08-14-06.png",
+      "timestamp": "2025-10-09T08:14:07.100Z"
+    },
+    {
+      "journeyName": "event-rsvp-flow",
+      "status": "failed",
+      "steps": [
+        {
+          "step": 1,
+          "action": "navigate",
+          "status": "passed",
+          "duration": 7113
+        },
+        {
+          "step": 2,
+          "action": "wait",
+          "status": "failed",
+          "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"event-card\"]') to be visible\u001b[22m\n",
+          "duration": 10002
+        },
+        {
+          "step": 3,
+          "action": "click",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 4,
+          "action": "wait",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 5,
+          "action": "click",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 6,
+          "action": "assert",
+          "status": "skipped",
+          "duration": 0
+        }
+      ],
+      "totalDuration": 18026,
+      "screenshotPath": "/home/runner/workspace/tests/journey/screenshots/event-rsvp-flow-failed-2025-10-09T08-14-24.png",
+      "timestamp": "2025-10-09T08:14:25.774Z"
+    },
+    {
+      "journeyName": "profile-edit-flow",
+      "status": "failed",
+      "steps": [
+        {
+          "step": 1,
+          "action": "navigate",
+          "status": "passed",
+          "duration": 6714
+        },
+        {
+          "step": 2,
+          "action": "click",
+          "status": "failed",
+          "error": "page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"button-edit-profile\"]')\u001b[22m\n",
+          "duration": 10002
+        },
+        {
+          "step": 3,
+          "action": "fill",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 4,
+          "action": "click",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 5,
+          "action": "wait",
+          "status": "skipped",
+          "duration": 0
+        },
+        {
+          "step": 6,
+          "action": "assert",
+          "status": "skipped",
+          "duration": 0
+        }
+      ],
+      "totalDuration": 17198,
+      "screenshotPath": "/home/runner/workspace/tests/journey/screenshots/profile-edit-flow-failed-2025-10-09T08-14-42.png",
+      "timestamp": "2025-10-09T08:14:43.266Z"
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 0,
+    "failed": 5,
+    "criticalPaths": 4,
+    "criticalPathsPassed": 0
+  },
+  "timestamp": "2025-10-09T08:14:43.391Z"
+}

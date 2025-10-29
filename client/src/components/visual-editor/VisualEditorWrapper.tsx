@@ -8,31 +8,18 @@
  * - Replit-style UX
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import TabSystem, { EditorTab } from './TabSystem';
-import { InspectorPanel } from './InspectorPanel';
-import AITab from './AITab';
+import PreviewTab from './PreviewTab';
 import DeployTab from './DeployTab';
 import GitTab from './GitTab';
 import PagesTab from './PagesTab';
 import ShellTab from './ShellTab';
 import FilesTab from './FilesTab';
-import ConsoleTab from './ConsoleTab';
-import SecretsTab from './SecretsTab';
-import { ModelMonitorTab } from './ModelMonitorTab';
-import { WhatDoesThisDoPanel } from './WhatDoesThisDoPanel';
-import { InlineTextEditor } from './InlineTextEditor';
-import { UniversalSaveSystem } from './UniversalSaveSystem';
-import { VisualEditorBreadcrumbs } from './VisualEditorBreadcrumbs';
+import AITab from './AITab';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
-import { useVisualEditorOptional } from '@/contexts/VisualEditorContext';
-import { listenToIframe, type IframeMessage } from '@/lib/visual-editor/iframeMessaging';
-import { useNavigationHistory } from '@/hooks/useNavigationHistory';
-import type { NavigationHistoryEntry } from '@/lib/visual-editor/navigationHistory';
-import { generateTextChangeDiff, generateDeleteDiff, detectSourceFile } from '@/lib/visual-editor/codeGeneration';
-import './PurpleBoundingBox.css'; // 🎯 Purple bounding box styles (Oct 28, 2025)
 
 interface SelectedElement {
   tag: string;
@@ -42,240 +29,36 @@ interface SelectedElement {
   xpath: string;
 }
 
-interface Change {
-  id: string;
-  timestamp: Date;
-  elementSelector: string;
-  changeType: 'style' | 'content' | 'layout' | 'delete';
-  before: any;
-  after: any;
-}
-
 export default function VisualEditorWrapper({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const { toast } = useToast();
   const [isEditorActive, setIsEditorActive] = useState(false);
   const [selectedElement, setSelectedElement] = useState<SelectedElement | null>(null);
   const [isSelectMode, setIsSelectMode] = useState(false);
-  const [activeTab, setActiveTab] = useState<EditorTab>('chat'); // DEFAULT: Mr Blue (chat), NOT inspector
-  const [changes, setChanges] = useState<Change[]>([]);
-  const [editingElement, setEditingElement] = useState<HTMLElement | null>(null);
-  const [selectedHTMLElement, setSelectedHTMLElement] = useState<HTMLElement | null>(null);
-  
-  // 🔍 INSPECTOR MODE: Page vs Sidebar (Oct 22, 2025)
-  const [inspectorMode, setInspectorMode] = useState<'page' | 'sidebar'>('page');
-  
-  // 📚 NAVIGATION HISTORY: Browser-style breadcrumb navigation (Oct 24, 2025)
-  const navigationHistory = useNavigationHistory();
-  
-  // 🎨 VISUAL EDITOR CONTEXT: Share selected element with Mr Blue (Phase 2 Fix - Oct 22)
-  const visualEditorContext = useVisualEditorOptional();
-  
-  // ✅ ARCHITECT FIX: Ref to access latest selectedElement in event handler closure
-  const selectedElementRef = useRef<SelectedElement | null>(null);
-  
-  // Keep ref in sync with state
-  useEffect(() => {
-    selectedElementRef.current = selectedElement;
-  }, [selectedElement]);
-  
-  // 🐛 DEBUG: Log context availability on mount
-  useEffect(() => {
-    console.log('🔍 [VisualEditorWrapper] Context availability:', {
-      hasContext: !!visualEditorContext,
-      contextValue: visualEditorContext
-    });
-  }, [visualEditorContext]);
-  
-  // 🎯 BATCH 3: Delete key handler (Oct 26, 2025) - ARCHITECT FIX: Use ref for latest value
-  useEffect(() => {
-    if (!isEditorActive) return;
-    
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // ✅ ARCHITECT FIX: Access latest value via ref (not stale closure)
-      const currentSelection = selectedElementRef.current;
-      if (!currentSelection) return;
-      
-      // Only handle Delete/Backspace
-      if (e.key !== 'Delete' && e.key !== 'Backspace') return;
-      
-      // Prevent default backspace navigation
-      e.preventDefault();
-      
-      console.log('🗑️ [BATCH 3] Delete key pressed for element:', currentSelection);
-      
-      // Generate delete diff and send to context
-      if (visualEditorContext?.setPendingCodeChanges) {
-        const currentPath = visualEditorContext.previewPath || '/';
-        const elementData = {
-          tagName: currentSelection.tag,
-          id: currentSelection.id,
-          className: currentSelection.className,
-          xpath: currentSelection.xpath,
-          computedStyles: {},
-          boundingBox: { top: 0, left: 0, width: 0, height: 0 },
-          attributes: {}
-        };
-        
-        const diff = generateDeleteDiff(elementData, currentPath);
-        
-        const newChange = {
-          id: `delete-${Date.now()}`,
-          taskId: 'delete-element',
-          filePath: diff.filePath,
-          diff: diff.diff,
-          type: 'unified_diff' as const,
-          status: 'pending' as const,
-          timestamp: new Date()
-        };
-        
-        visualEditorContext.setPendingCodeChanges([
-          ...(visualEditorContext.pendingCodeChanges || []),
-          newChange
-        ]);
-        
-        console.log('✅ [BATCH 3] Delete queued in context:', newChange);
-        
-        toast({
-          title: '🗑️ Delete Queued',
-          description: `Removing <${currentSelection.tag}> - Click SAVE to apply`,
-          duration: 2000
-        });
-        
-        // Clear selection after queueing delete
-        setSelectedElement(null);
-        setSelectedHTMLElement(null);
-      }
-    };
-    
-    // Only re-attach when editor activated/deactivated (performance optimization)
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isEditorActive, visualEditorContext, toast]); // Ref accessed inside, not in deps
-
-  // ✅ TASK #2: Listen for save success events and show toast
-  useEffect(() => {
-    const handleSaveSuccess = (event: CustomEvent) => {
-      const { message, commitHash, filesChanged } = event.detail;
-      toast({
-        title: '✓ Saved & Committed',
-        description: `${filesChanged} file(s) committed to Git (${commitHash?.substring(0, 7)})`,
-        duration: 3000
-      });
-    };
-
-    window.addEventListener('save-success', handleSaveSuccess as EventListener);
-    return () => window.removeEventListener('save-success', handleSaveSuccess as EventListener);
-  }, [toast]);
+  const [activeTab, setActiveTab] = useState<EditorTab>('ai');
 
   // Check if edit mode is enabled via URL parameter
   useEffect(() => {
-    // MB.MD FIX (Oct 25): Recursive URL decoding to handle single/double/triple encoding
-    // Handles: /?edit=true, /%3Fedit=true, /%253Fedit%253Dtrue, etc.
-    // Architect recommendation: Iteratively decode until stable to fix screenshot tool encoding
-    
-    // Helper: Recursively decode until stable
-    const decodeRecursive = (str: string): string => {
-      let decoded = str;
-      let prev = '';
-      while (decoded !== prev) {
-        prev = decoded;
-        try {
-          decoded = decodeURIComponent(decoded);
-        } catch (e) {
-          break; // Stop on invalid encoding
-        }
-      }
-      return decoded;
-    };
-    
-    // Decode pathname and search
-    const decodedPathname = decodeRecursive(window.location.pathname);
-    const decodedSearch = decodeRecursive(window.location.search);
-    
-    // Check 1: Normal query parameter
-    let editMode = new URLSearchParams(decodedSearch).get('edit') === 'true';
-    
-    // Check 2: Encoded query in pathname (e.g., /%3Fedit=true or /%253Fedit%253Dtrue)
-    if (!editMode && decodedPathname.includes('?edit=true')) {
-      console.warn('⚠️ [VisualEditor] URL encoding detected, fixing...');
-      editMode = true;
-      
-      // Fix the URL: Extract path before "?edit=true" and rebuild URL properly
-      const [actualPath] = decodedPathname.split('?');
-      const url = new URL(window.location.origin + actualPath);
-      url.searchParams.set('edit', 'true');
-      window.history.replaceState({}, '', url);
-      console.log('✅ [VisualEditor] URL fixed to:', url.toString());
-    }
-    
-    console.log('🔍 [VisualEditor] Edit mode:', editMode, {
-      originalPathname: window.location.pathname,
-      originalSearch: window.location.search,
-      decodedPathname,
-      decodedSearch,
-    });
-    
+    const urlParams = new URLSearchParams(window.location.search);
+    const editMode = urlParams.get('edit') === 'true';
     setIsEditorActive(editMode);
     setIsSelectMode(editMode);
   }, [location]);
 
   // Element selection click handler
   const handleElementClick = useCallback((e: MouseEvent) => {
-    console.log('🎯 [VisualEditorWrapper] handleElementClick fired - isSelectMode:', isSelectMode);
+    if (!isSelectMode) return;
     
-    if (!isSelectMode) {
-      console.log('⚠️ [VisualEditorWrapper] Select mode is OFF - ignoring click');
-      return;
-    }
-    
-    // MB.MD: Click = INSPECT, Cmd+Click = INSPECT (Allow normal click through)
-    // Updated Oct 22, 2025: Cmd/Ctrl+Click now ALLOWS selection without blocking clicks
-    const isModifierClick = e.metaKey || e.ctrlKey;
     const target = e.target as HTMLElement;
     
-    console.log('🎯 [VisualEditorWrapper] Target element:', {
-      tag: target.tagName,
-      id: target.id,
-      className: target.className
-    });
-    
-    // Check if target is interactive (button, link, input, etc.)
-    const isInteractive = target.closest('button, a, input, select, textarea, [role="button"], [onclick]');
-    
-    if (isModifierClick) {
-      // Cmd+Click: Allow element selection but let the click through for interactive elements
-      if (isInteractive) {
-        console.log('🎯 [Visual Editor] Cmd+Click on interactive element - allowing click through');
-        return; // Don't select, let the click happen
-      }
-      console.log('🎯 [Visual Editor] Cmd+Click detected - selecting element');
+    // Check if clicking the sidebar FIRST - allow normal clicks
+    if (target.closest('[data-testid="visual-editor-sidebar"]')) {
+      return; // Don't block sidebar interactions
     }
     
-    const isSidebarElement = !!target.closest('[data-testid="visual-editor-sidebar"]');
-    
-    // 🔍 INSPECTOR MODE LOGIC (Oct 22, 2025)
-    if (inspectorMode === 'page') {
-      // Page mode: Skip sidebar elements (allow normal sidebar clicks)
-      if (isSidebarElement) {
-        console.log('⚠️ [VisualEditorWrapper] Sidebar element in page mode - ignoring');
-        return;
-      }
-    } else if (inspectorMode === 'sidebar') {
-      // Sidebar mode: ONLY inspect sidebar elements
-      if (!isSidebarElement) {
-        console.log('⚠️ [VisualEditorWrapper] Page element in sidebar mode - ignoring');
-        return;
-      }
-    }
-    
-    console.log('✅ [VisualEditorWrapper] Proceeding with element selection...');
-    
-    // Block event ONLY for normal clicks on non-interactive elements
-    if (!isModifierClick && !isInteractive) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+    // NOW block the event for page elements
+    e.preventDefault();
+    e.stopPropagation();
 
     // Get XPath
     const getXPath = (element: HTMLElement): string => {
@@ -304,291 +87,43 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
       return segments.length ? `/${segments.join('/')}` : '';
     };
 
-    const elementData = {
+    setSelectedElement({
       tag: target.tagName.toLowerCase(),
       id: target.id || undefined,
       className: target.className || undefined,
       innerHTML: target.innerHTML?.substring(0, 100) || undefined,
       xpath: getXPath(target)
-    };
-    
-    setSelectedElement(elementData);
-    
-    // 📚 ADD TO NAVIGATION HISTORY
-    navigationHistory.addElement(elementData);
-    
-    // 🎨 PHASE 2 FIX: Update Visual Editor Context for Mr Blue integration
-    console.log('🎨 [VisualEditorWrapper] About to update context - hasContext:', !!visualEditorContext);
-    
-    if (visualEditorContext) {
-      const rect = target.getBoundingClientRect();
-      console.log('🎨 [VisualEditorWrapper] Setting selected element in context:', {
-        tagName: target.tagName.toLowerCase(),
-        id: target.id,
-        className: target.className
-      });
-      visualEditorContext.setSelectedElement({
-        tagName: target.tagName.toLowerCase(),
-        id: target.id || undefined,
-        className: target.className || undefined,
-        xpath: getXPath(target),
-        computedStyles: {},
-        boundingBox: {
-          top: rect.top,
-          left: rect.left,
-          width: rect.width,
-          height: rect.height
-        },
-        attributes: {}
-      });
-    } else {
-      console.warn('⚠️ [VisualEditorWrapper] VisualEditorContext not available - element selection will not reach Mr Blue');
-    }
-    
-    // MB.MD: Store actual HTML element for inline editing
-    setSelectedHTMLElement(target);
+    });
 
     // Visual feedback
     document.querySelectorAll('[data-visual-editor-selected]').forEach(el => {
       el.removeAttribute('data-visual-editor-selected');
       (el as HTMLElement).style.outline = '';
-      (el as HTMLElement).style.boxShadow = '';
     });
     
     target.setAttribute('data-visual-editor-selected', 'true');
-    // MB.MD: Different colors for page vs sidebar inspection
-    const outlineColor = inspectorMode === 'sidebar' ? '#3b82f6' : '#a855f7'; // Blue for sidebar, Purple for page
-    target.style.outline = `2px solid ${outlineColor}`;
+    target.style.outline = '2px solid #3b82f6';
     target.style.outlineOffset = '2px';
-    target.style.boxShadow = inspectorMode === 'sidebar' 
-      ? '0 0 0 4px rgba(59, 130, 246, 0.2)' 
-      : '0 0 0 4px rgba(168, 85, 247, 0.2)';
-    
-    // 🎯 PURPLE BOUNDING BOX OVERLAY (Oct 28, 2025) - Tests requirement
-    // Remove previous bounding box if exists
-    document.querySelectorAll('.purple-bounding-box').forEach(el => el.remove());
-    
-    // Create new bounding box overlay
-    if (inspectorMode === 'page') {
-      const rect = target.getBoundingClientRect();
-      const boundingBox = document.createElement('div');
-      boundingBox.className = 'purple-bounding-box';
-      boundingBox.setAttribute('data-testid', 'purple-bounding-box');
-      boundingBox.style.top = `${rect.top + window.scrollY}px`;
-      boundingBox.style.left = `${rect.left + window.scrollX}px`;
-      boundingBox.style.width = `${rect.width}px`;
-      boundingBox.style.height = `${rect.height}px`;
-      document.body.appendChild(boundingBox);
-      
-      // Auto-remove bounding box when scrolling/resizing
-      const removeBoundingBox = () => {
-        boundingBox.remove();
-      };
-      window.addEventListener('scroll', removeBoundingBox, { once: true });
-      window.addEventListener('resize', removeBoundingBox, { once: true });
-    }
 
     toast({
-      title: `${inspectorMode === 'sidebar' ? '🔍 Sidebar' : '📄 Page'} Element Selected`,
-      description: `<${target.tagName.toLowerCase()}> ${target.id ? `#${target.id}` : ''} • Double-click to edit text`,
+      title: "Element Selected",
+      description: `<${target.tagName.toLowerCase()}> ${target.id ? `#${target.id}` : ''}`,
       duration: 2000
     });
-  }, [isSelectMode, inspectorMode, toast, visualEditorContext, setSelectedElement, setSelectedHTMLElement, navigationHistory]);
-
-  // MB.MD: Double-click to edit text inline
-  const handleElementDoubleClick = useCallback((e: MouseEvent) => {
-    if (!isSelectMode || !selectedHTMLElement) return;
-    
-    const target = e.target as HTMLElement;
-    
-    // Only allow text editing on selected element
-    if (target === selectedHTMLElement) {
-      e.preventDefault();
-      e.stopPropagation();
-      setEditingElement(selectedHTMLElement);
-    }
-  }, [isSelectMode, selectedHTMLElement]);
+  }, [isSelectMode, toast]);
 
   // Add/remove click listener
   useEffect(() => {
     if (isSelectMode) {
       document.addEventListener('click', handleElementClick, true);
-      document.addEventListener('dblclick', handleElementDoubleClick, true);
       document.body.style.cursor = 'crosshair';
       
       return () => {
         document.removeEventListener('click', handleElementClick, true);
-        document.removeEventListener('dblclick', handleElementDoubleClick, true);
         document.body.style.cursor = '';
       };
     }
-  }, [isSelectMode, handleElementClick, handleElementDoubleClick]);
-  
-  // 🎯 LISTEN FOR IFRAME ELEMENT SELECTION (Oct 23, 2025)
-  useEffect(() => {
-    const cleanup = listenToIframe((message: IframeMessage) => {
-      if (message.type === 'ELEMENT_SELECTED') {
-        console.log('🎯 [VisualEditorWrapper] Received ELEMENT_SELECTED from iframe:', message.element);
-        
-        // Update local state
-        setSelectedElement({
-          tag: message.element.tagName,
-          id: message.element.id,
-          className: message.element.className,
-          innerHTML: message.element.textContent?.substring(0, 100),
-          xpath: message.element.xpath
-        });
-        
-        // 🔥 UPDATE CONTEXT - This is what Mr Blue needs!
-        if (visualEditorContext) {
-          console.log('🔥 [VisualEditorWrapper] Updating VisualEditorContext with iframe element');
-          visualEditorContext.setSelectedElement(message.element);
-        }
-        
-        toast({
-          title: '📄 Page Element Selected',
-          description: `<${message.element.tagName}> ${message.element.id ? `#${message.element.id}` : ''}`,
-          duration: 2000
-        });
-      }
-    });
-    
-    return cleanup;
-  }, [visualEditorContext, toast]);
-
-  // 🎯 BATCH 3: Wire manual text edits to context (Oct 26, 2025)
-  const handleSaveInlineText = (newText: string) => {
-    if (!editingElement || !selectedElement) return;
-    
-    const oldText = editingElement.textContent || '';
-    editingElement.textContent = newText;
-    
-    // 🎯 BATCH 3: Generate code diff and send to context
-    if (visualEditorContext?.setPendingCodeChanges) {
-      const currentPath = visualEditorContext.previewPath || '/';
-      const elementData = {
-        tagName: selectedElement.tag,
-        id: selectedElement.id,
-        className: selectedElement.className,
-        xpath: selectedElement.xpath,
-        computedStyles: {},
-        boundingBox: { top: 0, left: 0, width: 0, height: 0 },
-        attributes: {}
-      };
-      
-      const diff = generateTextChangeDiff(elementData, oldText, newText, currentPath);
-      
-      const newChange = {
-        id: `manual-${Date.now()}`,
-        taskId: 'manual-edit',
-        filePath: diff.filePath,
-        diff: diff.diff,
-        type: 'unified_diff' as const,
-        status: 'pending' as const,
-        timestamp: new Date()
-      };
-      
-      visualEditorContext.setPendingCodeChanges([
-        ...(visualEditorContext.pendingCodeChanges || []),
-        newChange
-      ]);
-      
-      console.log('✅ [BATCH 3] Text edit queued in context:', newChange);
-      
-      toast({
-        title: '✏️ Edit Queued',
-        description: 'Click SAVE to apply changes',
-        duration: 2000
-      });
-    }
-    
-    // Track change in Universal Save system
-    const change: Change = {
-      id: Date.now().toString(),
-      timestamp: new Date(),
-      elementSelector: selectedElement.xpath,
-      changeType: 'content',
-      before: { text: oldText },
-      after: { text: newText }
-    };
-    
-    setChanges(prev => [...prev, change]);
-    setEditingElement(null);
-  };
-
-  const handleCancelInlineEdit = () => {
-    setEditingElement(null);
-  };
-
-  const handleSaveComplete = () => {
-    setChanges([]);
-    toast({
-      title: "All Changes Saved",
-      description: "Your edits are now live!",
-      duration: 3000
-    });
-  };
-  
-  // 📚 TAB CHANGE HANDLER: Track tab switches in breadcrumb history
-  const handleTabChange = useCallback((newTab: EditorTab) => {
-    const tabLabels: Record<EditorTab, string> = {
-      inspector: 'Inspector',
-      chat: 'Mr Blue',
-      console: 'Console',
-      deploy: 'Deploy',
-      git: 'Git',
-      models: 'Models',
-      pages: 'Pages',
-      shell: 'Shell',
-      files: 'Files',
-      secrets: 'Secrets'
-    };
-    
-    navigationHistory.addTab(newTab, tabLabels[newTab]);
-    setActiveTab(newTab);
-  }, [navigationHistory]);
-  
-  // 📚 NAVIGATION HANDLER: Handle back/forward navigation from breadcrumbs
-  const handleNavigationFromBreadcrumbs = useCallback((entry: NavigationHistoryEntry) => {
-    console.log('📚 [NavigationHistory] Navigating to:', entry);
-    
-    if (entry.type === 'element' && entry.element) {
-      // Restore element selection
-      setSelectedElement({
-        tag: entry.element.tag,
-        id: entry.element.id,
-        className: entry.element.className,
-        xpath: entry.element.xpath,
-        innerHTML: entry.element.textPreview
-      });
-      
-      // Try to find and highlight the element
-      const xpath = entry.element.xpath;
-      try {
-        const result = document.evaluate(
-          xpath,
-          document,
-          null,
-          XPathResult.FIRST_ORDERED_NODE_TYPE,
-          null
-        );
-        const element = result.singleNodeValue as HTMLElement;
-        
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          element.click(); // Trigger selection
-        }
-      } catch (error) {
-        console.warn('Failed to locate element from xpath:', error);
-      }
-    } else if (entry.type === 'tab' && entry.tab) {
-      // Restore tab
-      setActiveTab(entry.tab.name);
-    } else if (entry.type === 'page' && entry.page) {
-      // Restore page (not implemented yet)
-      console.log('Page navigation not implemented yet');
-    }
-  }, []);
+  }, [isSelectMode, handleElementClick]);
 
   // AI Code Generation
   const handleGenerateCode = async (prompt: string) => {
@@ -694,183 +229,58 @@ export default function VisualEditorWrapper({ children }: { children: React.Reac
     <>
       {children}
       
-      {/* MB.MD: Inline Text Editor */}
-      {editingElement && (
-        <InlineTextEditor
-          element={editingElement}
-          onSave={handleSaveInlineText}
-          onCancel={handleCancelInlineEdit}
-        />
-      )}
-
       {isEditorActive && (
         <>
           {/* Overlay hint */}
           {isSelectMode && !selectedElement && (
-            <div className="fixed top-4 left-1/2 -translate-x-1/2 bg-purple-600 text-white px-6 py-3 rounded-lg shadow-lg z-40 animate-pulse">
-              <p className="text-sm font-medium">⌘+Click (Cmd+Click) any element to inspect it</p>
-              <p className="text-xs mt-1 opacity-80">Figma-style element selection • Double-click to edit text</p>
+            <div className="fixed top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg z-40 animate-pulse">
+              <p className="text-sm font-medium">Click any element to inspect it</p>
             </div>
           )}
 
           {/* Replit-Style Visual Editor with Tab System */}
           <div 
-            className="fixed right-0 top-0 h-screen w-[500px] bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col"
+            className="fixed right-0 top-0 h-screen w-[500px] bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 shadow-2xl z-50 flex flex-col"
             data-testid="visual-editor-sidebar"
           >
             {/* Header with Tab System */}
-            <div className="p-3 border-b border-gray-200">
+            <div className="p-3 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <span className="text-xl">✨</span>
                 </div>
-                <div className="flex-1">
-                  <h2 className="font-semibold text-gray-900">Visual Editor</h2>
-                  <p className="text-xs text-gray-500">AI-Powered Page Editor</p>
+                <div>
+                  <h2 className="font-semibold text-gray-900 dark:text-white">Visual Editor</h2>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">AI-Powered Page Editor</p>
                 </div>
               </div>
               
-              {/* 🔍 Inspector Mode Toggle (Oct 22, 2025) */}
-              <div className="flex gap-1 mb-3 bg-gray-100 rounded-lg p-1">
-                <button
-                  onClick={() => setInspectorMode('page')}
-                  className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                    inspectorMode === 'page'
-                      ? 'bg-purple-600 text-white shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                  data-testid="inspector-mode-page"
-                  title="Inspect page elements (purple outline)"
-                >
-                  📄 Page
-                </button>
-                <button
-                  onClick={() => setInspectorMode('sidebar')}
-                  className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                    inspectorMode === 'sidebar'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                  data-testid="inspector-mode-sidebar"
-                  title="Inspect sidebar elements (blue outline)"
-                >
-                  🔍 Sidebar
-                </button>
-              </div>
-              
-              {/* 📚 BREADCRUMB NAVIGATION */}
-              <VisualEditorBreadcrumbs
-                navigationHistory={navigationHistory}
-                onNavigate={handleNavigationFromBreadcrumbs}
-              />
-              
               <TabSystem
                 activeTab={activeTab}
-                onTabChange={handleTabChange}
+                onTabChange={setActiveTab}
                 onClose={handleClose}
               />
             </div>
 
             {/* Tab Content */}
-            <div className="flex-1 overflow-hidden">
-              {activeTab === 'inspector' && (
-                <InspectorPanel 
-                  selectedElement={visualEditorContext?.selectedElement ?? null}
-                  onStyleChange={(property, value) => {
-                    // TODO: Apply style mutation via iframe messaging
-                    console.log('Style change:', property, value);
-                  }}
-                  onTextChange={(newText) => {
-                    // ✅ STREAM 1 FIX: Wire to context for vibe coding queue (Oct 26, 2025)
-                    if (!visualEditorContext?.selectedElement) {
-                      toast({
-                        title: 'No Element Selected',
-                        description: 'Please select an element first',
-                        variant: 'destructive'
-                      });
-                      return;
-                    }
-                    
-                    const selectedEl = visualEditorContext.selectedElement;
-                    const oldText = selectedEl.textContent || '';
-                    const currentPath = visualEditorContext.previewPath || '/';
-                    
-                    // Skip if no actual change
-                    if (oldText === newText) {
-                      console.log('⚠️ [Inspector] Text unchanged, skipping');
-                      return;
-                    }
-                    
-                    console.log('✏️ [Inspector] Text changed:', { oldText, newText });
-                    
-                    // Generate diff using code generation lib
-                    const diff = generateTextChangeDiff(
-                      selectedEl,
-                      oldText,
-                      newText,
-                      currentPath
-                    );
-                    
-                    // Create change object
-                    const newChange = {
-                      id: `inspector-text-${Date.now()}`,
-                      taskId: 'inspector-text-edit',
-                      filePath: diff.filePath,
-                      diff: diff.diff,
-                      type: 'unified_diff' as const,
-                      status: 'pending' as const,
-                      timestamp: new Date()
-                    };
-                    
-                    // Add to context queue
-                    visualEditorContext.setPendingCodeChanges([
-                      ...(visualEditorContext.pendingCodeChanges || []),
-                      newChange
-                    ]);
-                    
-                    console.log('✅ [Inspector] Text edit queued:', newChange);
-                    
-                    toast({
-                      title: '✏️ Text Edit Queued',
-                      description: `Updating "${oldText.substring(0, 20)}" → "${newText.substring(0, 20)}" - Click SAVE to apply`,
-                      duration: 3000
-                    });
-                  }}
-                />
-              )}
-              {activeTab === 'chat' && (
-                <AITab 
-                  selectedElement={visualEditorContext?.selectedElement ? {
-                    tag: visualEditorContext.selectedElement.tagName,
-                    id: visualEditorContext.selectedElement.id,
-                    className: visualEditorContext.selectedElement.className,
-                    xpath: visualEditorContext.selectedElement.xpath,
-                    innerHTML: visualEditorContext.selectedElement.textContent,
-                  } : null}
-                  visualEditorContext={visualEditorContext ?? undefined}
-                  onGenerateCode={async (prompt: string) => {
-                    console.log('🤖 [VisualEditor] Generating code for prompt:', prompt);
-                    // TODO: Integrate with VibeGraph for code generation
-                    toast({
-                      title: 'AI Code Generation',
-                      description: 'Generating code from your prompt...',
-                    });
-                  }}
-                />
-              )}
+            <div className="flex-1 overflow-auto">
+              {activeTab === 'preview' && <PreviewTab currentPath={location} />}
               {activeTab === 'deploy' && <DeployTab />}
               {activeTab === 'git' && <GitTab />}
-              {activeTab === 'models' && <ModelMonitorTab />}
               {activeTab === 'pages' && <PagesTab />}
               {activeTab === 'shell' && <ShellTab />}
               {activeTab === 'files' && <FilesTab />}
-              {activeTab === 'console' && <ConsoleTab />}
-              {activeTab === 'secrets' && <SecretsTab />}
+              {activeTab === 'ai' && (
+                <AITab
+                  selectedElement={selectedElement}
+                  onGenerateCode={handleGenerateCode}
+                />
+              )}
             </div>
 
             {/* Footer */}
-            <div className="p-3 border-t border-gray-200">
-              <div className="flex items-center gap-2 text-xs text-gray-500">
+            <div className="p-3 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 AI-powered by OpenAI GPT-4o
               </div>

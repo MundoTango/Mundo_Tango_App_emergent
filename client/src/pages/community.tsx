@@ -3,15 +3,12 @@ import DashboardLayout from '@/layouts/DashboardLayout';
 import { Link } from 'wouter';
 import { Users, Calendar, MessageCircle, Sparkles, Heart, Globe, MapPin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { RecommendationWidget } from '@/components/recommendations/RecommendationWidget';
 
 export default function CommunityPage() {
-  const { t } = useTranslation();
-  
   return (
     <DashboardLayout>
       {/* Enhanced gradient background matching Moments page */}
-      <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50/60 via-yellow-50/40 to-orange-50/30 relative overflow-hidden">
         {/* Floating background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-turquoise-200/20 to-cyan-200/20 rounded-full blur-3xl"></div>
@@ -63,7 +60,7 @@ export default function CommunityPage() {
               </div>
             </Link>
 
-            {/* Mundo Tango ESA LIFE CEO - Removed duplicate community link since World Map already shows communities */}
+            {/* ESA LIFE CEO 56x21 - Removed duplicate community link since World Map already shows communities */}
 
             <Link href="/memories">
               <div className="group glassmorphic-card bg-white dark:bg-gray-900/70 dark:bg-gray-900/70 dark:bg-gray-900/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl border border-white/50 dark:border-gray-700/50 dark:border-gray-700/50 dark:border-gray-700/50 p-8 hover:scale-105 hover:shadow-2xl hover:shadow-turquoise-100/30 transition-all duration-300 cursor-pointer">
@@ -115,15 +112,6 @@ export default function CommunityPage() {
                 </div>
               </div>
             </Link>
-          </div>
-
-          {/* MB.MD TRACK 2 TASK 4: Recommended Groups Section */}
-          <div className="mb-12">
-            <RecommendationWidget 
-              context="groups" 
-              limit={6} 
-              className="shadow-2xl"
-            />
           </div>
 
           {/* Enhanced features section */}

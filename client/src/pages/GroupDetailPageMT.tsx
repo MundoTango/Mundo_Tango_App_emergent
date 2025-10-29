@@ -499,18 +499,32 @@ function GroupDetailPageMT() {
     enabled: !!user?.id && activeTab === 'community-hub',
   });
 
-  // MB.MD SIMULTANEOUS: Use default fetcher
-  const { data: membershipsData } = useQuery({
-    queryKey: ['/api/user/memberships'],
+  // User memberships and following
+  const { data: userMemberships = [] } = useQuery({
+    queryKey: ['/api/user/memberships', user?.id],
     enabled: !!user?.id,
+    queryFn: async () => {
+      const response = await fetch(`/api/user/memberships`, {
+        credentials: 'include',
+      });
+      if (!response.ok) return [];
+      const data = await response.json();
+      return data.data || [];
+    }
   });
-  const userMemberships = membershipsData?.data || [];
 
-  const { data: followingData } = useQuery({
-    queryKey: ['/api/user/following'],
+  const { data: userFollowing = [] } = useQuery({
+    queryKey: ['/api/user/following', user?.id],
     enabled: !!user?.id,
+    queryFn: async () => {
+      const response = await fetch(`/api/user/following`, {
+        credentials: 'include',
+      });
+      if (!response.ok) return [];
+      const data = await response.json();
+      return data.data || [];
+    }
   });
-  const userFollowing = followingData?.data || [];
 
   // Join group mutation
   const joinGroupMutation = useMutation({
@@ -1494,7 +1508,7 @@ function GroupDetailPageMT() {
     return [-34.6037, -58.3816]; // Default to Buenos Aires
   };
 
-  // Mundo Tango ESA LIFE CEO - Removed duplicate renderMapTab function
+  // ESA LIFE CEO 56x21 - Removed duplicate renderMapTab function
   // The CommunityToolbar in renderCommunityHub already provides map functionality
 
   // SEO meta tags (Layer 55: SEO Optimization)

@@ -1,4 +1,4 @@
-// Mundo Tango ESA LIFE CEO - Video Performance Optimization Hook
+// ESA LIFE CEO 56x21 - Video Performance Optimization Hook
 import { useEffect, useRef, useState, RefObject } from 'react';
 
 interface VideoOptimizationOptions {
@@ -30,7 +30,7 @@ export function useVideoOptimization(
     const video = videoRef.current;
     if (!video) return;
 
-    // Mundo Tango ESA LIFE CEO - Intersection Observer for lazy loading
+    // ESA LIFE CEO 56x21 - Intersection Observer for lazy loading
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -61,7 +61,7 @@ export function useVideoOptimization(
 
     observer.observe(video);
 
-    // Mundo Tango ESA LIFE CEO - Video event handlers
+    // ESA LIFE CEO 56x21 - Video event handlers
     const handleProgress = () => {
       if (video.buffered.length > 0) {
         const bufferedEnd = video.buffered.end(video.buffered.length - 1);
@@ -112,7 +112,7 @@ export function useVideoOptimization(
   };
 }
 
-// Mundo Tango ESA LIFE CEO - Video Quality Optimization
+// ESA LIFE CEO 56x21 - Video Quality Optimization
 export function getOptimalVideoQuality(connection?: any): string {
   if (!connection) {
     connection = (navigator as any).connection || 
@@ -138,7 +138,7 @@ export function getOptimalVideoQuality(connection?: any): string {
   }
 }
 
-// Mundo Tango ESA LIFE CEO - Adaptive Bitrate Streaming Helper
+// ESA LIFE CEO 56x21 - Adaptive Bitrate Streaming Helper
 export function createAdaptiveVideoSource(baseUrl: string): string {
   const quality = getOptimalVideoQuality();
   

@@ -1,10 +1,6 @@
-// import countriesData from '../../../data/location/countries.json';
-// import statesData from '../../../data/location/states.json';
-// import citiesData from '../../../data/location/cities.json';
-// TODO: Create data/location/*.json files or use API-based service
-const countriesData: any[] = [];
-const statesData: any[] = [];
-const citiesData: any[] = [];
+import countriesData from '../../../data/location/countries.json';
+import statesData from '../../../data/location/states.json';
+import citiesData from '../../../data/location/cities.json';
 
 export interface Country {
   id: number;

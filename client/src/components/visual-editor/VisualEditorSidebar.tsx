@@ -77,19 +77,19 @@ export default function VisualEditorSidebar({
 
   return (
     <div 
-      className="fixed right-0 top-0 h-screen w-96 bg-white border-l border-cyan-200 shadow-2xl z-50 flex flex-col"
+      className="fixed right-0 top-0 h-screen w-96 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 shadow-2xl z-50 flex flex-col"
       data-testid="visual-editor-sidebar"
     >
-      {/* Header - MT Ocean Theme */}
-      <div className="p-4 border-b border-cyan-200 bg-gradient-to-r from-cyan-50 to-blue-50">
+      {/* Header */}
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h2 className="font-semibold text-gray-900">Visual Editor</h2>
-              <p className="text-xs text-cyan-600">AI-Powered Page Editor</p>
+              <h2 className="font-semibold text-gray-900 dark:text-white">Visual Editor</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">AI-Powered Page Editor</p>
             </div>
           </div>
           <Button
@@ -102,14 +102,14 @@ export default function VisualEditorSidebar({
           </Button>
         </div>
 
-        {/* Tabs - MT Ocean Theme */}
-        <div className="flex gap-1 mt-4 bg-cyan-50 rounded-lg p-1">
+        {/* Tabs */}
+        <div className="flex gap-1 mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
           <button
             onClick={() => setActiveTab('inspect')}
             className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
               activeTab === 'inspect'
-                ? 'bg-white text-cyan-600 shadow-sm'
-                : 'text-gray-600 hover:text-cyan-600'
+                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
             data-testid="tab-inspect"
           >
@@ -120,8 +120,8 @@ export default function VisualEditorSidebar({
             onClick={() => setActiveTab('generate')}
             className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
               activeTab === 'generate'
-                ? 'bg-white text-cyan-600 shadow-sm'
-                : 'text-gray-600 hover:text-cyan-600'
+                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
             data-testid="tab-generate"
           >
@@ -132,8 +132,8 @@ export default function VisualEditorSidebar({
             onClick={() => setActiveTab('preview')}
             className={`flex-1 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
               activeTab === 'preview'
-                ? 'bg-white text-cyan-600 shadow-sm'
-                : 'text-gray-600 hover:text-cyan-600'
+                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
             data-testid="tab-preview"
           >
@@ -150,12 +150,12 @@ export default function VisualEditorSidebar({
           {activeTab === 'inspect' && (
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-2">Selected Element</h3>
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Selected Element</h3>
                 {selectedElement ? (
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <FileCode className="w-4 h-4 text-cyan-500" />
-                      <code className="text-sm font-mono text-gray-700">
+                      <FileCode className="w-4 h-4 text-blue-500" />
+                      <code className="text-sm font-mono text-gray-700 dark:text-gray-300">
                         {selectedElement.tag}
                       </code>
                       {selectedElement.id && (
@@ -165,27 +165,27 @@ export default function VisualEditorSidebar({
                       )}
                     </div>
                     {selectedElement.className && (
-                      <div className="text-xs text-gray-600">
+                      <div className="text-xs text-gray-600 dark:text-gray-400">
                         <span className="font-medium">Classes:</span>
                         <div className="mt-1 flex flex-wrap gap-1">
                           {selectedElement.className.split(' ').map((cls, i) => (
-                            <Badge key={i} variant="secondary" className="text-xs bg-cyan-50 text-cyan-700">
+                            <Badge key={i} variant="secondary" className="text-xs">
                               .{cls}
                             </Badge>
                           ))}
                         </div>
                       </div>
                     )}
-                    <div className="mt-2 p-2 bg-cyan-50 rounded border border-cyan-200">
-                      <p className="text-xs font-medium text-cyan-600 mb-1">XPath</p>
-                      <code className="text-xs font-mono text-gray-700 break-all">
+                    <div className="mt-2 p-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                      <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">XPath</p>
+                      <code className="text-xs font-mono text-gray-700 dark:text-gray-300 break-all">
                         {selectedElement.xpath}
                       </code>
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center py-8 text-gray-500">
-                    <Layers className="w-12 h-12 mx-auto mb-2 opacity-50 text-cyan-300" />
+                  <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                    <Layers className="w-12 h-12 mx-auto mb-2 opacity-50" />
                     <p className="text-sm">Click any element on the page to inspect it</p>
                   </div>
                 )}
@@ -197,14 +197,14 @@ export default function VisualEditorSidebar({
           {activeTab === 'generate' && (
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-2">AI Code Generation</h3>
-                <p className="text-xs text-gray-600 mb-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">AI Code Generation</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
                   Describe what you want to change and AI will generate the code
                 </p>
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-700 mb-1 block">
+                <label className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 block">
                   What would you like to change?
                 </label>
                 <Textarea
@@ -246,7 +246,7 @@ export default function VisualEditorSidebar({
               <Separator />
 
               <div>
-                <h4 className="text-xs font-semibold text-gray-900 mb-2">Quick Actions</h4>
+                <h4 className="text-xs font-semibold text-gray-900 dark:text-white mb-2">Quick Actions</h4>
                 <div className="grid grid-cols-2 gap-2">
                   <Button
                     variant="outline"
@@ -275,14 +275,14 @@ export default function VisualEditorSidebar({
           {activeTab === 'preview' && (
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-2">Deploy Changes</h3>
-                <p className="text-xs text-gray-600 mb-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Deploy Changes</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
                   Preview your changes on a staging URL before deploying to production
                 </p>
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-700 mb-1 block">
+                <label className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1 block">
                   Branch Name (optional)
                 </label>
                 <Input
@@ -314,7 +314,7 @@ export default function VisualEditorSidebar({
 
               <Separator />
 
-              <div className="text-xs text-gray-600">
+              <div className="text-xs text-gray-500 dark:text-gray-400">
                 <p className="font-medium mb-1">Git Workflow:</p>
                 <ol className="list-decimal list-inside space-y-1">
                   <li>Creates new branch</li>
@@ -328,9 +328,9 @@ export default function VisualEditorSidebar({
         </div>
       </ScrollArea>
 
-      {/* Footer - MT Ocean Theme */}
-      <div className="p-4 border-t border-cyan-200 bg-gradient-to-r from-cyan-50 to-blue-50">
-        <div className="flex items-center gap-2 text-xs text-cyan-600">
+      {/* Footer */}
+      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           AI-powered by OpenAI GPT-4o
         </div>

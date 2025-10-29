@@ -53,9 +53,19 @@ export default function TangoStories() {
   });
 
   // Fetch stories
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: storiesData, isLoading } = useQuery({
-    queryKey: ['/api/stories', { search: searchQuery, tag: selectedTag }],
+    queryKey: ['/api/stories', searchQuery, selectedTag],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (searchQuery) params.append('search', searchQuery);
+      if (selectedTag) params.append('tag', selectedTag);
+      
+      const response = await fetch(`/api/stories?${params}`, {
+        credentials: 'include'
+      });
+      if (!response.ok) throw new Error('Failed to fetch stories');
+      return response.json();
+    }
   });
 
   const stories = storiesData?.data || [];

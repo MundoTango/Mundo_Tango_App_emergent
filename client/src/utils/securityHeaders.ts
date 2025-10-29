@@ -7,11 +7,11 @@ export const securityHeaders = {
   // Content Security Policy
   'Content-Security-Policy': [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://cdn.jsdelivr.net",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: blob: https: http:",
-    "connect-src 'self' https://api.openstreetmap.org https://nominatim.openstreetmap.org wss: ws:",
+    "connect-src 'self' https://api.openstreetmap.org https://nominatim.openstreetmap.org https://maps.googleapis.com wss: ws:",
     "media-src 'self' blob:",
     "object-src 'none'",
     "frame-ancestors 'none'",

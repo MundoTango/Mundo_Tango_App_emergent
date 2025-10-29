@@ -1,5 +1,5 @@
 /**
- * Mundo Tango ESA LIFE CEO - Journey R2: Browse Recommendations
+ * ESA LIFE CEO 61x21 - Journey R2: Browse Recommendations
  * Layer 8 (Client Framework) + Layer 28 (Recommendations/Marketplace)
  * 
  * Dedicated recommendations browse page with comprehensive filtering

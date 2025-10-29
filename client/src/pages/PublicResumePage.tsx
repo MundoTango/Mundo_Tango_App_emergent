@@ -31,22 +31,28 @@ export default function PublicResumePage() {
   const { t } = useTranslation();
   const { username } = useParams();
 
-  // MB.MD SIMULTANEOUS: Keep custom queryFn for 404 handling + logging
   const { data: resumeData, isLoading, error } = useQuery({
     queryKey: ['/api/public-resume', username],
     queryFn: async () => {
       console.log('🎯 Fetching public resume for username:', username);
       const response = await fetch(`/api/public-resume/${username}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      
       console.log('📡 Public Resume API response status:', response.status);
+      
       if (!response.ok) {
-        if (response.status === 404) throw new Error('User not found');
+        if (response.status === 404) {
+          throw new Error('User not found');
+        }
         const errorText = await response.text();
         console.error('❌ Public Resume API error:', errorText);
         throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
+      
       const data = await response.json();
       console.log('📋 Public resume data received:', data);
       return data;

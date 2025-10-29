@@ -52,8 +52,7 @@ export default function AgentLearnings() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
-      <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 space-y-6">
       <MetaTags
         title="Agent Learning Dashboard"
         description="Monitor AI agent learning patterns, captured knowledge, and collaborative intelligence across the ESA Framework"
@@ -208,7 +207,6 @@ export default function AgentLearnings() {
           </div>
         )}
       </div>
-    </div>
     </div>
   );
 }

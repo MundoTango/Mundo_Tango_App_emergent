@@ -87,8 +87,7 @@ export default function DeploymentConfig() {
   const currentStatus = status?.data || mockStatus;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
-      <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 space-y-6">
       <MetaTags
         title="Deployment Configuration"
         description="Configure and manage production deployment settings for the platform"
@@ -272,7 +271,6 @@ export default function DeploymentConfig() {
           </Button>
         </CardContent>
       </Card>
-      </div>
     </div>
   );
 }

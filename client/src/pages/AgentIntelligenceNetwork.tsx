@@ -74,29 +74,52 @@ export default function AgentIntelligenceNetwork() {
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedTab, setSelectedTab] = useState("overview");
 
-  // MB.MD SIMULTANEOUS: All queries use default fetcher
   const { data: stats, refetch: refetchStats } = useQuery<AgentStats>({
     queryKey: ['/api/agent-intelligence/stats'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/stats');
+      return res.json();
+    }
   });
 
   const { data: activities, refetch: refetchActivities } = useQuery<{activities: AgentActivity[], count: number}>({
-    queryKey: ['/api/agent-intelligence/activities?limit=10'],
+    queryKey: ['/api/agent-intelligence/activities'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/activities?limit=10');
+      return res.json();
+    }
   });
 
   const { data: learnings, refetch: refetchLearnings } = useQuery<{learnings: any[], count: number}>({
-    queryKey: ['/api/agent-intelligence/learnings/recent?limit=10'],
+    queryKey: ['/api/agent-intelligence/learnings/recent'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/learnings/recent?limit=10');
+      return res.json();
+    }
   });
 
   const { data: testResults, refetch: refetchTests } = useQuery<{tests: AgentTestResult[], count: number}>({
-    queryKey: ['/api/agent-intelligence/tests/recent?limit=10'],
+    queryKey: ['/api/agent-intelligence/tests/recent'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/tests/recent?limit=10');
+      return res.json();
+    }
   });
 
   const { data: messages, refetch: refetchMessages } = useQuery<{messages: any[], count: number}>({
-    queryKey: ['/api/agent-intelligence/messages/recent?limit=10'],
+    queryKey: ['/api/agent-intelligence/messages/recent'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/messages/recent?limit=10');
+      return res.json();
+    }
   });
 
   const { data: collaborations, refetch: refetchCollaborations } = useQuery<{collaborations: AgentCollaboration[], count: number}>({
-    queryKey: ['/api/agent-intelligence/collaborations/recent?limit=10'],
+    queryKey: ['/api/agent-intelligence/collaborations/recent'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/collaborations/recent?limit=10');
+      return res.json();
+    }
   });
 
   useEffect(() => {
@@ -121,7 +144,7 @@ export default function AgentIntelligenceNetwork() {
   const systemHealth = stats?.stats?.systemHealth || 'unknown';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -656,9 +679,12 @@ function EsaRegistryTab() {
 // ============================================================================
 
 function AutoFixTab() {
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: autoFixes } = useQuery({
-    queryKey: ['/api/agent-intelligence/auto-fixes/recent', { limit: 20 }],
+    queryKey: ['/api/agent-intelligence/auto-fixes/recent'],
+    queryFn: async () => {
+      const res = await fetch('/api/agent-intelligence/auto-fixes/recent?limit=20');
+      return res.json();
+    }
   });
 
   const successRate = autoFixes?.successRate || 0;

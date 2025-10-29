@@ -64,60 +64,66 @@ const AnalyticsDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Fetch analytics data - Mock data for demo
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
-  const analyticsData = {
-    overview: {
-      totalUsers: 15234,
-      activeUsers: 3421,
-      totalEvents: 892,
-      totalPosts: 45678,
-      avgSessionDuration: 12.5,
-      bounceRate: 32.4,
-      newUsers: 234,
-      returningUsers: 3187
-    },
-    userGrowth: [
-      { date: 'Mon', users: 1200, newUsers: 150 },
-      { date: 'Tue', users: 1350, newUsers: 180 },
-      { date: 'Wed', users: 1420, newUsers: 120 },
-      { date: 'Thu', users: 1580, newUsers: 200 },
-      { date: 'Fri', users: 1650, newUsers: 170 },
-      { date: 'Sat', users: 1820, newUsers: 220 },
-      { date: 'Sun', users: 1900, newUsers: 190 }
-    ],
-    contentEngagement: [
-      { type: 'Posts', views: 23456, likes: 12345, comments: 3456, shares: 890 },
-      { type: 'Events', views: 18234, likes: 8456, comments: 2134, shares: 567 },
-      { type: 'Stories', views: 15678, likes: 7234, comments: 1890, shares: 456 },
-      { type: 'Groups', views: 12345, likes: 5678, comments: 1234, shares: 345 }
-    ],
-    cityDistribution: [
-      { city: 'Buenos Aires', users: 4532, percentage: 29.8 },
-      { city: 'Paris', users: 2134, percentage: 14.0 },
-      { city: 'Berlin', users: 1876, percentage: 12.3 },
-      { city: 'New York', users: 1567, percentage: 10.3 },
-      { city: 'Tokyo', users: 1234, percentage: 8.1 },
-      { city: 'Others', users: 3891, percentage: 25.5 }
-    ],
-    deviceStats: [
-      { device: 'Mobile', users: 9140, percentage: 60 },
-      { device: 'Desktop', users: 4571, percentage: 30 },
-      { device: 'Tablet', users: 1523, percentage: 10 }
-    ],
-    roleDistribution: [
-      { role: 'Dancer', count: 8234 },
-      { role: 'Teacher', count: 2345 },
-      { role: 'Organizer', count: 1567 },
-      { role: 'DJ', count: 890 },
-      { role: 'Musician', count: 567 },
-      { role: 'Other', count: 1631 }
-    ]
-  };
+  // Fetch analytics data
+  const { data: analyticsData, refetch } = useQuery({
+    queryKey: ['/api/analytics/dashboard', timeRange],
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    queryFn: async () => {
+      // Mock data for now - would be replaced with actual API call
+      return {
+        overview: {
+          totalUsers: 15234,
+          activeUsers: 3421,
+          totalEvents: 892,
+          totalPosts: 45678,
+          avgSessionDuration: 12.5,
+          bounceRate: 32.4,
+          newUsers: 234,
+          returningUsers: 3187
+        },
+        userGrowth: [
+          { date: 'Mon', users: 1200, newUsers: 150 },
+          { date: 'Tue', users: 1350, newUsers: 180 },
+          { date: 'Wed', users: 1420, newUsers: 120 },
+          { date: 'Thu', users: 1580, newUsers: 200 },
+          { date: 'Fri', users: 1650, newUsers: 170 },
+          { date: 'Sat', users: 1820, newUsers: 220 },
+          { date: 'Sun', users: 1900, newUsers: 190 }
+        ],
+        contentEngagement: [
+          { type: 'Posts', views: 23456, likes: 12345, comments: 3456, shares: 890 },
+          { type: 'Events', views: 18234, likes: 8456, comments: 2134, shares: 567 },
+          { type: 'Stories', views: 15678, likes: 7234, comments: 1890, shares: 456 },
+          { type: 'Groups', views: 12345, likes: 5678, comments: 1234, shares: 345 }
+        ],
+        cityDistribution: [
+          { city: 'Buenos Aires', users: 4532, percentage: 29.8 },
+          { city: 'Paris', users: 2134, percentage: 14.0 },
+          { city: 'Berlin', users: 1876, percentage: 12.3 },
+          { city: 'New York', users: 1567, percentage: 10.3 },
+          { city: 'Tokyo', users: 1234, percentage: 8.1 },
+          { city: 'Others', users: 3891, percentage: 25.5 }
+        ],
+        deviceStats: [
+          { device: 'Mobile', users: 9140, percentage: 60 },
+          { device: 'Desktop', users: 4571, percentage: 30 },
+          { device: 'Tablet', users: 1523, percentage: 10 }
+        ],
+        roleDistribution: [
+          { role: 'Dancer', count: 8234 },
+          { role: 'Teacher', count: 2345 },
+          { role: 'Organizer', count: 1567 },
+          { role: 'DJ', count: 890 },
+          { role: 'Musician', count: 567 },
+          { role: 'Other', count: 1631 }
+        ]
+      };
+    }
+  });
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    // In production, would refetch analytics data
+    await refetch();
     setTimeout(() => setIsRefreshing(false), 1000);
   };
 

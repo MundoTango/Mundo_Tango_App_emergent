@@ -26,10 +26,17 @@ interface UpcomingVisitor {
 export default function VisitorAlerts({ cityId }: VisitorAlertsProps) {
   const [, setLocation] = useLocation();
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch upcoming visitors for this city
   const { data: visitors = [], isLoading } = useQuery({
-    queryKey: [`/api/cities/${cityId}/upcoming-visitors`],
+    queryKey: ['/api/cities/upcoming-visitors', cityId],
+    queryFn: async () => {
+      const response = await fetch(`/api/cities/${cityId}/upcoming-visitors`, {
+        credentials: 'include',
+      });
+      if (!response.ok) return [];
+      const data = await response.json();
+      return data.data || [];
+    },
     refetchInterval: 60000, // Refresh every minute
   });
 

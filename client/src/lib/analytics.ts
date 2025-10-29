@@ -61,7 +61,7 @@ export const analytics = {
   userProfileUpdate: () => trackEvent('Profile Update'),
 
   // Content events
-  postCreate: (type?: string) => trackEvent('Post Create', type ? { type } : undefined),
+  postCreate: (type?: string) => trackEvent('Post Create', { type }),
   postLike: () => trackEvent('Post Like'),
   postComment: () => trackEvent('Post Comment'),
   postShare: () => trackEvent('Post Share'),

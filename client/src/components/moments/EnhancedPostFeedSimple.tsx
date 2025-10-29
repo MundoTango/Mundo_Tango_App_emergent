@@ -1,5 +1,5 @@
 /**
- * Mundo Tango ESA LIFE CEO - Enhanced Post Feed with Memory Filters Integration
+ * ESA LIFE CEO 61x21 - Enhanced Post Feed with Memory Filters Integration
  * Simplified version that works with the new MemoryFilters component
  */
 
@@ -81,17 +81,54 @@ const EnhancedPostFeed = React.memo(({ filters, onEdit }: EnhancedPostFeedProps)
   const [shareModalPost, setShareModalPost] = useState<Post | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // Mundo Tango ESA LIFE CEO - Fetch posts with filters applied (FIXED: was using /api/memories/feed)
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
+  // ESA LIFE CEO 61x21 - Fetch posts with filters applied (FIXED: was using /api/memories/feed)
   const { data: posts, isLoading } = useQuery({
-    queryKey: ['/api/posts/feed', {
-      filter: filters?.filterType && filters.filterType !== 'all' ? filters.filterType : undefined,
-      tags: filters?.tags && filters.tags.length > 0 ? filters.tags.join(',') : undefined,
-      visibility: filters?.visibility && filters.visibility !== 'all' ? filters.visibility : undefined,
-      lat: filters?.location?.lat,
-      lng: filters?.location?.lng,
-      radius: filters?.location?.radius
-    }],
+    queryKey: ['/api/posts/feed', filters?.filterType, filters?.tags, filters?.visibility, filters?.location],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      
+      // Apply filter type
+      if (filters?.filterType && filters.filterType !== 'all') {
+        params.append('filter', filters.filterType);
+      }
+      
+      // Apply tags
+      if (filters?.tags && filters.tags.length > 0) {
+        params.append('tags', filters.tags.join(','));
+      }
+      
+      // Apply visibility
+      if (filters?.visibility && filters.visibility !== 'all') {
+        params.append('visibility', filters.visibility);
+      }
+      
+      // Apply location for nearby filter
+      if (filters?.location) {
+        params.append('lat', filters.location.lat.toString());
+        params.append('lng', filters.location.lng.toString());
+        params.append('radius', filters.location.radius.toString());
+      }
+      
+      const response = await fetch(`/api/posts/feed?${params.toString()}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'  // CRITICAL: Include cookies for authentication
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch posts feed');
+      }
+      
+      const data = await response.json();
+      console.log('📊 Fetched posts with filters:', { filters, count: data.data?.length });
+      
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to fetch posts');
+      }
+      
+      return data.data || [];
+    },
     staleTime: 30000, // 30 seconds
     gcTime: 5 * 60 * 1000, // 5 minutes
   });

@@ -1,10 +1,8 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { User } from "@shared/schema";
-import { identifyUser, resetPostHog } from "@/lib/posthog";
 
 interface AuthContextType {
   user: User | null;
-  isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (userData: any) => Promise<void>;
   logout: () => void;
@@ -48,46 +46,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (token) {
         await validateToken(token);
       } else {
-        // DEV AUTO-LOGIN: If no user and VITE_DEV_AUTO_LOGIN=true, create mock dev user
-        if (import.meta.env.VITE_DEV_AUTO_LOGIN === 'true') {
-          const devUser = localStorage.getItem('dev_user');
-          if (devUser) {
-            const userData = JSON.parse(devUser);
-            setUser(userData);
-            console.log('🔧 DEV AUTO-LOGIN: Mock user loaded from localStorage', userData);
-          } else {
-            // Create stable mock dev user
-            const mockDevUser = {
-              id: 999,
-              replitUserId: 'dev-user-999',
-              email: 'dev@mundotango.local',
-              displayName: 'Dev User',
-              bio: 'Development test user',
-              city: 'Buenos Aires',
-              countryCode: 'AR',
-              isAdmin: true,
-              isSuperAdmin: true,
-              customerJourneyState: 'J5_COMPLETE' as const,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString()
-            };
-            localStorage.setItem('dev_user', JSON.stringify(mockDevUser));
-            setUser(mockDevUser as any);
-            console.log('🔧 DEV AUTO-LOGIN: Mock dev user created', mockDevUser);
-          }
-        }
         setIsLoading(false);
       }
     } catch (error) {
       console.error('Authentication check failed:', error);
-      // DEV AUTO-LOGIN fallback on error
-      if (import.meta.env.VITE_DEV_AUTO_LOGIN === 'true') {
-        const devUser = localStorage.getItem('dev_user');
-        if (devUser) {
-          setUser(JSON.parse(devUser));
-          console.log('🔧 DEV AUTO-LOGIN: Fallback to mock user after error');
-        }
-      }
       setIsLoading(false);
     }
   };
@@ -135,11 +97,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await response.json();
     localStorage.setItem('auth_token', data.data.api_token);
     setUser(data.data.user);
-    
-    // Identify user in PostHog
-    if (data.data.user) {
-      identifyUser(data.data.user);
-    }
   };
 
   const register = async (userData: any) => {
@@ -159,25 +116,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data = await response.json();
     localStorage.setItem('auth_token', data.data.api_token);
     setUser(data.data.user);
-    
-    // Identify user in PostHog
-    if (data.data.user) {
-      identifyUser(data.data.user);
-    }
   };
 
   const logout = () => {
     localStorage.removeItem('auth_token');
     setUser(null);
-    
-    // Reset PostHog analytics
-    resetPostHog();
   };
 
-  const isAuthenticated = user !== null;
-
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, register, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

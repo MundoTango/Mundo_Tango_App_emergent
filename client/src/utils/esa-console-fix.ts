@@ -1,4 +1,4 @@
-// Mundo Tango ESA LIFE CEO - Console cleanup utility
+// ESA LIFE CEO 56x21 - Console cleanup utility
 // Filters out noise from browser console for cleaner debugging
 
 export class ESAConsoleFix {

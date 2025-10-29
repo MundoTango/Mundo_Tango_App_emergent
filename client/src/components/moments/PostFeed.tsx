@@ -308,25 +308,46 @@ const PostFeed = memo(({
   console.log('🔍 [PostFeed] BEFORE useQuery - propsPosts:', propsPosts, 'type:', typeof propsPosts, 'isArray:', Array.isArray(propsPosts));
 
   // ESA Framework: Fetch posts with resilient query
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts with custom key structure
   const { data: fetchedResponse, isLoading, error, isFetching } = useQuery({
     queryKey: getQueryKey(),
     enabled: !propsPosts || (Array.isArray(propsPosts) && propsPosts.length === 0), // Fetch when no posts prop provided (smart mode)
-    select: (data: any) => {
-      console.log('✅ [PostFeed] Received data:', { 
-        postsCount: (data.data || data.posts || []).length,
-        hasData: !!data.data,
-        hasPosts: !!data.posts,
-        dataKeys: Object.keys(data),
-        rawData: data
-      });
-      
-      // Handle different response formats
-      // Groups API returns: { success: true, data: [...] }
-      // Feed API returns: { posts: [...], hasMore, page, total }
-      const posts = data.data || data.posts || [];
-      console.log('📊 [PostFeed] Returning', posts.length, 'posts, hasMore:', posts.length === 20);
-      return { posts, hasMore: posts.length === 20 };
+    queryFn: async () => {
+      console.log('🚀 [PostFeed] Query starting! propsPosts:', propsPosts, 'enabled check passed');
+      try {
+        const url = buildFetchUrl();
+        console.log('🌐 [PostFeed] Fetching posts from:', url);
+        const response = await fetch(url, {
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include'
+        });
+
+        console.log('📡 [PostFeed] Response status:', response.status, response.ok);
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('❌ [PostFeed] Fetch failed:', response.status, response.statusText, errorText);
+          throw new Error(`Failed to fetch posts: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('✅ [PostFeed] Received data:', { 
+          postsCount: (data.data || data.posts || []).length,
+          hasData: !!data.data,
+          hasPosts: !!data.posts,
+          dataKeys: Object.keys(data),
+          rawData: data
+        });
+        
+        // Handle different response formats
+        // Groups API returns: { success: true, data: [...] }
+        // Feed API returns: { posts: [...], hasMore, page, total }
+        const posts = data.data || data.posts || [];
+        console.log('📊 [PostFeed] Returning', posts.length, 'posts, hasMore:', posts.length === 20);
+        return { posts, hasMore: posts.length === 20 };
+      } catch (err) {
+        console.error('💥 [PostFeed] Query function error:', err);
+        throw err;
+      }
     },
     staleTime: 30000,
     gcTime: 5 * 60 * 1000,

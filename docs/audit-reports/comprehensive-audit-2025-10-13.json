@@ -1,0 +1,366 @@
+{
+  "timestamp": "2025-10-13T18:06:41.651Z",
+  "totalPages": 107,
+  "overallHealthScore": 47,
+  "layers": [
+    {
+      "layer": 1,
+      "name": "Accessibility",
+      "status": "fail",
+      "score": 25,
+      "issues": [
+        {
+          "file": "client/src/pages/timeline-minimal.tsx",
+          "message": "Missing ARIA attributes"
+        },
+        {
+          "file": "client/src/pages/timeline-debug.tsx",
+          "message": "Missing ARIA attributes"
+        },
+        {
+          "file": "client/src/pages/teacher.tsx",
+          "message": "Missing ARIA attributes"
+        },
+        {
+          "file": "client/src/pages/tango-communities.tsx",
+          "message": "Missing ARIA attributes"
+        },
+        {
+          "file": "client/src/pages/search.tsx",
+          "message": "Missing ARIA attributes"
+        }
+      ],
+      "summary": "5/20 pages have ARIA attributes"
+    },
+    {
+      "layer": 2,
+      "name": "Performance",
+      "status": "warning",
+      "score": 75,
+      "issues": [
+        {
+          "type": "bundle-size",
+          "deps": [
+            "lodash",
+            "@mui/material"
+          ]
+        }
+      ],
+      "summary": "Bundle optimization: 2 heavy dependencies"
+    },
+    {
+      "layer": 3,
+      "name": "Security",
+      "status": "pass",
+      "score": 95,
+      "issues": [],
+      "summary": "Security checks: CSRF=true, Helmet=true"
+    },
+    {
+      "layer": 4,
+      "name": "Translation Coverage",
+      "status": "fail",
+      "score": -79,
+      "issues": [
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 617,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "Excellent"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 129,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "System Health"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 647,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "View and manage user accounts"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 660,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "Monitor GDPR and security"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 685,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "TTfiles Demo"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 800,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "Automated Monitoring Active"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 816,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "Recent Audit History"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 847,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "Overall Compliance Score"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 869,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "GDPR Compliance"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 875,
+          "issue": "Hardcoded text in JSX",
+          "hardcodedText": "SOC 2 Type II"
+        }
+      ],
+      "summary": "18/107 pages translated"
+    },
+    {
+      "layer": 5,
+      "name": "Dark Mode",
+      "status": "fail",
+      "score": 4,
+      "issues": [
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 555,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<Users className=\"w-4 h-4 sm:w-5 sm:h-5 text-white\" />"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 575,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<Activity className=\"w-4 h-4 sm:w-5 sm:h-5 text-white\" />"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 595,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<Globe className=\"w-4 h-4 sm:w-5 sm:h-5 text-white\" />"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 615,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<Zap className=\"w-4 h-4 sm:w-5 sm:h-5 text-white\" />"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 644,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<Users className=\"w-6 h-6 text-white\" />"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 657,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<Shield className=\"w-6 h-6 text-white\" />"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 670,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<Activity className=\"w-6 h-6 text-white\" />"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 682,
+          "issue": "Color class without dark mode variant: bg-white",
+          "context": "<div className=\"p-3 bg-white/20 backdrop-blur-sm rounded-xl "
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 683,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<Code className=\"w-6 h-6 text-white\" />"
+        },
+        {
+          "file": "/client/src/pages/AdminCenter.tsx",
+          "line": 685,
+          "issue": "Color class without dark mode variant: text-white",
+          "context": "<h3 className=\"font-semibold text-white mb-1\">TTfiles Demo</"
+        }
+      ],
+      "summary": "4/107 pages support dark mode"
+    },
+    {
+      "layer": 6,
+      "name": "Mobile Responsiveness",
+      "status": "warning",
+      "score": 67,
+      "issues": [
+        {
+          "file": "client/src/pages/timeline-minimal.tsx",
+          "message": "No responsive breakpoints"
+        },
+        {
+          "file": "client/src/pages/timeline-debug.tsx",
+          "message": "No responsive breakpoints"
+        },
+        {
+          "file": "client/src/pages/search.tsx",
+          "message": "No responsive breakpoints"
+        },
+        {
+          "file": "client/src/pages/not-found.tsx",
+          "message": "No responsive breakpoints"
+        },
+        {
+          "file": "client/src/pages/invitations.tsx",
+          "message": "No responsive breakpoints"
+        }
+      ],
+      "summary": "10/15 pages are responsive"
+    },
+    {
+      "layer": 7,
+      "name": "Browser Compatibility",
+      "status": "pass",
+      "score": 95,
+      "issues": [],
+      "summary": "Modern browsers supported"
+    },
+    {
+      "layer": 8,
+      "name": "Visual Regression",
+      "status": "pass",
+      "score": 90,
+      "issues": [],
+      "summary": "Baseline established"
+    },
+    {
+      "layer": 9,
+      "name": "SEO & Meta Tags",
+      "status": "fail",
+      "score": 0,
+      "issues": [
+        {
+          "file": "client/src/pages/timeline-minimal.tsx",
+          "message": "Missing SEO tags"
+        },
+        {
+          "file": "client/src/pages/timeline-debug.tsx",
+          "message": "Missing SEO tags"
+        },
+        {
+          "file": "client/src/pages/teacher.tsx",
+          "message": "Missing SEO tags"
+        },
+        {
+          "file": "client/src/pages/tango-communities.tsx",
+          "message": "Missing SEO tags"
+        },
+        {
+          "file": "client/src/pages/search.tsx",
+          "message": "Missing SEO tags"
+        }
+      ],
+      "summary": "0/15 pages have SEO tags"
+    },
+    {
+      "layer": 10,
+      "name": "E2E Critical Flows",
+      "status": "pass",
+      "score": 85,
+      "issues": [],
+      "summary": "6 critical flows validated"
+    }
+  ],
+  "prioritizedIssues": [
+    {
+      "priority": "critical",
+      "layer": 1,
+      "category": "Accessibility",
+      "description": "5/20 pages have ARIA attributes",
+      "remediation": "Add ARIA labels, ensure keyboard navigation, fix color contrast"
+    },
+    {
+      "priority": "high",
+      "layer": 2,
+      "category": "Performance",
+      "description": "Bundle optimization: 2 heavy dependencies",
+      "remediation": "Optimize performance: reduce bundle size, lazy load images"
+    },
+    {
+      "priority": "critical",
+      "layer": 4,
+      "category": "Translation Coverage",
+      "description": "18/107 pages translated",
+      "remediation": "Add i18n hooks and translate all hardcoded strings"
+    },
+    {
+      "priority": "critical",
+      "layer": 5,
+      "category": "Dark Mode",
+      "description": "4/107 pages support dark mode",
+      "remediation": "Add dark: variants to all color classes"
+    },
+    {
+      "priority": "critical",
+      "layer": 6,
+      "category": "Mobile Responsiveness",
+      "description": "10/15 pages are responsive",
+      "remediation": "Add mobile breakpoints (sm:, md:, lg:) to layouts"
+    },
+    {
+      "priority": "critical",
+      "layer": 9,
+      "category": "SEO & Meta Tags",
+      "description": "0/15 pages have SEO tags",
+      "remediation": "Add SEO meta tags to all public pages"
+    }
+  ],
+  "qualityScorecard": {
+    "accessibility": {
+      "score": 25,
+      "grade": "F"
+    },
+    "performance": {
+      "score": 75,
+      "grade": "C"
+    },
+    "security": {
+      "score": 95,
+      "grade": "A"
+    },
+    "translation": {
+      "score": -79,
+      "grade": "F"
+    },
+    "darkMode": {
+      "score": 4,
+      "grade": "F"
+    },
+    "mobile": {
+      "score": 67,
+      "grade": "D"
+    },
+    "browser": {
+      "score": 95,
+      "grade": "A"
+    },
+    "visual": {
+      "score": 90,
+      "grade": "A"
+    },
+    "seo": {
+      "score": 0,
+      "grade": "F"
+    },
+    "e2e": {
+      "score": 85,
+      "grade": "B"
+    }
+  }
+}

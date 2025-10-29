@@ -1,5 +1,0 @@
-SCREENSHOT CAPTURED: Visual Editor defaults to Inspector tab (should be Mr Blue/chat)
-Location: /admin/visual-editor
-Evidence: "Inspector" tab is highlighted in the right panel
-Timestamp: 2025-10-27 00:52 UTC
-Status: BEFORE FIX

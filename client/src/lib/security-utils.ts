@@ -1,4 +1,4 @@
-// Mundo Tango ESA LIFE CEO - Phase 13: Client-side Security Utilities
+// ESA LIFE CEO 61x21 - Phase 13: Client-side Security Utilities
 // Security helpers for frontend protection
 
 import DOMPurify from 'dompurify';

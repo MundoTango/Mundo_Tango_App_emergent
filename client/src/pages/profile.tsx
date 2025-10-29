@@ -57,8 +57,8 @@ export default function Profile() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [, setLocation] = useLocation(); // Mundo Tango ESA LIFE CEO - Navigation fix
-  // Mundo Tango ESA LIFE CEO - Get tab from URL parameter
+  const [, setLocation] = useLocation(); // ESA LIFE CEO 56x21 - Navigation fix
+  // ESA LIFE CEO 56x21 - Get tab from URL parameter
   const getInitialTab = () => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -76,7 +76,7 @@ export default function Profile() {
   useEffect(() => {
     const stopMeasure = measureComponentRender('Profile');
     
-    // Mundo Tango ESA LIFE CEO - Update tab when URL changes
+    // ESA LIFE CEO 56x21 - Update tab when URL changes
     const handleUrlChange = () => {
       const params = new URLSearchParams(window.location.search);
       const tab = params.get('tab');
@@ -107,23 +107,57 @@ export default function Profile() {
     };
   }, []);
 
-  // Fetch user stats (MB.MD SIMULTANEOUS: Use default fetcher with retry logic)
+  // Fetch user stats with retry logic
   const { data: statsData, error: statsError } = useQuery({
     queryKey: ['/api/user/stats', user?.id],
+    queryFn: async () => {
+      const tracker = measureApiCall('/api/user/stats');
+      try {
+        const response = await withRetry(
+          () => withTimeout(
+            () => fetch(`/api/user/stats`, { credentials: 'include' }),
+            5000
+          )
+        );
+        
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const result = await response.json();
+        tracker.complete(response.status);
+        return result.data || {};
+      } catch (error) {
+        tracker.error(error);
+        throw error;
+      }
+    },
     enabled: !!user?.id,
-    retry: 3, // Built-in retry instead of withRetry wrapper
-    retryDelay: 1000,
+    retry: false
   });
 
-  // Fetch guest profile (MB.MD SIMULTANEOUS: Use default fetcher with retry logic)
-  const { data: guestProfileData, isLoading: guestProfileLoading, error: guestProfileError } = useQuery({
+  // Fetch guest profile with retry logic
+  const { data: guestProfile, isLoading: guestProfileLoading, error: guestProfileError } = useQuery({
     queryKey: ['/api/guest-profiles', user?.id],
+    queryFn: async () => {
+      const tracker = measureApiCall('/api/guest-profiles');
+      try {
+        const response = await withRetry(
+          () => withTimeout(
+            () => fetch(`/api/guest-profiles`, { credentials: 'include' }),
+            5000
+          )
+        );
+        
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const result = await response.json();
+        tracker.complete(response.status);
+        return result.data;
+      } catch (error) {
+        tracker.error(error);
+        throw error;
+      }
+    },
     enabled: !!user?.id && activeTab === 'guest-profile',
-    retry: 3,
-    retryDelay: 1000,
+    retry: false
   });
-  
-  const guestProfile = guestProfileData?.data;
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);

@@ -48,25 +48,22 @@ export function AIHelpButton({ position = 'bottom-right', offset = 24 }: AIHelpB
   const { user } = useAuth();
   const { toast } = useToast();
 
-  // MB.MD SIMULTANEOUS: Explicit queryFn to prevent console errors
+  // Get AI context for current page - ESA Agent #33 (Context Management)
   const { data: aiContext, isLoading: contextLoading } = useQuery<AIContext>({
-    queryKey: ['/api/ai-intelligence/context', { userId: user?.id || '', sessionId: sessionId || '' }],
+    queryKey: ['/api/ai-intelligence/context', user?.id, sessionId],
     queryFn: async () => {
-      const res = await fetch(`/api/ai-intelligence/context?userId=${user?.id || ''}&sessionId=${sessionId || ''}`, {
-        credentials: 'include'
-      });
+      const res = await fetch(`/api/ai-intelligence/context?userId=${user?.id || ''}&sessionId=${sessionId || ''}`, { credentials: 'include' });
       if (!res.ok) return null;
       return res.json();
     },
     enabled: !!user && !!sessionId && isOpen,
   });
 
+  // Get smart suggestions based on journey - ESA Agent #71 (Journey Prediction)
   const { data: suggestions } = useQuery({
-    queryKey: ['/api/ai-intelligence/suggestions', { route: currentRoute }],
+    queryKey: ['/api/ai-intelligence/suggestions', currentRoute],
     queryFn: async () => {
-      const res = await fetch(`/api/ai-intelligence/suggestions?route=${encodeURIComponent(currentRoute)}`, {
-        credentials: 'include'
-      });
+      const res = await fetch(`/api/ai-intelligence/suggestions?route=${encodeURIComponent(currentRoute)}`, { credentials: 'include' });
       if (!res.ok) return null;
       return res.json();
     },

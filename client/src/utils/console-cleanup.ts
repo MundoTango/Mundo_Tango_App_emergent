@@ -1,7 +1,7 @@
 /**
  * Console cleanup utility
  * Hides internal framework references from browser console
- * Security requirement: Mundo Tango ESA LIFE CEO must not appear in production logs
+ * Security requirement: ESA LIFE CEO 56x21 must not appear in production logs
  */
 
 export function initializeConsoleCleanup(): void {
@@ -72,6 +72,7 @@ export function initializeConsoleCleanup(): void {
 }
 
 // Auto-initialize on module load
-if (typeof window !== 'undefined') {
-  initializeConsoleCleanup();
-}
+// Temporarily disabled for debugging
+// if (typeof window !== 'undefined') {
+//   initializeConsoleCleanup();
+// }

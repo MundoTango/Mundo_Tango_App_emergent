@@ -1,4 +1,4 @@
-// Mundo Tango ESA LIFE CEO - Layer 53: Internationalization
+// ESA LIFE CEO 61x21 - Layer 53: Internationalization
 // All 68 supported languages with complete metadata
 // Generated: October 8, 2025
 

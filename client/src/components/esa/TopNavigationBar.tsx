@@ -32,11 +32,11 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
         {/* Left Section - Mundo Tango Brand */}
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-shadow">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-shadow">
                 MT
               </div>
               <span className={cn(
-                "hidden sm:block text-xl font-bold bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent"
+                "hidden sm:block text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"
               )}>
                 Mundo Tango
               </span>
@@ -166,7 +166,6 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                   ? "hover:bg-gray-100"
                   : "hover:bg-slate-800"
               )}
-              data-testid="button-menu"
             >
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-semibold text-sm">
                 P
@@ -236,15 +235,12 @@ export default function TopNavigationBar({ theme, onThemeToggle }: TopNavigation
                       "my-2 border-t",
                       theme === 'light' ? "border-gray-200" : "border-slate-800"
                     )} />
-                    <button 
-                      className={cn(
-                        "flex items-center gap-3 w-full px-4 py-2 transition-colors text-left",
-                        theme === 'light'
-                          ? "hover:bg-gray-100 text-gray-700"
-                          : "hover:bg-slate-800 text-slate-300"
-                      )}
-                      data-testid="button-logout"
-                    >
+                    <button className={cn(
+                      "flex items-center gap-3 w-full px-4 py-2 transition-colors text-left",
+                      theme === 'light'
+                        ? "hover:bg-gray-100 text-gray-700"
+                        : "hover:bg-slate-800 text-slate-300"
+                    )}>
                       <LogOut className="w-4 h-4" />
                       <span>Sign out</span>
                     </button>

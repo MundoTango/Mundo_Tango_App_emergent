@@ -1,4 +1,4 @@
-// Mundo Tango ESA LIFE CEO - Phase 19: User Management Page
+// ESA LIFE CEO 61x21 - Phase 19: User Management Page
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
@@ -130,9 +130,26 @@ export default function AdminUsersPage() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showBulkActions, setShowBulkActions] = useState(false);
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
+  // Fetch users
   const { data: usersData, isLoading: loadingUsers, refetch: refetchUsers } = useQuery({
     queryKey: ['/api/admin/users', { searchQuery, filterStatus, filterRole, filterSubscription, sortBy, sortOrder, page }],
+    queryFn: async () => {
+      const params = new URLSearchParams({
+        search: searchQuery,
+        status: filterStatus,
+        role: filterRole,
+        subscription: filterSubscription,
+        sortBy,
+        sortOrder,
+        page: page.toString(),
+        limit: '20'
+      });
+      const response = await fetch(`/api/admin/users?${params}`, {
+        credentials: 'include'
+      });
+      if (!response.ok) throw new Error('Failed to fetch users');
+      return response.json();
+    }
   });
 
   // Fetch user statistics

@@ -29,7 +29,6 @@ const codeOfConductSchema = z.object({
 type CodeOfConductData = z.infer<typeof codeOfConductSchema>;
 
 export default function CodeOfConduct() {
-  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
@@ -78,6 +77,7 @@ export default function CodeOfConduct() {
   });
 
   const onSubmit = (data: CodeOfConductData) => {
+  const { t } = useTranslation();
     acceptCodeOfConductMutation.mutate(data);
   };
 

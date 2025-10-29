@@ -5,7 +5,8 @@ import UnifiedLocationPicker from './UnifiedLocationPicker';
 import { Progress } from '@/components/ui/progress';
 import { InternalUploader } from '@/components/upload/InternalUploader';
 import { useTranslation } from 'react-i18next';
-// ESA Layer 13: Advanced media processing - lazy loaded for performance
+// ESA Layer 13: Advanced media processing with universal format support
+import { processMultipleMedia, getUploadStrategy } from '@/utils/advancedMediaProcessor';
 import { extractVideoThumbnail } from '@/utils/videoThumbnail';
 import { extractMentions } from '@/utils/mentionUtils';
 import SimpleMentionsInput from '../memory/SimpleMentionsInput';
@@ -154,20 +155,25 @@ export default function PostCreator({
   const { toast } = useToast();
   const { t } = useTranslation();
   
-  // Mundo Tango ESA LIFE CEO - CSRF Token for secure API requests
+  // ESA LIFE CEO 61x21 - CSRF Token for secure API requests
   const { csrfToken } = useCsrfToken();
 
-  // Mundo Tango ESA LIFE CEO - @mention functionality
+  // ESA LIFE CEO 61x21 - @mention functionality
   const [showMentions, setShowMentions] = useState(false);
   const [mentionSearch, setMentionSearch] = useState('');
   const [cursorPosition, setCursorPosition] = useState(0);
 
   // Fetch users for @mention autocomplete
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: users = [] } = useQuery({
-    queryKey: ['/api/users/search', { q: mentionSearch }],
-    enabled: showMentions && mentionSearch.length > 0,
-    select: (data: any) => (!mentionSearch || mentionSearch.length < 1) ? [] : (data || [])
+    queryKey: ['/api/users/search', mentionSearch],
+    queryFn: async () => {
+      if (!mentionSearch || mentionSearch.length < 1) return [];
+      const response = await fetch(`/api/users/search?q=${encodeURIComponent(mentionSearch)}`);
+      if (!response.ok) return [];
+      const result = await response.json();
+      return result.data || [];
+    },
+    enabled: showMentions && mentionSearch.length > 0
   });
 
   // Track B: Approved tags matching backend validation (15 tags from tagValidation.ts)
@@ -220,7 +226,7 @@ export default function PostCreator({
 
   // Handle media upload
   const handleMediaUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Mundo Tango ESA LIFE CEO - DISABLED TO PREVENT SERVER UPLOADS
+    // ESA LIFE CEO 61x21 - DISABLED TO PREVENT SERVER UPLOADS
     console.error('❌ BLOCKED: Old file upload mechanism triggered!');
     toast({
       title: t('memories.creator.useCloudUpload'),
@@ -360,7 +366,7 @@ export default function PostCreator({
         console.log('🏠 Using Internal URLs - reliable local upload!');
         const endpoint = '/api/posts/direct'; // Direct endpoint that accepts URLs only
         
-        // Mundo Tango ESA LIFE CEO - Build headers with CSRF token
+        // ESA LIFE CEO 61x21 - Build headers with CSRF token
         const headers: HeadersInit = { 'Content-Type': 'application/json' };
         if (csrfToken) {
           headers['x-csrf-token'] = csrfToken;
@@ -388,9 +394,9 @@ export default function PostCreator({
         console.log('✅ Post created successfully:', result);
         return result;
       }
-      // Mundo Tango ESA LIFE CEO - COMPLETELY BLOCK ALL FILE UPLOADS
+      // ESA LIFE CEO 61x21 - COMPLETELY BLOCK ALL FILE UPLOADS
       else if (mediaFiles.length > 0) {
-        console.error('❌ Mundo Tango ESA LIFE CEO: SERVER UPLOAD BLOCKED!');
+        console.error('❌ ESA LIFE CEO 61x21: SERVER UPLOAD BLOCKED!');
         console.error('Files detected:', mediaFiles);
 
         // Clear the files immediately
@@ -407,13 +413,13 @@ export default function PostCreator({
         setUploadProgress(0);
 
         // Force stop any ongoing uploads
-        throw new Error('Mundo Tango ESA LIFE CEO: Server uploads are completely disabled. Use Internal Upload only.');
+        throw new Error('ESA LIFE CEO 61x21: Server uploads are completely disabled. Use Internal Upload only.');
 
         /* DISABLED - DO NOT USE SERVER UPLOADS
         const formData = new FormData();
         formData.append('content', postData.content);
         formData.append('visibility', postData.visibility);
-        // Mundo Tango ESA LIFE CEO - Ensure location is properly sent
+        // ESA LIFE CEO 61x21 - Ensure location is properly sent
         const locationValue = location || postData.location || '';
         // Location being sent
         formData.append('location', locationValue);
@@ -422,16 +428,16 @@ export default function PostCreator({
         if (postData.recommendationType) formData.append('recommendationType', postData.recommendationType);
         if (postData.priceRange) formData.append('priceRange', postData.priceRange);
 
-        // Mundo Tango ESA LIFE CEO - Append each media file with debug logging
+        // ESA LIFE CEO 61x21 - Append each media file with debug logging
         mediaFiles.forEach((file, index) => {
           // Appending file to upload
           formData.append('media', file);
         });
         */
 
-        // Mundo Tango ESA LIFE CEO - FormData logging disabled (server uploads blocked)
+        // ESA LIFE CEO 61x21 - FormData logging disabled (server uploads blocked)
 
-        // Mundo Tango ESA LIFE CEO FIX - Use /api/memories for memories feed
+        // ESA LIFE CEO 61x21 FIX - Use /api/memories for memories feed
         const uploadEndpoint = context.type === 'memory' || context.type === 'feed' ? '/api/memories' : '/api/posts';
         console.log(`📤 Sending FormData to ${uploadEndpoint} with progress tracking`);
 
@@ -452,7 +458,7 @@ export default function PostCreator({
           setIsUploading(true);
           setUploadProgress(1);
 
-          // Mundo Tango ESA LIFE CEO FIX: Simulate progress based on file size and estimated upload speed
+          // ESA LIFE CEO 61x21 FIX: Simulate progress based on file size and estimated upload speed
           const startTime = Date.now();
           const estimatedBytesPerSecond = 1024 * 1024 * 2; // Estimate 2MB/s upload speed
           const estimatedDuration = (totalSize / estimatedBytesPerSecond) * 1000; // in milliseconds
@@ -460,7 +466,7 @@ export default function PostCreator({
           // Update progress smoothly every 100ms
           progressInterval = setInterval(() => {
             const elapsed = Date.now() - startTime;
-            // Mundo Tango ESA LIFE CEO FIX - Allow progress to reach 100%
+            // ESA LIFE CEO 61x21 FIX - Allow progress to reach 100%
             const estimatedProgress = Math.min(100, Math.round((elapsed / estimatedDuration) * 100));
 
             if (estimatedProgress > lastProgress) {
@@ -555,14 +561,14 @@ export default function PostCreator({
             reject(new Error('Upload cancelled'));
           });
 
-          // Mundo Tango ESA LIFE CEO FIX - Use /api/posts endpoint for all posts
+          // ESA LIFE CEO 61x21 FIX - Use /api/posts endpoint for all posts
           const endpoint = '/api/posts';
           // Debug log removed
           xhr.open('POST', endpoint);
           xhr.withCredentials = true;
-          xhr.timeout = 0; // Mundo Tango ESA LIFE CEO - Disable client timeout, let server handle it
+          xhr.timeout = 0; // ESA LIFE CEO 61x21 - Disable client timeout, let server handle it
 
-          // Mundo Tango ESA LIFE CEO - Removed client timeout handler since we disabled timeout
+          // ESA LIFE CEO 61x21 - Removed client timeout handler since we disabled timeout
 
           // Log xhr state changes for debugging
           xhr.onreadystatechange = () => {
@@ -575,7 +581,7 @@ export default function PostCreator({
         });
       } else {
         // No media files, use JSON
-        // Mundo Tango ESA LIFE CEO FIX - Use /api/posts endpoint for all posts
+        // ESA LIFE CEO 61x21 FIX - Use /api/posts endpoint for all posts
         const endpoint = '/api/posts';
         // Debug log removed
         const response = await fetch(endpoint, {
@@ -873,9 +879,6 @@ export default function PostCreator({
       console.log(`🚀 [PostCreator] Starting media processing for ${files.length} files`);
       console.log(`📊 [PostCreator] File details:`, files.map(f => ({ name: f.name, type: f.type, size: `${(f.size/1024/1024).toFixed(2)}MB` })));
       
-      // Lazy load advanced media processor (1.4MB chunk)
-      const { processMultipleMedia, getUploadStrategy } = await import('@/utils/advancedMediaProcessor');
-      
       // Process all files with the advanced processor
       const processedFiles = await processMultipleMedia(
         files,
@@ -1015,7 +1018,7 @@ export default function PostCreator({
                 )}
               </div>
 
-              {/* Mundo Tango ESA LIFE CEO - @Mention Dropdown - Now handled by SimpleMentionsInput */}
+              {/* ESA LIFE CEO 61x21 - @Mention Dropdown - Now handled by SimpleMentionsInput */}
               {false && showMentions && users.length > 0 && (
                 <div className="absolute z-50 mt-2 bg-white dark:bg-gray-900 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 max-h-48 overflow-y-auto">
                   {users.map((user: any) => (
@@ -1625,7 +1628,7 @@ export default function PostCreator({
             )}
           </div>
 
-          {/* Mundo Tango ESA LIFE CEO - Enhanced Upload Progress Bar */}
+          {/* ESA LIFE CEO 61x21 - Enhanced Upload Progress Bar */}
           {(isUploading || uploadProgress > 0) && (
             <div className="mt-4 p-6 bg-gradient-to-r from-turquoise-100 to-cyan-100 rounded-xl border-2 border-turquoise-400 shadow-2xl animate-pulse">
               <div className="flex items-center justify-between text-base mb-4">
@@ -1656,7 +1659,7 @@ export default function PostCreator({
           )}
 
 
-          {/* Mundo Tango ESA LIFE CEO - OLD FILE INPUT DISABLED - USE CLOUDINARY ONLY */}
+          {/* ESA LIFE CEO 61x21 - OLD FILE INPUT DISABLED - USE CLOUDINARY ONLY */}
           {/* <input
             ref={fileInputRef}
             type="file"

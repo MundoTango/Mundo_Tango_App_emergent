@@ -1,13 +1,12 @@
 /**
- * Mundo Tango ESA LIFE CEO - Web Vitals Monitoring
+ * ESA LIFE CEO 61x21 - Web Vitals Monitoring
  * Phase 14: Performance & User Experience Metrics
  * 
  * Tracks Core Web Vitals and user-centric performance metrics
  */
 
 import { onCLS, onFCP, onFID, onLCP, onTTFB, onINP, Metric } from 'web-vitals';
-// import { webVitals } from '../../../server/monitoring/prometheus-metrics'; // TODO: Fix path
-const webVitals = null; // Stub for now
+import { webVitals } from '../../../server/monitoring/prometheus-metrics';
 
 export interface WebVitalsData {
   lcp?: number; // Largest Contentful Paint

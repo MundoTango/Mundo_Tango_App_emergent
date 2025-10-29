@@ -1,0 +1,437 @@
+{
+  "migrationPlan": {
+    "generatedDate": "2025-10-10",
+    "libraryMigration": {
+      "from": "react-beautiful-dnd",
+      "to": "@dnd-kit/core + @dnd-kit/sortable",
+      "reason": "react-beautiful-dnd deprecated by Atlassian (August 2025)",
+      "benefits": [
+        "44% smaller bundle size (~20KB savings)",
+        "Active maintenance and updates",
+        "Better TypeScript support",
+        "Modular architecture",
+        "Support for grids, trees, and custom layouts",
+        "Better performance with transform-based animations"
+      ]
+    },
+    "summary": {
+      "totalFilesFound": 2,
+      "expectedFilesFromTask": 13,
+      "note": "Task mentioned 13 files, but only 2 files actually use react-beautiful-dnd in the codebase",
+      "totalEstimatedEffort": "6-10 hours",
+      "complexity": {
+        "high": 1,
+        "medium": 1,
+        "low": 0
+      }
+    },
+    "packageChanges": {
+      "remove": [
+        "react-beautiful-dnd",
+        "@types/react-beautiful-dnd"
+      ],
+      "install": [
+        "@dnd-kit/core",
+        "@dnd-kit/sortable",
+        "@dnd-kit/utilities"
+      ],
+      "installCommand": "npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities && npm uninstall react-beautiful-dnd @types/react-beautiful-dnd"
+    },
+    "files": [
+      {
+        "file": "client/src/pages/EnhancedFriends.tsx",
+        "priority": 1,
+        "complexity": "HIGH",
+        "linesOfCode": 775,
+        "estimatedTime": "4-6 hours",
+        "currentAPI": {
+          "components": [
+            "DragDropContext",
+            "Droppable",
+            "Draggable"
+          ],
+          "patterns": [
+            "Multi-container drag and drop (3 friend groups + main list)",
+            "Bi-directional drag between containers",
+            "State updates on drag end",
+            "Visual feedback during drag (isDragging, isDraggingOver)",
+            "TypeScript with DraggableProvided, DroppableProvided interfaces"
+          ],
+          "imports": "import { DragDropContext, Droppable, Draggable, DropResult, DraggableProvided, DraggableStateSnapshot, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';",
+          "usageContext": "Friend categorization system allowing users to drag friends into groups (Favorites, Close Circle, Professional) or back to main list"
+        },
+        "newAPI": {
+          "components": [
+            "DndContext (from @dnd-kit/core)",
+            "SortableContext (from @dnd-kit/sortable)",
+            "useSortable hook (from @dnd-kit/sortable)",
+            "DragOverlay (from @dnd-kit/core - optional)"
+          ],
+          "imports": "import { DndContext, DragOverlay, closestCenter } from '@dnd-kit/core';\nimport { SortableContext, useSortable, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';\nimport { CSS } from '@dnd-kit/utilities';",
+          "keyChanges": [
+            "Replace DragDropContext with DndContext",
+            "Replace Droppable with SortableContext (for each group)",
+            "Replace Draggable with useSortable hook in a separate component",
+            "Use closestCenter or closestCorners collision detection",
+            "Handle multi-container logic in onDragOver and onDragEnd",
+            "Use CSS.Transform.toString() for transform styles"
+          ]
+        },
+        "migrationSteps": [
+          {
+            "step": 1,
+            "action": "Install @dnd-kit packages",
+            "command": "npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities"
+          },
+          {
+            "step": 2,
+            "action": "Create SortableFriendItem component",
+            "description": "Extract draggable friend card logic into separate component using useSortable hook"
+          },
+          {
+            "step": 3,
+            "action": "Create SortableFriendGroup component",
+            "description": "Extract friend group droppable logic using SortableContext"
+          },
+          {
+            "step": 4,
+            "action": "Update EnhancedFriends component",
+            "description": "Replace DragDropContext with DndContext, implement multi-container logic"
+          },
+          {
+            "step": 5,
+            "action": "Update state management",
+            "description": "Modify handleDragEnd to work with @dnd-kit's event structure (active, over)"
+          },
+          {
+            "step": 6,
+            "action": "Test and verify",
+            "description": "Ensure drag between groups works, visual feedback is correct, and no TypeScript errors"
+          }
+        ],
+        "codeExamples": {
+          "before": {
+            "dragDropSetup": "// OLD: react-beautiful-dnd\n<DragDropContext onDragEnd={handleDragEnd}>\n  <Droppable droppableId=\"favorites\">\n    {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (\n      <div ref={provided.innerRef} {...provided.droppableProps}>\n        {friendGroups.favorites.map((friendId, index) => (\n          <Draggable key={friendId} draggableId={friendId} index={index}>\n            {(provided: DraggableProvided) => (\n              <div\n                ref={provided.innerRef}\n                {...provided.draggableProps}\n                {...provided.dragHandleProps}\n              >\n                {friend.name}\n              </div>\n            )}\n          </Draggable>\n        ))}\n        {provided.placeholder}\n      </div>\n    )}\n  </Droppable>\n</DragDropContext>",
+            "dragEndHandler": "const handleDragEnd = (result: DropResult) => {\n  if (!result.destination) return;\n  \n  const friendId = result.draggableId;\n  const destinationGroup = result.destination.droppableId;\n  const sourceGroup = result.source.droppableId;\n  \n  setFriendGroups(prev => {\n    const newGroups = { ...prev };\n    if (sourceGroup !== 'all') {\n      newGroups[sourceGroup] = newGroups[sourceGroup].filter(id => id !== friendId);\n    }\n    if (destinationGroup !== 'all' && !newGroups[destinationGroup].includes(friendId)) {\n      newGroups[destinationGroup] = [...newGroups[destinationGroup], friendId];\n    }\n    return newGroups;\n  });\n};"
+          },
+          "after": {
+            "imports": "import { DndContext, DragOverlay, closestCenter, DragEndEvent, DragStartEvent } from '@dnd-kit/core';\nimport { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';\nimport { CSS } from '@dnd-kit/utilities';",
+            "sortableFriendComponent": "// NEW: @dnd-kit sortable item component\nfunction SortableFriendItem({ friend }: { friend: Friend }) {\n  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({\n    id: friend.id\n  });\n\n  const style = {\n    transform: CSS.Transform.toString(transform),\n    transition,\n    opacity: isDragging ? 0.5 : 1\n  };\n\n  return (\n    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>\n      {friend.name}\n    </div>\n  );\n}",
+            "dragDropSetup": "// NEW: @dnd-kit multi-container setup\nconst [activeId, setActiveId] = useState<string | null>(null);\n\nconst handleDragStart = (event: DragStartEvent) => {\n  setActiveId(event.active.id as string);\n};\n\nconst handleDragEnd = (event: DragEndEvent) => {\n  const { active, over } = event;\n  setActiveId(null);\n  \n  if (!over) return;\n  \n  const activeContainer = findContainer(active.id as string);\n  const overContainer = findContainer(over.id as string);\n  \n  if (activeContainer !== overContainer) {\n    setFriendGroups(prev => {\n      const newGroups = { ...prev };\n      if (activeContainer !== 'all') {\n        newGroups[activeContainer] = newGroups[activeContainer].filter(id => id !== active.id);\n      }\n      if (overContainer !== 'all' && !newGroups[overContainer].includes(active.id as string)) {\n        newGroups[overContainer] = [...newGroups[overContainer], active.id as string];\n      }\n      return newGroups;\n    });\n  }\n};\n\nreturn (\n  <DndContext\n    collisionDetection={closestCenter}\n    onDragStart={handleDragStart}\n    onDragEnd={handleDragEnd}\n  >\n    <SortableContext items={friendGroups.favorites} strategy={verticalListSortingStrategy}>\n      {friendGroups.favorites.map(friendId => {\n        const friend = friends.find(f => f.id === friendId);\n        return friend ? <SortableFriendItem key={friend.id} friend={friend} /> : null;\n      })}\n    </SortableContext>\n    \n    <DragOverlay>\n      {activeId ? <SortableFriendItem friend={friends.find(f => f.id === activeId)!} /> : null}\n    </DragOverlay>\n  </DndContext>\n);"
+          }
+        },
+        "challenges": [
+          "Multi-container drag logic requires onDragOver handler in addition to onDragEnd",
+          "Need to track which container each item belongs to (implement findContainer helper)",
+          "Visual feedback (isDraggingOver) needs to be implemented using activeId state",
+          "DragOverlay recommended for better performance with large lists"
+        ],
+        "testingChecklist": [
+          "Drag friend from main list to Favorites group",
+          "Drag friend from Favorites to Close Circle",
+          "Drag friend from group back to main list",
+          "Verify visual feedback during drag (highlighting, opacity changes)",
+          "Test keyboard navigation (Space to pick up, Arrow keys to move, Space to drop)",
+          "Verify toast notifications work correctly",
+          "Check TypeScript types are correct with no errors"
+        ]
+      },
+      {
+        "file": "client/src/components/media/MediaUploader.tsx",
+        "priority": 2,
+        "complexity": "MEDIUM",
+        "linesOfCode": 340,
+        "estimatedTime": "2-4 hours",
+        "currentAPI": {
+          "components": [
+            "DragDropContext",
+            "Droppable",
+            "Draggable"
+          ],
+          "patterns": [
+            "Horizontal grid reordering",
+            "Single container (media grid)",
+            "Thumbnail index tracking during reorder",
+            "Visual drag feedback with scale and shadow",
+            "Drag handle with GripVertical icon"
+          ],
+          "imports": "import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';",
+          "usageContext": "Media uploader component for reordering images/videos in a grid, with ability to set thumbnail"
+        },
+        "newAPI": {
+          "components": [
+            "DndContext (from @dnd-kit/core)",
+            "SortableContext (from @dnd-kit/sortable)",
+            "useSortable hook (from @dnd-kit/sortable)"
+          ],
+          "imports": "import { DndContext, closestCenter } from '@dnd-kit/core';\nimport { SortableContext, useSortable, rectSortingStrategy, arrayMove } from '@dnd-kit/sortable';\nimport { CSS } from '@dnd-kit/utilities';",
+          "keyChanges": [
+            "Replace DragDropContext with DndContext",
+            "Replace Droppable with SortableContext using rectSortingStrategy (for grid)",
+            "Replace Draggable with useSortable hook in MediaItem component",
+            "Use arrayMove utility for reordering",
+            "Apply transform styles with CSS.Transform.toString()",
+            "Implement drag handle by applying listeners only to GripVertical element"
+          ]
+        },
+        "migrationSteps": [
+          {
+            "step": 1,
+            "action": "Create SortableMediaItem component",
+            "description": "Extract media item with useSortable hook, apply drag handle to GripVertical icon only"
+          },
+          {
+            "step": 2,
+            "action": "Update MediaUploader component",
+            "description": "Replace DragDropContext with DndContext and use rectSortingStrategy for grid layout"
+          },
+          {
+            "step": 3,
+            "action": "Update handleDragEnd logic",
+            "description": "Use arrayMove to reorder items and recalculate thumbnail index"
+          },
+          {
+            "step": 4,
+            "action": "Test drag behavior",
+            "description": "Verify grid reordering works, thumbnail index updates correctly, and drag handle works"
+          }
+        ],
+        "codeExamples": {
+          "before": {
+            "dragDropSetup": "// OLD: react-beautiful-dnd\n<DragDropContext onDragEnd={handleDragEnd}>\n  <Droppable droppableId=\"media-grid\" direction=\"horizontal\">\n    {(provided) => (\n      <div\n        ref={provided.innerRef}\n        {...provided.droppableProps}\n        className=\"grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4\"\n      >\n        {mediaItems.map((item, index) => (\n          <Draggable key={item.id} draggableId={item.id} index={index}>\n            {(provided, snapshot) => (\n              <div\n                ref={provided.innerRef}\n                {...provided.draggableProps}\n                className={snapshot.isDragging ? 'z-50' : ''}\n              >\n                {/* Media preview */}\n                <div {...provided.dragHandleProps}>\n                  <GripVertical className=\"w-4 h-4\" />\n                </div>\n              </div>\n            )}\n          </Draggable>\n        ))}\n        {provided.placeholder}\n      </div>\n    )}\n  </Droppable>\n</DragDropContext>",
+            "dragEndHandler": "const handleDragEnd = (result: DropResult) => {\n  if (!result.destination) return;\n\n  const items = Array.from(mediaItems);\n  const [reorderedItem] = items.splice(result.source.index, 1);\n  items.splice(result.destination.index, 0, reorderedItem);\n\n  // Thumbnail index logic...\n  setMediaItems(items);\n};"
+          },
+          "after": {
+            "imports": "import { DndContext, closestCenter, DragEndEvent } from '@dnd-kit/core';\nimport { SortableContext, useSortable, rectSortingStrategy, arrayMove } from '@dnd-kit/sortable';\nimport { CSS } from '@dnd-kit/utilities';",
+            "sortableMediaComponent": "// NEW: @dnd-kit sortable media item\nfunction SortableMediaItem({ item, index, thumbnailIndex }: {\n  item: MediaItem;\n  index: number;\n  thumbnailIndex: number;\n}) {\n  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({\n    id: item.id\n  });\n\n  const style = {\n    transform: CSS.Transform.toString(transform),\n    transition,\n    zIndex: isDragging ? 50 : 'auto'\n  };\n\n  return (\n    <div ref={setNodeRef} style={style} {...attributes}>\n      <Card className={`${\n        index === thumbnailIndex ? 'border-yellow-500' : 'border-gray-200'\n      } ${isDragging ? 'shadow-2xl scale-105' : ''}`}>\n        <img src={item.preview} alt={`Media ${index + 1}`} />\n        \n        {/* Drag handle - only this element triggers drag */}\n        <div {...listeners} className=\"cursor-move\">\n          <GripVertical className=\"w-4 h-4\" />\n        </div>\n      </Card>\n    </div>\n  );\n}",
+            "dragDropSetup": "// NEW: @dnd-kit grid setup\nconst handleDragEnd = (event: DragEndEvent) => {\n  const { active, over } = event;\n  \n  if (!over || active.id === over.id) return;\n  \n  setMediaItems(items => {\n    const oldIndex = items.findIndex(item => item.id === active.id);\n    const newIndex = items.findIndex(item => item.id === over.id);\n    \n    const reordered = arrayMove(items, oldIndex, newIndex);\n    \n    // Update thumbnail index\n    let newThumbnailIndex = thumbnailIndex;\n    if (oldIndex === thumbnailIndex) {\n      newThumbnailIndex = newIndex;\n    } else if (oldIndex < thumbnailIndex && newIndex >= thumbnailIndex) {\n      newThumbnailIndex = thumbnailIndex - 1;\n    } else if (oldIndex > thumbnailIndex && newIndex <= thumbnailIndex) {\n      newThumbnailIndex = thumbnailIndex + 1;\n    }\n    \n    setThumbnailIndex(newThumbnailIndex);\n    notifyChange(reordered, newThumbnailIndex);\n    \n    return reordered;\n  });\n};\n\nreturn (\n  <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>\n    <SortableContext items={mediaItems.map(item => item.id)} strategy={rectSortingStrategy}>\n      <div className=\"grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4\">\n        {mediaItems.map((item, index) => (\n          <SortableMediaItem\n            key={item.id}\n            item={item}\n            index={index}\n            thumbnailIndex={thumbnailIndex}\n          />\n        ))}\n      </div>\n    </SortableContext>\n  </DndContext>\n);"
+          }
+        },
+        "challenges": [
+          "Drag handle implementation - need to apply listeners only to GripVertical icon",
+          "Thumbnail index recalculation logic must be preserved during reorder",
+          "Grid layout requires rectSortingStrategy instead of verticalListSortingStrategy",
+          "Visual feedback (scale, shadow) needs to be applied based on isDragging from useSortable"
+        ],
+        "testingChecklist": [
+          "Drag media items to reorder in grid",
+          "Verify thumbnail badge moves with item",
+          "Verify thumbnail index updates correctly after reorder",
+          "Test drag handle - only GripVertical icon should trigger drag",
+          "Check visual feedback (scale, shadow) during drag",
+          "Verify onMediaChange callback fires with correct order and thumbnail index",
+          "Test with both images and videos"
+        ]
+      }
+    ],
+    "migrationGuide": {
+      "globalSteps": [
+        {
+          "step": 1,
+          "title": "Install @dnd-kit packages",
+          "commands": [
+            "npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities"
+          ],
+          "description": "Install the three core @dnd-kit packages needed for the migration"
+        },
+        {
+          "step": 2,
+          "title": "Update imports in each file",
+          "description": "Replace react-beautiful-dnd imports with @dnd-kit equivalents",
+          "mapping": {
+            "DragDropContext": "DndContext (from @dnd-kit/core)",
+            "Droppable": "SortableContext (from @dnd-kit/sortable) for lists/grids",
+            "Draggable": "useSortable hook (from @dnd-kit/sortable)",
+            "DropResult": "DragEndEvent (from @dnd-kit/core)",
+            "DraggableProvided": "No direct equivalent - use useSortable return values",
+            "DroppableProvided": "No direct equivalent - SortableContext handles this"
+          }
+        },
+        {
+          "step": 3,
+          "title": "Refactor to hook-based components",
+          "description": "Extract draggable items into separate components using useSortable hook instead of render props"
+        },
+        {
+          "step": 4,
+          "title": "Update event handlers",
+          "description": "Change from result-based handlers to event-based handlers",
+          "changes": [
+            "onDragEnd(result: DropResult) → onDragEnd(event: DragEndEvent)",
+            "result.source.index → find index using active.id",
+            "result.destination.index → find index using over.id",
+            "result.draggableId → event.active.id"
+          ]
+        },
+        {
+          "step": 5,
+          "title": "Apply transform styles",
+          "description": "Use CSS.Transform.toString() for smooth animations",
+          "example": "style={{ transform: CSS.Transform.toString(transform), transition }}"
+        },
+        {
+          "step": 6,
+          "title": "Remove react-beautiful-dnd",
+          "commands": [
+            "npm uninstall react-beautiful-dnd @types/react-beautiful-dnd"
+          ],
+          "description": "Clean up old packages after successful migration"
+        },
+        {
+          "step": 7,
+          "title": "Test thoroughly",
+          "description": "Verify all drag-and-drop functionality works as expected",
+          "areas": [
+            "Drag and drop behavior",
+            "Visual feedback",
+            "Keyboard navigation",
+            "Touch support (if applicable)",
+            "State updates",
+            "TypeScript compilation"
+          ]
+        }
+      ],
+      "commonPatterns": {
+        "simpleList": {
+          "before": "// react-beautiful-dnd\n<DragDropContext onDragEnd={handleDragEnd}>\n  <Droppable droppableId=\"list\">\n    {(provided) => (\n      <div ref={provided.innerRef} {...provided.droppableProps}>\n        {items.map((item, index) => (\n          <Draggable key={item.id} draggableId={item.id} index={index}>\n            {(provided) => (\n              <div\n                ref={provided.innerRef}\n                {...provided.draggableProps}\n                {...provided.dragHandleProps}\n              >\n                {item.content}\n              </div>\n            )}\n          </Draggable>\n        ))}\n        {provided.placeholder}\n      </div>\n    )}\n  </Droppable>\n</DragDropContext>",
+          "after": "// @dnd-kit\nfunction SortableItem({ id, content }) {\n  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });\n  \n  return (\n    <div\n      ref={setNodeRef}\n      style={{ transform: CSS.Transform.toString(transform), transition }}\n      {...attributes}\n      {...listeners}\n    >\n      {content}\n    </div>\n  );\n}\n\n<DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>\n  <SortableContext items={items.map(i => i.id)} strategy={verticalListSortingStrategy}>\n    {items.map(item => <SortableItem key={item.id} {...item} />)}\n  </SortableContext>\n</DndContext>"
+        },
+        "dragHandle": {
+          "before": "// react-beautiful-dnd\n<Draggable draggableId={id} index={index}>\n  {(provided) => (\n    <div ref={provided.innerRef} {...provided.draggableProps}>\n      <span {...provided.dragHandleProps}>⋮⋮</span>\n      <span>{content}</span>\n    </div>\n  )}\n</Draggable>",
+          "after": "// @dnd-kit\nfunction SortableItem({ id, content }) {\n  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });\n  \n  return (\n    <div ref={setNodeRef} style={{ transform: CSS.Transform.toString(transform), transition }} {...attributes}>\n      <span {...listeners} style={{ cursor: 'grab' }}>⋮⋮</span>\n      <span>{content}</span>\n    </div>\n  );\n}"
+        },
+        "reorderArray": {
+          "before": "// react-beautiful-dnd\nconst handleDragEnd = (result) => {\n  const items = Array.from(list);\n  const [removed] = items.splice(result.source.index, 1);\n  items.splice(result.destination.index, 0, removed);\n  setList(items);\n};",
+          "after": "// @dnd-kit (simpler with arrayMove)\nconst handleDragEnd = (event) => {\n  const { active, over } = event;\n  if (active.id !== over.id) {\n    setList(items => {\n      const oldIndex = items.findIndex(i => i.id === active.id);\n      const newIndex = items.findIndex(i => i.id === over.id);\n      return arrayMove(items, oldIndex, newIndex);\n    });\n  }\n};"
+        }
+      },
+      "keyDifferences": {
+        "philosophy": "react-beautiful-dnd uses render props and provides DOM refs/props. @dnd-kit uses hooks and returns style/attribute objects.",
+        "placeholders": "react-beautiful-dnd requires {provided.placeholder}. @dnd-kit handles this automatically.",
+        "snapshots": "react-beautiful-dnd provides snapshot.isDragging. @dnd-kit derives this from transform/transition presence.",
+        "multiContainer": "react-beautiful-dnd handles this automatically. @dnd-kit requires manual onDragOver logic for cross-container drops.",
+        "collision": "@dnd-kit requires explicit collision detection strategy (closestCenter, closestCorners, rectIntersection).",
+        "layout": "@dnd-kit provides different strategies for different layouts (verticalListSortingStrategy, rectSortingStrategy, etc.)"
+      }
+    },
+    "performanceConsiderations": {
+      "bundleSize": {
+        "reactBeautifulDnd": "~45KB minified+gzipped",
+        "dndKit": "~25KB minified+gzipped (core + sortable + utilities)",
+        "savings": "~20KB (44% reduction)"
+      },
+      "optimizations": [
+        "Use DragOverlay for large lists to improve performance (renders dragged item in portal)",
+        "Use CSS transforms instead of top/left positioning for smooth 60fps animations",
+        "Leverage SortableContext's built-in optimizations for list rendering",
+        "Consider using restrictToVerticalAxis or restrictToHorizontalAxis modifiers to constrain movement"
+      ],
+      "accessibility": [
+        "Keyboard support built-in (Space to pick up, Arrow keys to move, Space to drop, Escape to cancel)",
+        "Screen reader announcements via announcements prop",
+        "Customizable aria-label and role attributes",
+        "Focus management handled automatically"
+      ]
+    },
+    "resources": {
+      "documentation": [
+        {
+          "title": "dnd-kit Official Docs",
+          "url": "https://docs.dndkit.com/"
+        },
+        {
+          "title": "Sortable Preset Guide",
+          "url": "https://docs.dndkit.com/presets/sortable"
+        },
+        {
+          "title": "Migration from react-beautiful-dnd",
+          "url": "https://next.dndkit.com/react/guides/migration"
+        },
+        {
+          "title": "API Reference - useSortable",
+          "url": "https://docs.dndkit.com/api-documentation/sortable/usesortable"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Sortable List Example",
+          "url": "https://master--5fc05e08a4a65d0021ae0bf2.chromatic.com/?path=/story/presets-sortable-vertical--basic-setup"
+        },
+        {
+          "title": "Multi-Container Example",
+          "url": "https://master--5fc05e08a4a65d0021ae0bf2.chromatic.com/?path=/story/presets-sortable-multiple-containers--basic-setup"
+        },
+        {
+          "title": "Grid Layout Example",
+          "url": "https://master--5fc05e08a4a65d0021ae0bf2.chromatic.com/?path=/story/presets-sortable-grid--basic-setup"
+        }
+      ],
+      "community": [
+        {
+          "title": "GitHub Discussions",
+          "url": "https://github.com/clauderic/dnd-kit/discussions"
+        },
+        {
+          "title": "Stack Overflow",
+          "url": "https://stackoverflow.com/questions/tagged/dnd-kit"
+        }
+      ]
+    },
+    "riskAssessment": {
+      "technicalRisk": "LOW-MEDIUM",
+      "reasoning": "Both files have well-defined drag-and-drop logic that can be systematically migrated. Main risk is multi-container logic in EnhancedFriends.tsx",
+      "mitigationStrategies": [
+        "Migrate MediaUploader.tsx first (simpler, single container)",
+        "Create unit tests before migration to ensure behavior is preserved",
+        "Use feature flag to test new implementation alongside old",
+        "Test thoroughly across browsers and devices",
+        "Keep react-beautiful-dnd installed during migration for rollback safety"
+      ]
+    },
+    "timeline": {
+      "phase1": {
+        "duration": "1 day",
+        "tasks": [
+          "Install @dnd-kit packages",
+          "Create branch for migration",
+          "Write unit tests for existing drag-drop behavior"
+        ]
+      },
+      "phase2": {
+        "duration": "2-4 hours",
+        "tasks": [
+          "Migrate MediaUploader.tsx",
+          "Test media reordering and thumbnail selection",
+          "Fix any TypeScript errors"
+        ]
+      },
+      "phase3": {
+        "duration": "4-6 hours",
+        "tasks": [
+          "Migrate EnhancedFriends.tsx",
+          "Implement multi-container logic",
+          "Test friend categorization across groups",
+          "Verify visual feedback"
+        ]
+      },
+      "phase4": {
+        "duration": "2-3 hours",
+        "tasks": [
+          "Cross-browser testing",
+          "Accessibility testing (keyboard navigation)",
+          "Performance testing",
+          "Code review"
+        ]
+      },
+      "phase5": {
+        "duration": "1 hour",
+        "tasks": [
+          "Remove react-beautiful-dnd packages",
+          "Update documentation",
+          "Merge to main"
+        ]
+      },
+      "totalEstimate": "1.5-2 days (12-16 hours)"
+    }
+  }
+}

@@ -56,9 +56,18 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
   const queryClient = useQueryClient();
 
   // Fetch messages
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: messages = [], isLoading } = useQuery({
     queryKey: [`/api/chat/rooms/${room.slug}/messages`],
+    queryFn: async () => {
+      const response = await fetch(`/api/chat/rooms/${room.slug}/messages`, {
+        headers: {
+          'Authorization': `Bearer ${getAuthToken()}`,
+        },
+      });
+      if (!response.ok) throw new Error('Failed to fetch messages');
+      const data = await response.json();
+      return data.data.reverse(); // Reverse to show newest at bottom
+    },
   });
 
   // Send message mutation
@@ -167,7 +176,7 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
   const messageGroups = groupMessagesByDate(messages);
 
   return (
-    <Card className="card-shadow h-full flex flex-col" data-testid="chat-room">
+    <Card className="card-shadow h-full flex flex-col">
       {/* Header */}
       <CardHeader className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between">
@@ -177,7 +186,6 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               size="sm"
               onClick={onBack}
               className="lg:hidden p-1"
-              data-testid="button-back-to-list"
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>
@@ -278,9 +286,9 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
       </CardContent>
 
       {/* Message Input */}
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700" data-testid="message-input-area">
+      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
         <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" type="button" className="text-gray-600" data-testid="button-attach-file">
+          <Button variant="ghost" size="sm" type="button" className="text-gray-600">
             <Paperclip className="h-5 w-5" />
           </Button>
           
@@ -290,14 +298,12 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               className="pr-10"
-              data-testid="input-message"
             />
             <Button 
               variant="ghost" 
               size="sm" 
               type="button"
               className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-600"
-              data-testid="button-emoji"
             >
               <Smile className="h-4 w-4" />
             </Button>
@@ -307,7 +313,6 @@ export default function ChatRoom({ room, onBack }: ChatRoomProps) {
             type="submit"
             disabled={!newMessage.trim() || sendMessageMutation.isPending}
             className="bg-tango-red hover:bg-tango-red/90"
-            data-testid="button-send-message"
           >
             <Send className="h-4 w-4" />
           </Button>

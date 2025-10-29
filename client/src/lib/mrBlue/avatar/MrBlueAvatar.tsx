@@ -14,27 +14,12 @@ import * as THREE from 'three';
 interface MrBlueAvatarProps {
   onMessage?: (message: string) => void;
   autoSpeak?: boolean;
-  isSpeaking?: boolean;
-  isListening?: boolean;
-  isThinking?: boolean;
-  emotion?: 'neutral' | 'happy' | 'thinking' | 'concerned' | 'excited';
 }
 
-export function MrBlueAvatar({ 
-  onMessage, 
-  autoSpeak = false,
-  isSpeaking: externalIsSpeaking,
-  isListening: externalIsListening,
-  isThinking,
-  emotion = 'neutral'
-}: MrBlueAvatarProps) {
+export function MrBlueAvatar({ onMessage, autoSpeak = false }: MrBlueAvatarProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isListening, setIsListening] = useState(false);
-
-  // Use external states if provided
-  const actualIsSpeaking = externalIsSpeaking ?? isSpeaking;
-  const actualIsListening = externalIsListening ?? isListening;
   const { toast } = useToast();
 
   const handleVoiceInput = async () => {
@@ -92,11 +77,7 @@ export function MrBlueAvatar({
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
-        <AvatarModel 
-          isSpeaking={actualIsSpeaking} 
-          isThinking={isThinking}
-          emotion={emotion}
-        />
+        <AvatarModel isSpeaking={isSpeaking} />
         <OrbitControls 
           enableZoom={false}
           enablePan={false}
@@ -108,13 +89,13 @@ export function MrBlueAvatar({
       {/* Voice Controls */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
         <Button
-          variant={actualIsListening ? "default" : "outline"}
+          variant={isListening ? "default" : "outline"}
           size="icon"
           onClick={handleVoiceInput}
-          className={actualIsListening ? "animate-pulse" : ""}
+          className={isListening ? "animate-pulse" : ""}
           data-testid="button-voice-input"
         >
-          {actualIsListening ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
+          {isListening ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
         </Button>
 
         <Button
@@ -128,36 +109,22 @@ export function MrBlueAvatar({
       </div>
 
       {/* Status Indicator */}
-      {actualIsSpeaking && (
+      {isSpeaking && (
         <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm animate-pulse">
           Speaking...
         </div>
       )}
 
-      {actualIsListening && (
+      {isListening && (
         <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm animate-pulse">
           Listening...
-        </div>
-      )}
-      
-      {isThinking && (
-        <div className="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm animate-pulse">
-          Thinking...
         </div>
       )}
     </div>
   );
 }
 
-function AvatarModel({ 
-  isSpeaking, 
-  isThinking, 
-  emotion 
-}: { 
-  isSpeaking?: boolean;
-  isThinking?: boolean;
-  emotion?: 'neutral' | 'happy' | 'thinking' | 'concerned' | 'excited';
-}) {
+function AvatarModel({ isSpeaking }: { isSpeaking: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const [avatarExists, setAvatarExists] = useState(false);
@@ -213,14 +180,7 @@ function AvatarModel({
           {/* Simple avatar representation (placeholder until Meshy.ai avatar is generated) */}
           <mesh position={[0, 0, 0]}>
             <sphereGeometry args={[0.5, 32, 32]} />
-            <meshStandardMaterial color={
-              hovered ? "#60a5fa" : 
-              emotion === 'happy' ? "#10B981" :
-              emotion === 'thinking' ? "#8B5CF6" :
-              emotion === 'concerned' ? "#F59E0B" :
-              emotion === 'excited' ? "#EC4899" :
-              "#3b82f6"
-            } />
+            <meshStandardMaterial color={hovered ? "#60a5fa" : "#3b82f6"} />
           </mesh>
           
           {/* Eyes */}

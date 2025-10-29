@@ -145,7 +145,7 @@ export default function OpenSourcesPage() {
   }
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 p-6">
       {/* Header */}
       <GlassCard className="glassmorphic-card backdrop-blur-xl p-6 mb-6">
         <div className="flex items-center justify-between">

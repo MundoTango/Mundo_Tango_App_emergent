@@ -2,30 +2,21 @@ import { useQuery } from '@tanstack/react-query';
 import { Bell, MessageCircle, Users } from 'lucide-react';
 import { Link } from 'wouter';
 import { Badge } from '@/components/ui/badge';
-import { apiRequest } from '@/lib/queryClient';
 
 interface CountResponse {
   count: number;
 }
 
 export default function NotificationIndicator() {
-  // Get notification count - explicit queryFn to prevent console errors
+  // Get notification count
   const { data: notificationCount } = useQuery<CountResponse>({
     queryKey: ['/api/notifications/count'],
-    queryFn: async () => {
-      const res = await apiRequest('/api/notifications/count');
-      return res.json();
-    },
     refetchInterval: 30000 // Refetch every 30 seconds
   });
 
-  // Get friend request count - explicit queryFn to prevent console errors
+  // Get friend request count
   const { data: friendRequestCount } = useQuery<CountResponse>({
     queryKey: ['/api/friends/requests/count'],
-    queryFn: async () => {
-      const res = await apiRequest('/api/friends/requests/count');
-      return res.json();
-    },
     refetchInterval: 30000
   });
 

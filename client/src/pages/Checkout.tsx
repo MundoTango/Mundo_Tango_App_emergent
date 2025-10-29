@@ -152,9 +152,17 @@ const Checkout: React.FC = () => {
   });
 
   // Create payment intent
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: paymentData, isLoading, error } = useQuery({
-    queryKey: ['/api/payments/create-checkout-session', { tier, promoCode: appliedPromo?.code }],
+    queryKey: ['/api/payments/create-checkout-session', tier, appliedPromo?.code],
+    queryFn: async () => {
+      return apiRequest('/api/payments/create-checkout-session', {
+        method: 'POST',
+        body: { 
+          tier,
+          promoCode: appliedPromo?.code 
+        }
+      });
+    },
     enabled: isAuthenticated && !!tier,
   });
 

@@ -90,9 +90,15 @@ export default function PostDetailModal({
   const [reusedMedia, setReusedMedia] = useState<ReusedMedia[]>([]);
 
   // Fetch post comments - FIXED: Use memories endpoint
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: comments = [], isLoading: commentsLoading } = useQuery({
-    queryKey: [`/api/memories/${post.id}/comments`],
+    queryKey: ['/api/memories', post.id, 'comments'],
+    queryFn: async () => {
+      const response = await fetch(`/api/memories/${post.id}/comments`, {
+        credentials: 'include'
+      });
+      const result = await response.json();
+      return result.data || [];
+    },
     enabled: isOpen
   });
 

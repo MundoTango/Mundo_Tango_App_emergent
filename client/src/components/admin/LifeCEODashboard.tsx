@@ -1,4 +1,4 @@
-// Mundo Tango ESA LIFE CEO - Life CEO Agent Dashboard (Layer 35: Agent Framework Core)
+// ESA LIFE CEO 56x21 - Life CEO Agent Dashboard (Layer 35: Agent Framework Core)
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -94,29 +94,48 @@ export const LifeCEODashboard: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [sessionId] = useState(`session-${Date.now()}`);
 
-  // MB.MD SIMULTANEOUS: All queries use default fetcher
-  const { data: agentsData, isLoading: agentsLoading } = useQuery({
+  // Fetch available agents
+  const { data: agents, isLoading: agentsLoading } = useQuery({
     queryKey: ['/api/ai/agents'],
+    queryFn: async () => {
+      const response = await fetch('/api/ai/agents');
+      const data = await response.json();
+      return data.agents as Agent[];
+    }
   });
-  const agents = agentsData?.agents || [];
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
-  const { data: memoriesData } = useQuery({
-    queryKey: ['/api/ai/memories', selectedAgent ? { agentId: selectedAgent } : {}],
+  // Fetch user memories
+  const { data: memories } = useQuery({
+    queryKey: ['/api/ai/memories', selectedAgent],
+    queryFn: async () => {
+      const params = selectedAgent ? `?agentId=${selectedAgent}` : '';
+      const response = await fetch(`/api/ai/memories${params}`);
+      const data = await response.json();
+      return data.memories;
+    },
     enabled: !!selectedAgent
   });
-  const memories = memoriesData || [];
 
-  const { data: recommendationsData } = useQuery({
+  // Fetch recommendations
+  const { data: recommendations } = useQuery({
     queryKey: ['/api/ai/recommendations'],
+    queryFn: async () => {
+      const response = await fetch('/api/ai/recommendations');
+      const data = await response.json();
+      return data.recommendations;
+    }
   });
-  const recommendations = recommendationsData?.recommendations || [];
 
-  const { data: metricsData } = useQuery({
+  // Fetch intelligence metrics
+  const { data: metrics } = useQuery({
     queryKey: ['/api/ai/metrics'],
-    refetchInterval: 30000
+    queryFn: async () => {
+      const response = await fetch('/api/ai/metrics');
+      const data = await response.json();
+      return data.metrics;
+    },
+    refetchInterval: 30000 // Refresh every 30 seconds
   });
-  const metrics = metricsData?.metrics || {};
 
   // Chat mutation
   const chatMutation = useMutation({
@@ -184,7 +203,7 @@ export const LifeCEODashboard: React.FC = () => {
             <p className="text-gray-600">{t('common.16_ai_agents_personalized_life_management_56_layer')}</p>
           </div>
           <Badge className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white dark:text-gray-900 dark:text-white border-0">
-            Mundo Tango ESA LIFE CEO
+            ESA LIFE CEO 56x21
           </Badge>
         </div>
       </div>

@@ -10,22 +10,14 @@ import { useVisualEditorActions } from '@/hooks/useVisualEditorActions';
 /**
  * ESA Agent #78: Visual Page Editor
  * Figma-like visual editing mode for any page
- * MB.MD Fix Oct 21: Made enabled/onToggle optional for standalone tab usage
  */
 
 interface VisualPageEditorProps {
-  enabled?: boolean;
-  onToggle?: (enabled: boolean) => void;
+  enabled: boolean;
+  onToggle: (enabled: boolean) => void;
 }
 
-export default function VisualPageEditor({ enabled: externalEnabled, onToggle }: VisualPageEditorProps = {}) {
-  const [internalEnabled, setInternalEnabled] = useState(false);
-  
-  // Controlled mode: external prop + callback provided
-  // Uncontrolled mode: use internal state
-  const isControlled = externalEnabled !== undefined;
-  const enabled = isControlled ? externalEnabled : internalEnabled;
-  
+export function VisualPageEditor({ enabled, onToggle }: VisualPageEditorProps) {
   const [selectedElement, setSelectedElement] = useState<HTMLElement | null>(null);
   const [changes, setChanges] = useState<any[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -35,14 +27,6 @@ export default function VisualPageEditor({ enabled: externalEnabled, onToggle }:
   
   // Visual Editor Tracker - connects to Mr Blue + Phase 12
   const { actions, getDataForMrBlue, tracker } = useVisualEditorActions();
-
-  const handleToggle = (newEnabled: boolean) => {
-    if (onToggle) {
-      onToggle(newEnabled);
-    } else {
-      setInternalEnabled(newEnabled);
-    }
-  };
 
   useEffect(() => {
     if (enabled) {
@@ -174,116 +158,85 @@ export default function VisualPageEditor({ enabled: externalEnabled, onToggle }:
     }
   }, [enabled, selectedElement]);
 
+  if (!enabled) return null;
+
   return (
-    <div className="h-full w-full flex flex-col">
-      {/* Info Panel when not in edit mode */}
-      {!enabled && (
-        <div className="flex flex-col items-center justify-center h-full p-8">
-          <div className="text-center max-w-2xl">
-            <div className="mb-6">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-purple-600 mb-4">
-                <Edit3 className="h-8 w-8 text-white" />
-              </div>
-            </div>
-            <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-              Visual Page Editor
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Edit any page visually with drag-and-drop controls. Click, select, and modify elements in real-time with AI assistance.
-            </p>
-            <Button
-              size="lg"
-              onClick={() => handleToggle(true)}
-              className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
-              data-testid="button-activate-editor"
-            >
-              <Edit3 className="h-5 w-5 mr-2" />
-              Activate Visual Editor
-            </Button>
-          </div>
-        </div>
+    <>
+      {/* Visual Editor Controls */}
+      <div 
+        className="visual-editor-controls fixed top-4 right-4 z-[9999] bg-background/95 backdrop-blur-sm border rounded-lg shadow-lg p-3 flex items-center gap-2"
+        data-testid="visual-editor-controls"
+      >
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => setShowCode(!showCode)}
+          data-testid="button-toggle-code"
+        >
+          <Code className="h-4 w-4 mr-1" />
+          {showCode ? 'Hide' : 'Show'} Code
+        </Button>
+
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleGenerateCode}
+          disabled={!selectedElement || isGenerating}
+          data-testid="button-generate-code"
+        >
+          <Wand2 className="h-4 w-4 mr-1" />
+          AI Generate
+        </Button>
+
+        <Button
+          size="sm"
+          variant="default"
+          onClick={handleSaveChanges}
+          disabled={changes.length === 0}
+          data-testid="button-save-changes"
+        >
+          <Save className="h-4 w-4 mr-1" />
+          Save ({changes.length})
+        </Button>
+
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => onToggle(false)}
+          data-testid="button-exit-editor"
+        >
+          <X className="h-4 w-4 mr-1" />
+          Exit
+        </Button>
+      </div>
+
+      {/* Selection Layer - highlights selected element */}
+      <SelectionLayer
+        selectedElement={selectedElement}
+        onStyleChange={handleStyleChange}
+      />
+
+      {/* Change Tracker - shows all modifications */}
+      <ChangeTracker
+        changes={changes}
+        onUndo={(index) => {
+          const change = changes[index];
+          if (change.element) {
+            change.element.style[change.property] = change.oldValue;
+          }
+          setChanges(changes.filter((_, i) => i !== index));
+        }}
+      />
+
+      {/* AI Code Generator - shows generated code */}
+      {showCode && selectedElement && (
+        <AICodeGenerator
+          element={selectedElement}
+          changes={changes.filter(c => c.element === selectedElement)}
+          onClose={() => setShowCode(false)}
+        />
       )}
-
-      {/* Editor Active State */}
-      {enabled && (
-        <>
-          {/* Visual Editor Controls */}
-          <div 
-            className="visual-editor-controls fixed top-4 right-4 z-[9999] bg-background/95 backdrop-blur-sm border rounded-lg shadow-lg p-3 flex items-center gap-2"
-            data-testid="visual-editor-controls"
-          >
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setShowCode(!showCode)}
-              data-testid="button-toggle-code"
-            >
-              <Code className="h-4 w-4 mr-1" />
-              {showCode ? 'Hide' : 'Show'} Code
-            </Button>
-
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={handleGenerateCode}
-              disabled={!selectedElement || isGenerating}
-              data-testid="button-generate-code"
-            >
-              <Wand2 className="h-4 w-4 mr-1" />
-              AI Generate
-            </Button>
-
-            <Button
-              size="sm"
-              variant="default"
-              onClick={handleSaveChanges}
-              disabled={changes.length === 0}
-              data-testid="button-save-changes"
-            >
-              <Save className="h-4 w-4 mr-1" />
-              Save ({changes.length})
-            </Button>
-
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => handleToggle(false)}
-              data-testid="button-exit-editor"
-            >
-              <X className="h-4 w-4 mr-1" />
-              Exit
-            </Button>
-          </div>
-
-          {/* Selection Layer - highlights selected element */}
-          <SelectionLayer
-            selectedElement={selectedElement}
-            onStyleChange={handleStyleChange}
-          />
-
-          {/* Change Tracker - shows all modifications */}
-          <ChangeTracker
-            changes={changes}
-            onUndo={(index) => {
-              const change = changes[index];
-              if (change.element) {
-                change.element.style[change.property] = change.oldValue;
-              }
-              setChanges(changes.filter((_, i) => i !== index));
-            }}
-          />
-
-          {/* AI Code Generator - shows generated code */}
-          {showCode && selectedElement && (
-            <AICodeGenerator
-              element={selectedElement}
-              changes={changes.filter(c => c.element === selectedElement)}
-              onClose={() => setShowCode(false)}
-            />
-          )}
-        </>
-      )}
-    </div>
+    </>
   );
 }
 

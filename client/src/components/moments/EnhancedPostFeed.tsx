@@ -77,38 +77,99 @@ const EnhancedPostFeed = React.memo(({ posts: propsPosts, currentUserId, filters
   const [filterTags, setFilterTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
 
-  // Mundo Tango ESA LIFE CEO - Use passed posts or fetch memories with filters applied
-  // MB.MD SIMULTANEOUS: Build URL with params, use default fetcher
-  const buildFeedUrl = () => {
-    const params = new URLSearchParams();
-    if (filters?.filterType && filters.filterType !== 'all') {
-      params.append('filter', filters.filterType);
-    }
-    if (filters?.tags && filters.tags.length > 0) {
-      params.append('tags', filters.tags.join(','));
-    }
-    if (filters?.visibility && filters.visibility !== 'all') {
-      params.append('visibility', filters.visibility);
-    }
-    if (filters?.location) {
-      params.append('lat', filters.location.lat.toString());
-      params.append('lng', filters.location.lng.toString());
-      params.append('radius', filters.location.radius.toString());
-    }
-    return `/api/posts/feed?${params}`;
-  };
-  
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
+  // ESA LIFE CEO 61x21 - Use passed posts or fetch memories with filters applied
   const { data: fetchedPosts, isLoading, error } = useQuery({
-    queryKey: ['/api/posts/feed', {
-      filter: filters?.filterType && filters.filterType !== 'all' ? filters.filterType : undefined,
-      tags: filters?.tags && filters.tags.length > 0 ? filters.tags.join(',') : undefined,
-      visibility: filters?.visibility && filters.visibility !== 'all' ? filters.visibility : undefined,
-      lat: filters?.location?.lat,
-      lng: filters?.location?.lng,
-      radius: filters?.location?.radius
-    }],
+    queryKey: ['/api/posts/feed', filters?.filterType, filters?.tags, filters?.visibility, filters?.location],
     enabled: !propsPosts, // ESA Framework: Only fetch if posts not provided from parent
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      
+      // Apply filter type
+      if (filters?.filterType && filters.filterType !== 'all') {
+        params.append('filter', filters.filterType);
+      }
+      
+      // Apply tags
+      if (filters?.tags && filters.tags.length > 0) {
+        params.append('tags', filters.tags.join(','));
+      }
+      
+      // Apply visibility
+      if (filters?.visibility && filters.visibility !== 'all') {
+        params.append('visibility', filters.visibility);
+      }
+      
+      // Apply location for nearby filter
+      if (filters?.location) {
+        params.append('lat', filters.location.lat.toString());
+        params.append('lng', filters.location.lng.toString());
+        params.append('radius', filters.location.radius.toString());
+      }
+      
+      const response = await fetch(`/api/posts/feed?${params}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch memories');
+      }
+      
+      const result = await response.json();
+      const memories = result.data || [];
+      
+      // ESA LIFE CEO 61x21 - Process ALL media fields from memories
+      return memories.map((memory: any) => {
+        // Processing memory media fields
+        
+        // CRITICAL FIX: Check mediaEmbeds FIRST (primary source)
+        if (memory.mediaEmbeds && memory.mediaEmbeds.length > 0) {
+          const firstMedia = memory.mediaEmbeds[0];
+          // ESA Framework Layer 13: Type-safe media URL processing
+          const isVideo = firstMedia && typeof firstMedia === 'string' && (
+            firstMedia.toLowerCase().includes('.mp4') || 
+            firstMedia.toLowerCase().includes('.mov') || 
+            firstMedia.toLowerCase().includes('.webm') ||
+            firstMedia.toLowerCase().includes('.avi') ||
+            firstMedia.toLowerCase().includes('.m4v') ||
+            firstMedia.toLowerCase().includes('.mkv')
+          );
+          
+          // Set imageUrl or videoUrl based on file type
+          if (isVideo) {
+            memory.videoUrl = firstMedia;
+          } else {
+            memory.imageUrl = firstMedia;
+          }
+        }
+        // Fallback to mediaUrls if no mediaEmbeds
+        else if (memory.mediaUrls && memory.mediaUrls.length > 0) {
+          const firstMedia = memory.mediaUrls[0];
+          // ESA Framework Layer 13: Type-safe media URL processing
+          const isVideo = firstMedia && typeof firstMedia === 'string' && (
+            firstMedia.toLowerCase().includes('.mp4') || 
+            firstMedia.toLowerCase().includes('.mov') || 
+            firstMedia.toLowerCase().includes('.webm') ||
+            firstMedia.toLowerCase().includes('.avi') ||
+            firstMedia.toLowerCase().includes('.m4v') ||
+            firstMedia.toLowerCase().includes('.mkv')
+          );
+          
+          // Set imageUrl or videoUrl based on file type
+          if (isVideo) {
+            memory.videoUrl = firstMedia;
+          } else {
+            memory.imageUrl = firstMedia;
+          }
+        }
+        
+        // Media processing complete
+        
+        return memory;
+      });
+    }
   });
   
   // ESA Framework: Use passed posts from parent or fetched posts

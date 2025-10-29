@@ -1,4 +1,4 @@
-// Mundo Tango ESA LIFE CEO - Phase 19: Content Moderation Page
+// ESA LIFE CEO 61x21 - Phase 19: Content Moderation Page
 import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
@@ -126,9 +126,22 @@ export default function AdminModerationPage() {
   const [showActionDialog, setShowActionDialog] = useState(false);
   const [selectedAction, setSelectedAction] = useState('');
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
+  // Fetch moderation queue
   const { data: reportsData, isLoading, refetch } = useQuery({
     queryKey: ['/api/admin/moderation/reports', { status: selectedTab, category: filterCategory, severity: filterSeverity, search: searchQuery }],
+    queryFn: async () => {
+      const params = new URLSearchParams({
+        status: selectedTab,
+        category: filterCategory,
+        severity: filterSeverity,
+        search: searchQuery
+      });
+      const response = await fetch(`/api/admin/moderation/reports?${params}`, {
+        credentials: 'include'
+      });
+      if (!response.ok) throw new Error('Failed to fetch reports');
+      return response.json();
+    }
   });
 
   // Fetch moderation statistics

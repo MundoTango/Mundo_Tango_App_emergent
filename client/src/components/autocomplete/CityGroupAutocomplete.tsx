@@ -50,23 +50,30 @@ export default function CityGroupAutocomplete({
     setInputValue(value?.name || '');
   }, [value]);
 
-  // Fetch all groups and filter city groups (MB.MD SIMULTANEOUS: Client-side filtering)
-  const { data: groupsData, isLoading } = useQuery({
-    queryKey: ['/api/groups'],
+  // Fetch all groups and filter city groups
+  const { data: cityGroups, isLoading } = useQuery({
+    queryKey: ['/api/groups', { search: debouncedSearch }],
+    queryFn: async () => {
+      const response = await fetch('/api/groups', {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) throw new Error('Failed to fetch groups');
+      const result = await response.json();
+      
+      // Filter for city groups and apply search
+      const cities = (result.data || []).filter((group: CityGroup) => 
+        group.type === 'city' && 
+        (!debouncedSearch || group.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
+      );
+      
+      // Sort by member count
+      return cities.sort((a: CityGroup, b: CityGroup) => 
+        (b.memberCount || 0) - (a.memberCount || 0)
+      );
+    },
     enabled: isOpen
   });
-  
-  // Filter for city groups and apply search
-  const cityGroups = React.useMemo(() => {
-    if (!groupsData?.data) return [];
-    const cities = groupsData.data.filter((group: CityGroup) => 
-      group.type === 'city' && 
-      (!debouncedSearch || group.name.toLowerCase().includes(debouncedSearch.toLowerCase()))
-    );
-    return cities.sort((a: CityGroup, b: CityGroup) => 
-      (b.memberCount || 0) - (a.memberCount || 0)
-    );
-  }, [groupsData, debouncedSearch]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

@@ -60,9 +60,19 @@ export function NotionEntryPage() {
   const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: entry, isLoading, error } = useQuery<NotionEntry>({
     queryKey: ['/api/notion/entries', slug],
+    queryFn: async () => {
+      const response = await fetch(`/api/notion/entries/${slug}`);
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('Entry not found');
+        }
+        throw new Error('Failed to fetch entry');
+      }
+      const result = await response.json();
+      return result.data;
+    },
     enabled: !!slug,
   });
 

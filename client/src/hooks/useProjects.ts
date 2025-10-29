@@ -19,8 +19,7 @@ export function useProjects(filters?: {
       if (filters?.layer) params.append('layer', filters.layer.toString());
       if (filters?.parentId) params.append('parentId', filters.parentId);
       
-      const response = await fetch(`/api/projects?${params}`, { credentials: 'include' });
-      if (!response.ok) return [] as Project[]; // Return empty array on error
+      const response = await fetch(`/api/projects?${params}`);
       const data = await response.json();
       return data.data as Project[];
     },
@@ -32,12 +31,6 @@ export function useProjects(filters?: {
 export function useProject(id: string) {
   return useQuery({
     queryKey: ['/api/projects', id],
-    queryFn: async () => {
-      const response = await fetch(`/api/projects/${id}`, { credentials: 'include' });
-      if (!response.ok) throw new Error('Failed to fetch project');
-      const data = await response.json();
-      return data.data as Project;
-    },
     enabled: !!id,
   });
 }
@@ -100,12 +93,6 @@ export function useDeleteProject() {
 export function useProjectMetrics() {
   return useQuery({
     queryKey: ['/api/projects/metrics/summary'],
-    queryFn: async () => {
-      const response = await fetch('/api/projects/metrics/summary', { credentials: 'include' });
-      if (!response.ok) throw new Error('Failed to fetch metrics');
-      const data = await response.json();
-      return data.data;
-    },
     refetchInterval: 60000, // Refresh every minute
   });
 }

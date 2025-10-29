@@ -12,12 +12,11 @@ interface ConnectionInfoPanelProps {
 }
 
 export function ConnectionInfoPanel({ userId, hostId, hostName }: ConnectionInfoPanelProps) {
-  // MB.MD SIMULTANEOUS: Explicit queryFn to prevent console errors
   const { data: connectionInfo, isLoading } = useQuery({
-    queryKey: [`/api/users/${userId}/connection-info/${hostId}`],
+    queryKey: ['/api/users', userId, 'connection-info', hostId],
     queryFn: async () => {
-      const res = await fetch(`/api/users/${userId}/connection-info/${hostId}`, { credentials: 'include' });
-      if (!res.ok) return null;
+      const res = await fetch(`/api/users/${userId}/connection-info/${hostId}`);
+      if (!res.ok) throw new Error('Failed to fetch connection info');
       return res.json();
     },
     enabled: userId !== hostId, // Don't fetch if viewing own property

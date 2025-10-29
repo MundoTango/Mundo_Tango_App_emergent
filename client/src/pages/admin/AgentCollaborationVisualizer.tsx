@@ -58,8 +58,7 @@ export default function AgentCollaborationVisualizer() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
-      <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 space-y-6">
       <MetaTags
         title="Agent Collaboration Visualizer"
         description="Visualize real-time collaboration and knowledge sharing between ESA agents"
@@ -79,7 +78,7 @@ export default function AgentCollaborationVisualizer() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-cyan-200/30 dark:border-cyan-800/30">
+        <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Active Agents</CardTitle>
           </CardHeader>
@@ -274,7 +273,6 @@ export default function AgentCollaborationVisualizer() {
           </Card>
         </div>
       </div>
-    </div>
     </div>
   );
 }

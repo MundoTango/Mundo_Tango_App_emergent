@@ -102,8 +102,7 @@ export default function SprintManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
-      <div className="container mx-auto py-6 space-y-6" data-testid="page-sprint-management">
+    <div className="container mx-auto py-6 space-y-6" data-testid="page-sprint-management">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold dark:text-white" data-testid="heading-sprint-management">Sprint Management</h1>
@@ -305,7 +304,6 @@ export default function SprintManagement() {
             </CardContent>
           </Card>
         )}
-      </div>
       </div>
     </div>
   );

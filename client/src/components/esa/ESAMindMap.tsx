@@ -87,10 +87,23 @@ export function ESAMindMap() {
     }
   ];
 
-  // MB.MD Oct 21, 2025: Floating button REMOVED - features merged into MrBlueComplete Admin tab
-  // Component kept for admin pages (AdminCenter, ESAMind, dashboard) but no global floating button
   return (
-    <>{/* Floating Button REMOVED - features in Mr Blue Admin tab */}
+    <>
+      {/* Floating Button - Stacked above Mr Blue when both visible */}
+      <div className="fixed bottom-24 right-6 z-[9998]" data-testid="floating-esa-button">
+        <MagneticButton
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 shadow-2xl flex items-center justify-center transition-all duration-300 ${
+            isOpen ? 'scale-110 rotate-180' : 'hover:scale-110'
+          }`}
+        >
+          {isOpen ? (
+            <X className="w-8 h-8 text-white" />
+          ) : (
+            <Map className="w-8 h-8 text-white" />
+          )}
+        </MagneticButton>
+      </div>
 
       {/* Quick Navigator Overlay */}
       {isOpen && (

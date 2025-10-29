@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-10-13T08:41:02.190Z",
+  "summary": {
+    "totalFrontendCalls": 223,
+    "verifiedRoutes": 220,
+    "missingRoutes": 3,
+    "methodMismatches": 0,
+    "autoFixable": 3
+  },
+  "issues": [
+    {
+      "severity": "critical",
+      "type": "missing_backend",
+      "frontendCall": {
+        "file": "components/SecurityDemo.tsx",
+        "line": 159,
+        "endpoint": "/api/event/1/feedback",
+        "method": "GET",
+        "context": "const response = await fetch('/api/event/1/feedback', {"
+      },
+      "expectedRoute": "/api/event/1/feedback",
+      "actualRoute": {
+        "file": "routes/userUploadRoutes.ts",
+        "path": "/users/me/event-invitations",
+        "method": "POST",
+        "mountPath": "/api",
+        "fullPath": "/api/users/me/event-invitations"
+      },
+      "autoFixable": true,
+      "recommendation": "Route exists at /api/users/me/event-invitations. Update mount path in routes.ts or fix frontend call."
+    },
+    {
+      "severity": "critical",
+      "type": "missing_backend",
+      "frontendCall": {
+        "file": "components/SecurityDemo.tsx",
+        "line": 195,
+        "endpoint": "/api/memory/demo-123/tag",
+        "method": "GET",
+        "context": "const response = await fetch('/api/memory/demo-123/tag', {"
+      },
+      "expectedRoute": "/api/memory/demo-123/tag",
+      "actualRoute": {
+        "file": "routes/memoryRoutes.ts",
+        "path": "/memory/:memoryId/tag",
+        "method": "GET",
+        "mountPath": "/api",
+        "fullPath": "/api/memory/:memoryId/tag"
+      },
+      "autoFixable": true,
+      "recommendation": "Route exists at /api/memory/:memoryId/tag. Update mount path in routes.ts or fix frontend call."
+    },
+    {
+      "severity": "critical",
+      "type": "missing_backend",
+      "frontendCall": {
+        "file": "components/profile/documentation/ProfileDocumentation.tsx",
+        "line": 126,
+        "endpoint": "/api/profile/123",
+        "method": "GET",
+        "context": "const response = await fetch('/api/profile/123', {"
+      },
+      "expectedRoute": "/api/profile/123",
+      "actualRoute": {
+        "file": "routes/userUploadRoutes.ts",
+        "path": "/user/profile-image",
+        "method": "POST",
+        "mountPath": "/api",
+        "fullPath": "/api/user/profile-image"
+      },
+      "autoFixable": true,
+      "recommendation": "Route exists at /api/user/profile-image. Update mount path in routes.ts or fix frontend call."
+    }
+  ],
+  "healthScore": 99
+}

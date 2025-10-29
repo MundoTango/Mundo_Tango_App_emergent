@@ -92,22 +92,8 @@ export default function RecommendationsList({
   // Journey R4: City filter support
   const cityToUse = filters.city || city;
   
-  // MB.MD SIMULTANEOUS: Explicit queryFn to prevent console errors
   const { data: apiResponse, isLoading } = useQuery({
-    queryKey: ['/api/recommendations', { 
-      city: cityToUse,
-      groupSlug,
-      connectionDegree: filters.connectionDegree !== 'anyone' ? filters.connectionDegree : undefined,
-      minClosenessScore: filters.minClosenessScore,
-      localStatus: filters.localStatus !== 'all' ? filters.localStatus : undefined,
-      originCountry: filters.originCountry,
-      cuisine: filters.cuisine,
-      categories: filters.categories && filters.categories.length > 0 ? filters.categories.join(',') : undefined,
-      type: (!filters.categories || filters.categories.length === 0) ? filters.type : undefined,
-      priceLevel: filters.priceLevel,
-      minRating: filters.minRating,
-      tags: filters.tags && filters.tags.length > 0 ? filters.tags.join(',') : undefined
-    }],
+    queryKey: ['/api/recommendations', { city: cityToUse, groupSlug, ...filters }],
     queryFn: async () => {
       const params = new URLSearchParams();
       if (cityToUse) params.append('city', cityToUse);
@@ -116,32 +102,41 @@ export default function RecommendationsList({
       if (filters.minClosenessScore) params.append('minClosenessScore', filters.minClosenessScore.toString());
       if (filters.localStatus !== 'all') params.append('localStatus', filters.localStatus);
       if (filters.originCountry) params.append('originCountry', filters.originCountry);
-      if (filters.cuisine) params.append('cuisine', filters.cuisine);
-      if (filters.categories && filters.categories.length > 0) params.append('categories', filters.categories.join(','));
-      if (!filters.categories || filters.categories.length === 0) if (filters.type) params.append('type', filters.type);
+      if (filters.cuisine) params.append('cuisine', filters.cuisine); // For intelligent ranking
+      // Journey R5: Category multi-select support
+      if (filters.categories && filters.categories.length > 0) {
+        filters.categories.forEach(cat => params.append('categories', cat));
+      } else if (filters.type) {
+        // Backward compatibility with old type field
+        params.append('type', filters.type);
+      }
       if (filters.priceLevel) params.append('priceLevel', filters.priceLevel);
       if (filters.minRating) params.append('minRating', filters.minRating.toString());
-      if (filters.tags && filters.tags.length > 0) params.append('tags', filters.tags.join(','));
-      const res = await fetch(`/api/recommendations?${params}`, { credentials: 'include' });
-      if (!res.ok) return { data: [] };
-      return res.json();
+      if (filters.tags && filters.tags.length > 0) {
+        filters.tags.forEach(tag => params.append('tags', tag));
+      }
+      
+      const response = await fetch(`/api/recommendations?${params}`);
+      if (!response.ok) throw new Error('Failed to fetch recommendations');
+      return await response.json();
     },
     enabled: !!cityToUse || !!groupSlug
   });
 
   const recommendations = apiResponse?.data || [];
 
-  // ESA Layer 24: Fetch linked post when modal is open - explicit queryFn
-  const { data: linkedPostData, isLoading: isPostLoading } = useQuery({
+  // ESA Layer 24: Fetch linked post when modal is open
+  const { data: linkedPost, isLoading: isPostLoading } = useQuery({
     queryKey: ['/api/posts', selectedRecommendation?.postId],
     queryFn: async () => {
-      const res = await fetch(`/api/posts/${selectedRecommendation?.postId}`, { credentials: 'include' });
-      if (!res.ok) return { data: null };
-      return res.json();
+      if (!selectedRecommendation?.postId) return null;
+      const response = await fetch(`/api/posts/${selectedRecommendation.postId}`);
+      if (!response.ok) return null;
+      const result = await response.json();
+      return result.data;
     },
     enabled: !!selectedRecommendation?.postId
   });
-  const linkedPost = linkedPostData?.data || null;
 
   const getCategoryIcon = (category: string) => {
   const { t } = useTranslation();

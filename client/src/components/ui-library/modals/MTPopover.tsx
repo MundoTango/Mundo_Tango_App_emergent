@@ -1,5 +1,5 @@
 // MT Ocean Popover Component
-// Mundo Tango ESA LIFE CEO - Click-triggered Popovers
+// ESA LIFE CEO 61x21 - Click-triggered Popovers
 
 import React, { useState, useRef, useEffect, ReactNode } from 'react';
 import { cn } from '@/lib/utils';

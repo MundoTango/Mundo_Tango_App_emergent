@@ -40,21 +40,48 @@ export default function PublicProfilePage() {
   const isUserId = !username && !!userId;
 
   // Fetch public user profile
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
-  const { data: userDataResponse, isLoading: userLoading, error } = useQuery({
-    queryKey: isUserId ? ['/api/users', identifier] : ['/api/public-profile', identifier],
+  const { data: userData, isLoading: userLoading, error } = useQuery({
+    queryKey: ['/api/public-profile', identifier, isUserId],
+    queryFn: async () => {
+      // If we have a userId, fetch by ID; otherwise by username
+      const endpoint = isUserId 
+        ? `/api/users/${identifier}` 
+        : `/api/public-profile/${identifier}`;
+        
+      const response = await fetch(endpoint, {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('User not found');
+        }
+        throw new Error('Failed to fetch user profile');
+      }
+      
+      const result = await response.json();
+      return result.data as PublicUser;
+    },
     enabled: !!identifier
   });
-  
-  const userData = userDataResponse;
 
-  // Fetch user stats (MB.MD SIMULTANEOUS: Use default fetcher)
-  const { data: statsDataResponse } = useQuery({
-    queryKey: ['/api/users', userData?.id, 'stats'],
+  // Fetch user stats
+  const { data: statsData } = useQuery({
+    queryKey: ['/api/user/stats', userData?.id],
+    queryFn: async () => {
+      if (!userData?.id) return {};
+      
+      const response = await fetch(`/api/users/${userData.id}/stats`, {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) return {};
+      
+      const result = await response.json();
+      return result.data || {};
+    },
     enabled: !!userData?.id
   });
-  
-  const statsData = statsDataResponse?.data || {};
 
   if (!matchUsername && !matchUserId && !matchPublicProfile) {
     return <div>Page not found</div>;

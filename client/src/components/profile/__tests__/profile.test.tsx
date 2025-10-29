@@ -6,6 +6,7 @@ import Profile from '@/pages/profile';
 import TravelDetailsComponent from '@/components/profile/TravelDetailsComponent';
 import EventAutocomplete from '@/components/autocomplete/EventAutocomplete';
 import CityGroupAutocomplete from '@/components/autocomplete/CityGroupAutocomplete';
+import { MemoryRouter } from 'react-router-dom';
 
 // Mock modules
 vi.mock('@/hooks/use-toast', () => ({
@@ -35,7 +36,9 @@ const renderWithProviders = (component: React.ReactElement) => {
   const queryClient = createTestQueryClient();
   return render(
     <QueryClientProvider client={queryClient}>
-      {component}
+      <MemoryRouter>
+        {component}
+      </MemoryRouter>
     </QueryClientProvider>
   );
 };

@@ -1,5 +1,5 @@
 // MT Ocean Timeline List - Timeline Display Component
-// Mundo Tango ESA LIFE CEO - Phase 10: Tables & Lists
+// ESA LIFE CEO 61x21 - Phase 10: Tables & Lists
 
 import { cn } from '@/lib/utils';
 import { Calendar, Clock, CheckCircle, Circle, AlertCircle } from 'lucide-react';

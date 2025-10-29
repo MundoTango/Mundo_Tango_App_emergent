@@ -133,11 +133,6 @@ export function ComponentSelector({ enabled, onSelectComponent }: ComponentSelec
               size="sm"
               variant="ghost"
               className="h-6 w-6 p-0"
-              onClick={() => {
-                // 🚀 STREAM F: Open element editor in inspector panel
-                console.log('[ComponentSelector] Edit element:', selectedComponent);
-                // Future: Open element editor modal
-              }}
               data-testid="button-edit-component"
             >
               <Edit className="w-3 h-3" />
@@ -146,11 +141,6 @@ export function ComponentSelector({ enabled, onSelectComponent }: ComponentSelec
               size="sm"
               variant="ghost"
               className="h-6 w-6 p-0"
-              onClick={() => {
-                // 🚀 STREAM F: Enable drag mode
-                console.log('[ComponentSelector] Move element:', selectedComponent);
-                // Future: Enable drag and drop positioning
-              }}
               data-testid="button-move-component"
             >
               <Move className="w-3 h-3" />
@@ -159,11 +149,6 @@ export function ComponentSelector({ enabled, onSelectComponent }: ComponentSelec
               size="sm"
               variant="ghost"
               className="h-6 w-6 p-0"
-              onClick={() => {
-                // 🚀 STREAM F: Open styles panel
-                console.log('[ComponentSelector] Style element:', selectedComponent);
-                // Future: Open inline styles editor
-              }}
               data-testid="button-style-component"
             >
               <Palette className="w-3 h-3" />
@@ -172,11 +157,6 @@ export function ComponentSelector({ enabled, onSelectComponent }: ComponentSelec
               size="sm"
               variant="ghost"
               className="h-6 w-6 p-0"
-              onClick={() => {
-                // 🚀 STREAM F: Open text editor
-                console.log('[ComponentSelector] Edit text:', selectedComponent);
-                // Future: Open inline text editor
-              }}
               data-testid="button-text-component"
             >
               <Type className="w-3 h-3" />

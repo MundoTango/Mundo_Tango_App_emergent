@@ -14,7 +14,7 @@ import { getVisualEditorTracker } from '@/lib/autonomy/VisualEditorTracker';
 import { useAuth } from '@/hooks/useAuth';
 import { ComponentSelector, type SelectedComponent } from './ComponentSelector';
 import { EditControls, type ComponentChanges } from './EditControls';
-import { ChatInterface } from '@/components/mrBlue/ChatInterface';
+import { MrBlueVisualChat } from './MrBlueVisualChat';
 import { DragDropHandler } from './DragDropHandler';
 
 interface VisualEditorOverlayProps {
@@ -55,18 +55,7 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
   const handleDragPositionChange = (x: number, y: number) => {
     // Track position change in real-time
     if (selectedComponent) {
-      tracker.recordAction({
-        type: 'move',
-        component: {
-          id: selectedComponent.testId,
-          name: selectedComponent.testId,
-          path: selectedComponent.path,
-          testId: selectedComponent.testId,
-        },
-        before: { x: selectedComponent.bounds.left, y: selectedComponent.bounds.top },
-        after: { x, y },
-        timestamp: new Date(),
-      });
+      tracker.trackMove(selectedComponent.testId, x - selectedComponent.bounds.left, y - selectedComponent.bounds.top);
     }
   };
 
@@ -188,8 +177,11 @@ export function VisualEditorOverlay({ currentUrl, onClose }: VisualEditorOverlay
 
             {/* RIGHT PANEL: Mr Blue Visual Chat */}
             <ResizablePanel defaultSize={40} minSize={30}>
-              {/* 🎯 WEEK 0 UNIFICATION: Use single ChatInterface component (Oct 24, 2025) */}
-              <ChatInterface />
+              <MrBlueVisualChat
+                currentPage={currentUrl}
+                selectedComponent={selectedComponent}
+                recentEdits={recentEdits}
+              />
             </ResizablePanel>
           </ResizablePanelGroup>
         </div>

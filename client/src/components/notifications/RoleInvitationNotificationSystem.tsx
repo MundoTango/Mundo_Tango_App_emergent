@@ -54,9 +54,14 @@ export function RoleInvitationNotificationSystem({ isOpen, onClose }: RoleInvita
   const queryClient = useQueryClient();
 
   // Fetch pending invitations
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: invitations, isLoading } = useQuery({
-    queryKey: ['/api/users/me/event-invitations', { status: 'pending' }],
+    queryKey: ['/api/users/me/event-invitations', 'pending'],
+    queryFn: async () => {
+      const response = await fetch('/api/users/me/event-invitations?status=pending');
+      if (!response.ok) throw new Error('Failed to fetch invitations');
+      const result = await response.json();
+      return result.data || [];
+    },
     enabled: isOpen,
     refetchInterval: 30000, // Refetch every 30 seconds when open
   });

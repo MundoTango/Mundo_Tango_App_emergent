@@ -20,46 +20,23 @@ const getSocket = () => {
   return socket;
 };
 
-interface FeedFilters {
-  filterType?: 'all' | 'following' | 'nearby';
-  algorithmMode?: 'hybrid' | 'chronological';
-  tags?: string[];
-  location?: { lat: number; lng: number; radius: number };
-  limit?: number;
-}
-
-export const useMemoriesFeed = (filters: FeedFilters = {}) => {
+export const useMemoriesFeed = () => {
   const queryClient = useQueryClient();
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'connecting'>('connecting');
   
-  const {
-    filterType = 'all',
-    algorithmMode = 'hybrid',
-    tags,
-    location,
-    limit = 20
-  } = filters;
-  
-  // MB.MD TRACK 3: Use new intelligent feed algorithm API with ALL filters (Oct 20, 2025)
+  // Fetch initial data using React Query
   const { data: memories = [], isLoading } = useQuery({
-    queryKey: ['/api/memories/feed', filterType, algorithmMode, tags, location, limit],
+    queryKey: ['/api/posts'],
     queryFn: async () => {
-      const params = new URLSearchParams({
-        limit: limit.toString(),
-        filterType,
-        ...(algorithmMode === 'chronological' ? { temporalWeight: '0', socialWeight: '0', emotionalWeight: '0', contentWeight: '0' } : {}),
-        ...(tags && tags.length > 0 ? { tags: tags.join(',') } : {}),
-        ...(location ? { lat: location.lat.toString(), lng: location.lng.toString(), radius: location.radius.toString() } : {})
-      });
-      const response = await fetch(`/api/memories/feed?${params}`);
+      const response = await fetch('/api/posts');
       if (!response.ok) {
         // If unauthorized, return empty array instead of error
         if (response.status === 401) return [];
-        throw new Error('Failed to fetch memories feed');
+        throw new Error('Failed to fetch posts');
       }
       const result = await response.json();
-      // New API returns { success, data: { memories, meta } }
-      return result.data?.memories || result.memories || result.data || result || [];
+      // Handle both response formats: { posts } and { data } and { success, data }
+      return result.posts || result.data || result || [];
     },
   });
 
@@ -88,15 +65,13 @@ export const useMemoriesFeed = (filters: FeedFilters = {}) => {
       setConnectionStatus('disconnected');
     };
 
-    // Real-time feed update handler - respects active filters
+    // Real-time feed update handler
     const handleNewMemory = (memory: any) => {
       console.log('🆕 New memory received:', memory);
       
-      // Invalidate all feed queries to let React Query refetch with current filters
-      // This ensures real-time updates respect active filter state
-      queryClient.invalidateQueries({ 
-        queryKey: ['/api/memories/feed'],
-        exact: false // Invalidate all variants of the feed query
+      // Optimistically update the cache
+      queryClient.setQueryData(['/api/posts'], (old: any[] = []) => {
+        return [memory, ...old];
       });
     };
 

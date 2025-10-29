@@ -74,8 +74,8 @@ export function TenantProvider({ children }: { children: ReactNode }) {
       });
 
       if (!response.ok) {
-        // If endpoint doesn't exist (404) or forbidden (403), silently fail - tenant system is optional
-        if (response.status === 404 || response.status === 403) {
+        // If endpoint doesn't exist (404), silently fail - tenant system is optional
+        if (response.status === 404) {
           console.warn('[TenantContext] Tenant API not available - using single community mode');
           setUserTenants([]);
           setIsLoading(false);

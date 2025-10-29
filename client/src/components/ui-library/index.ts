@@ -1,5 +1,5 @@
 // MT Ocean Component Library Index
-// Mundo Tango ESA LIFE CEO UI Components
+// ESA LIFE CEO 61x21 UI Components
 
 // Buttons
 export { default as MTButton } from './buttons/MTButton';

@@ -1,5 +1,5 @@
 /**
- * Mundo Tango ESA LIFE CEO - Admin Monitoring Dashboard
+ * ESA LIFE CEO 61x21 - Admin Monitoring Dashboard
  * Phase 14: Unified Monitoring Interface
  * 
  * Real-time system monitoring and analytics dashboard
@@ -102,8 +102,7 @@ export default function AdminMonitoring() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
-      <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
@@ -587,7 +586,6 @@ export default function AdminMonitoring() {
           </Card>
         </TabsContent>
       </Tabs>
-      </div>
     </div>
   );
 }

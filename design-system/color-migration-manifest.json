@@ -1,0 +1,380 @@
+{
+  "metadata": {
+    "generatedAt": "2025-10-08T00:00:00Z",
+    "auditVersion": "1.0",
+    "framework": "ESA LIFE CEO 61x21",
+    "designSystem": "Aurora Tide (MT Ocean Theme)",
+    "phase": "Week 3 - Design System Transformation"
+  },
+  "executiveSummary": {
+    "totalFilesScanned": 81,
+    "filesNeedingMigration": 72,
+    "tokenSourceFiles": 3,
+    "archivedFiles": 6,
+    "totalEstimatedHours": 40,
+    "completionTarget": "Days 3-5 (Phase 2)",
+    "currentTokenAdoption": "10.6%",
+    "targetTokenAdoption": "100%"
+  },
+  "auditResults": {
+    "colorPatterns": {
+      "hexColors": 81,
+      "rgbColors": 41,
+      "gradients": 15,
+      "inlineStyles": 12
+    },
+    "breakdown": {
+      "pages": 23,
+      "components": 38,
+      "infrastructure": 3,
+      "styles": 9,
+      "legacy": 2,
+      "archived": 6
+    }
+  },
+  "migrationPlan": {
+    "phase1_criticalPath": {
+      "priority": 1,
+      "description": "High-traffic pages users see first",
+      "estimatedHours": 8,
+      "dependencies": [],
+      "risk": "medium",
+      "files": [
+        {
+          "path": "client/src/pages/GroupDetailPageMT.tsx",
+          "module": "City Groups",
+          "currentColors": 8,
+          "effort": "2h",
+          "replacements": {
+            "#5EEAD4": "var(--ocean-300)",
+            "#155E75": "var(--ocean-900)",
+            "#14B8A6": "var(--ocean-500)",
+            "#0D9488": "var(--ocean-600)"
+          }
+        },
+        {
+          "path": "client/src/pages/listing-detail.tsx",
+          "module": "Housing Marketplace",
+          "currentColors": 6,
+          "effort": "2h",
+          "replacements": {
+            "#5EEAD4": "var(--ocean-300)",
+            "#F0FDFA": "var(--ocean-50)",
+            "#14B8A6": "var(--ocean-500)"
+          }
+        },
+        {
+          "path": "client/src/pages/event-detail.tsx",
+          "module": "Events",
+          "currentColors": 5,
+          "effort": "2h",
+          "replacements": {
+            "#5EEAD4": "var(--ocean-300)",
+            "#14B8A6": "var(--ocean-500)"
+          }
+        },
+        {
+          "path": "client/src/pages/LifeCEOEnhanced.tsx",
+          "module": "Life CEO",
+          "currentColors": 7,
+          "effort": "2h",
+          "replacements": {
+            "#5EEAD4": "var(--ocean-300)",
+            "#8B5CF6": "var(--purple-default)",
+            "#3B82F6": "var(--semantic-info)"
+          }
+        }
+      ]
+    },
+    "phase2_userJourneys": {
+      "priority": 2,
+      "description": "Pages in critical user flows - 100% friction onboarding",
+      "estimatedHours": 6,
+      "dependencies": [],
+      "risk": "low",
+      "quickWin": true,
+      "files": [
+        {
+          "path": "client/src/pages/auth/register.tsx",
+          "module": "User Onboarding",
+          "currentColors": 4,
+          "effort": "1.5h",
+          "note": "100% friction - critical fix"
+        },
+        {
+          "path": "client/src/pages/auth/login.tsx",
+          "module": "User Onboarding",
+          "currentColors": 4,
+          "effort": "1.5h",
+          "note": "100% friction - critical fix"
+        },
+        {
+          "path": "client/src/pages/admin/dashboard.tsx",
+          "module": "Admin Analytics",
+          "currentColors": 10,
+          "effort": "3h",
+          "note": "Complex charts - Recharts integration"
+        }
+      ]
+    },
+    "phase3_featureModules": {
+      "priority": 3,
+      "description": "Complete feature modules for consistency",
+      "estimatedHours": 12,
+      "dependencies": ["phase1_criticalPath", "phase2_userJourneys"],
+      "risk": "medium",
+      "modules": [
+        {
+          "name": "Events Module",
+          "effort": "3h",
+          "estimatedColors": 15,
+          "files": [
+            "client/src/components/events/EventsCalendar.tsx",
+            "client/src/components/events/UnifiedEventCard.tsx",
+            "client/src/components/events/EventRoleInviter.tsx",
+            "client/src/components/events/EventInvitationManager.tsx"
+          ]
+        },
+        {
+          "name": "Memory/Post Module",
+          "effort": "4h",
+          "estimatedColors": 20,
+          "files": [
+            "client/src/components/memory/MentionsInput.tsx",
+            "client/src/components/memory/SimpleMentionsInput.tsx",
+            "client/src/components/memory/PendingConsentMemories.tsx",
+            "client/src/components/universal/PostCreator.tsx"
+          ],
+          "note": "Rich text editor - handle carefully"
+        },
+        {
+          "name": "Community Module",
+          "effort": "3h",
+          "estimatedColors": 12,
+          "files": [
+            "client/src/components/Community/WorldMap.tsx",
+            "client/src/components/Community/CommunityMapWithLayers.tsx",
+            "client/src/components/Community/CommunityCard.tsx",
+            "client/src/components/EnhancedCommunityMap.tsx"
+          ],
+          "note": "Leaflet.js integration - external styles"
+        },
+        {
+          "name": "ESA/Life CEO Components",
+          "effort": "2h",
+          "estimatedColors": 8,
+          "files": [
+            "client/src/components/esa/DashboardLayout.tsx",
+            "client/src/components/esa/EnhancedPostFeedSimple.tsx",
+            "client/src/components/esa/UpcomingEventsSidebar.tsx",
+            "client/src/components/esa/MentionTextarea.tsx",
+            "client/src/components/esa/TypingIndicator.tsx"
+          ]
+        }
+      ]
+    },
+    "phase4_supportingPages": {
+      "priority": 4,
+      "description": "Secondary pages and admin tools",
+      "estimatedHours": 8,
+      "dependencies": ["phase3_featureModules"],
+      "risk": "low",
+      "files": [
+        "client/src/pages/AnalyticsDashboard.tsx",
+        "client/src/pages/admin/analytics.tsx",
+        "client/src/pages/admin/AgentMetrics.tsx",
+        "client/src/pages/EnhancedEvents.tsx",
+        "client/src/pages/Notifications.tsx",
+        "client/src/pages/Favorites.tsx",
+        "client/src/pages/Subscription.tsx",
+        "client/src/pages/ResumePage.tsx",
+        "client/src/pages/PublicResumePage.tsx"
+      ]
+    },
+    "phase5_infrastructure": {
+      "priority": 5,
+      "description": "Core infrastructure - low risk",
+      "estimatedHours": 4,
+      "dependencies": [],
+      "risk": "low",
+      "files": [
+        {
+          "path": "client/src/index.css",
+          "action": "AUDIT_ONLY",
+          "note": "Already uses CSS custom properties"
+        },
+        {
+          "path": "client/src/App.tsx",
+          "action": "MIGRATE",
+          "note": "Error boundary styling"
+        },
+        {
+          "path": "client/src/service-worker.ts",
+          "action": "MIGRATE",
+          "note": "Offline fallback SVG images"
+        },
+        {
+          "path": "client/src/utils/microInteractions.ts",
+          "action": "UPDATE",
+          "note": "Use ocean gradient tokens"
+        }
+      ]
+    },
+    "phase6_cleanup": {
+      "priority": 6,
+      "description": "Deprecate legacy themes",
+      "estimatedHours": 2,
+      "dependencies": ["all_phases_complete"],
+      "risk": "low",
+      "files": [
+        {
+          "path": "client/src/styles/ttfiles.css",
+          "action": "DEPRECATE",
+          "note": "Legacy Tango Tech theme - remove after migration"
+        },
+        {
+          "path": "client/src/styles/mundo-tango-protected.css",
+          "action": "DEPRECATE",
+          "note": "Legacy protected styles - remove after migration"
+        }
+      ]
+    }
+  },
+  "tokenMapping": {
+    "oceanColors": {
+      "#F0FDFA": "var(--ocean-50)",
+      "#CCFBF1": "var(--ocean-100)",
+      "#99F6E4": "var(--ocean-200)",
+      "#5EEAD4": "var(--ocean-300)",
+      "#2DD4BF": "var(--ocean-400)",
+      "#14B8A6": "var(--ocean-500)",
+      "#0D9488": "var(--ocean-600)",
+      "#0F766E": "var(--ocean-700)",
+      "#115E59": "var(--ocean-800)",
+      "#155E75": "var(--ocean-900)",
+      "#042F2E": "var(--ocean-950)"
+    },
+    "semanticColors": {
+      "#10B981": "var(--semantic-success)",
+      "#F59E0B": "var(--semantic-warning)",
+      "#EF4444": "var(--semantic-error)",
+      "#3B82F6": "var(--semantic-info)"
+    },
+    "purpleAccents": {
+      "#A78BFA": "var(--purple-light)",
+      "#8B5CF6": "var(--purple-default)",
+      "#6D28D9": "var(--purple-dark)"
+    },
+    "gradients": {
+      "linear-gradient(135deg, #5EEAD4 0%, #155E75 100%)": "var(--gradient-primary)",
+      "linear-gradient(135deg, #2DD4BF 0%, #115E59 100%)": "var(--gradient-primary-hover)",
+      "linear-gradient(135deg, #CCFBF1 0%, #CCFBF1 100%)": "var(--gradient-primary-subtle)",
+      "linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)": "var(--gradient-secondary)"
+    }
+  },
+  "riskAssessment": {
+    "high": [
+      {
+        "file": "client/src/pages/admin/dashboard.tsx",
+        "reason": "Complex Recharts integration with custom colors",
+        "mitigation": "Test thoroughly, use chart theme tokens"
+      },
+      {
+        "file": "client/src/components/universal/PostCreator.tsx",
+        "reason": "Rich text editor with inline styles",
+        "mitigation": "Preserve Quill.js theme, update wrapper styles only"
+      }
+    ],
+    "medium": [
+      {
+        "files": ["client/src/components/Community/*.tsx"],
+        "reason": "Leaflet.js map library uses external styles",
+        "mitigation": "Update wrapper components, leave map controls as-is"
+      },
+      {
+        "files": ["client/src/pages/Analytics*.tsx"],
+        "reason": "Recharts integration",
+        "mitigation": "Use stroke/fill props with token values"
+      }
+    ],
+    "low": [
+      {
+        "files": ["client/src/pages/auth/*.tsx"],
+        "reason": "Simple form layouts",
+        "mitigation": "Straightforward token replacement"
+      },
+      {
+        "files": ["*-detail.tsx"],
+        "reason": "Mostly layout and typography",
+        "mitigation": "Standard migration pattern"
+      }
+    ]
+  },
+  "parallelizationStrategy": {
+    "day3": {
+      "description": "Parallel execution - Phase 1 & 2 (no dependencies)",
+      "teams": [
+        {
+          "team": "A",
+          "focus": "Critical Path Pages",
+          "files": ["GroupDetailPageMT.tsx", "listing-detail.tsx", "event-detail.tsx", "LifeCEOEnhanced.tsx"]
+        },
+        {
+          "team": "B",
+          "focus": "User Journeys",
+          "files": ["register.tsx", "login.tsx", "admin/dashboard.tsx"]
+        }
+      ],
+      "estimatedCompletion": "8h total (parallel)"
+    },
+    "day4": {
+      "description": "Feature modules (sequential review after Day 3 patterns)",
+      "modules": ["Events", "Memory/Post", "Community", "ESA/Life CEO"],
+      "estimatedCompletion": "12h"
+    },
+    "day5": {
+      "description": "Supporting pages + infrastructure + cleanup",
+      "tasks": ["Phase 4 pages", "Infrastructure files", "Deprecate legacy"],
+      "estimatedCompletion": "14h"
+    }
+  },
+  "successCriteria": {
+    "codeQuality": [
+      "0 hardcoded hex colors in production code",
+      "100% token adoption in active files",
+      "Legacy themes deprecated and removed"
+    ],
+    "visualRegression": [
+      "All BackstopJS tests passing",
+      "No visual differences in key pages",
+      "Dark mode working consistently"
+    ],
+    "accessibility": [
+      "WCAG 2.1 AA compliance maintained",
+      "axe-core + Pa11y dual tests passing",
+      "Color contrast ratios meet standards"
+    ],
+    "performance": [
+      "No increase in bundle size",
+      "CSS custom properties loading correctly",
+      "No flash of unstyled content (FOUC)"
+    ]
+  },
+  "rollbackPlan": {
+    "checkpointStrategy": "Git commit after each phase",
+    "testingGates": "Visual regression + accessibility before next phase",
+    "emergencyRollback": "Revert to pre-migration commit if critical issues",
+    "gradualRollout": "Can deploy phases independently"
+  },
+  "completedWork": {
+    "week1": "Token infrastructure, testing setup, component audit",
+    "week2": "Animation system, customer journey mapping, Ladle playground",
+    "week3_manual": "10 core UI components audited, Button migrated to tokens"
+  },
+  "nextSteps": [
+    "Execute Phase 1 & 2 in parallel (Days 3)",
+    "Review patterns, execute Phase 3 (Day 4)",
+    "Complete Phase 4-6 and documentation (Day 5)",
+    "Run full validation suite (Days 6-7)"
+  ]
+}

@@ -79,8 +79,7 @@ export default function SmartAgentsDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white/95 dark:from-gray-900/95 to-cyan-50/95 dark:to-gray-800/95">
-      <div className="p-6 space-y-6" data-testid="smart-agents-dashboard">
+    <div className="p-6 space-y-6 bg-background dark:bg-gray-900" data-testid="smart-agents-dashboard">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -269,7 +268,6 @@ export default function SmartAgentsDashboard() {
           </Card>
         </TabsContent>
       </Tabs>
-      </div>
     </div>
   );
 }

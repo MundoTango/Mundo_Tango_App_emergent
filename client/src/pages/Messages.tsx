@@ -45,12 +45,20 @@ export default function Messages() {
     }
   };
 
-  // Fetch chat rooms (MB.MD SIMULTANEOUS: Use default fetcher)
-  const { data: chatRoomsData, isLoading } = useQuery({
+  // Fetch chat rooms
+  const { data: chatRooms = [], isLoading } = useQuery({
     queryKey: ['/api/chat/rooms'],
+    queryFn: async () => {
+      const response = await fetch('/api/chat/rooms', {
+        headers: {
+          'Authorization': `Bearer ${getAuthToken()}`,
+        },
+      });
+      if (!response.ok) throw new Error('Failed to fetch chat rooms');
+      const data = await response.json();
+      return data.data;
+    },
   });
-  
-  const chatRooms = chatRoomsData?.data || [];
 
   // Listen for new messages
   useEffect(() => {
@@ -71,7 +79,7 @@ export default function Messages() {
   );
 
   return (
-    <div className="min-h-screen bg-tango-gray" data-testid="page-messages">
+    <div className="min-h-screen bg-tango-gray">
       <UnifiedTopBar 
         theme={theme}
         onThemeToggle={toggleTheme}
@@ -104,7 +112,6 @@ export default function Messages() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="pl-9"
-                        data-testid="input-search-conversations"
                       />
                     </div>
                   </div>

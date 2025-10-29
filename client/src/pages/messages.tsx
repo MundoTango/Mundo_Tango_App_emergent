@@ -46,9 +46,18 @@ export default function Messages() {
   };
 
   // Fetch chat rooms
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: chatRooms = [], isLoading } = useQuery({
     queryKey: ['/api/chat/rooms'],
+    queryFn: async () => {
+      const response = await fetch('/api/chat/rooms', {
+        headers: {
+          'Authorization': `Bearer ${getAuthToken()}`,
+        },
+      });
+      if (!response.ok) throw new Error('Failed to fetch chat rooms');
+      const data = await response.json();
+      return data.data;
+    },
   });
 
   // Listen for new messages
@@ -70,7 +79,7 @@ export default function Messages() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-turquoise-50 via-cyan-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-tango-gray">
       <UnifiedTopBar 
         theme={theme}
         onThemeToggle={toggleTheme}
@@ -83,27 +92,26 @@ export default function Messages() {
             
             {/* Chat List */}
             <div className={`lg:col-span-1 ${selectedRoom ? 'hidden lg:block' : 'block'}`}>
-              <Card className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 shadow-xl border border-turquoise-100 dark:border-gray-700 h-full">
+              <Card className="card-shadow h-full">
                 <CardContent className="p-0 h-full flex flex-col">
                   
                   {/* Header */}
-                  <div className="p-4 border-b border-turquoise-100 dark:border-gray-700">
+                  <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent dark:from-turquoise-400 dark:to-cyan-400">Messages</h2>
-                      <Button size="sm" className="bg-gradient-to-r from-turquoise-400 to-cyan-500 hover:from-turquoise-500 hover:to-cyan-600 text-white shadow-lg" data-testid="button-new-message">
+                      <h2 className="text-xl font-semibold text-tango-black">Messages</h2>
+                      <Button size="sm" className="bg-tango-red hover:bg-tango-red/90">
                         <Plus className="h-4 w-4" />
                       </Button>
                     </div>
                     
                     {/* Search */}
                     <div className="relative">
-                      <Search className="absolute left-3 top-2.5 h-4 w-4 text-turquoise-500 dark:text-turquoise-400" />
+                      <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
                       <Input
                         placeholder="Search conversations..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9 border-turquoise-200 dark:border-gray-600 focus:border-turquoise-400 focus:ring-turquoise-400"
-                        data-testid="input-search-conversations"
+                        className="pl-9"
                       />
                     </div>
                   </div>
@@ -129,14 +137,13 @@ export default function Messages() {
                         <div
                           key={room.id}
                           onClick={() => setSelectedRoom(room)}
-                          className={`p-4 border-b border-turquoise-50 dark:border-gray-800 hover:bg-turquoise-50/50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors ${
-                            selectedRoom?.id === room.id ? 'bg-turquoise-50 dark:bg-gray-800' : ''
+                          className={`p-4 border-b border-gray-100 hover:bg-tango-gray cursor-pointer transition-colors ${
+                            selectedRoom?.id === room.id ? 'bg-tango-gray' : ''
                           }`}
-                          data-testid={`chat-room-${room.id}`}
                         >
                           <div className="flex items-center space-x-3">
                             {room.type === 'group' ? (
-                              <div className="w-12 h-12 bg-gradient-to-br from-turquoise-400 to-cyan-500 rounded-full flex items-center justify-center text-white font-semibold shadow-lg">
+                              <div className="w-12 h-12 bg-tango-red rounded-full flex items-center justify-center text-white font-semibold">
                                 {room.title.substring(0, 2).toUpperCase()}
                               </div>
                             ) : (
@@ -162,7 +169,7 @@ export default function Messages() {
                                     </span>
                                   )}
                                   {room.unreadCount > 0 && (
-                                    <span className="bg-gradient-to-r from-turquoise-500 to-cyan-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-md" data-testid={`unread-count-${room.id}`}>
+                                    <span className="bg-tango-red text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                                       {room.unreadCount > 9 ? '9+' : room.unreadCount}
                                     </span>
                                   )}
@@ -179,13 +186,13 @@ export default function Messages() {
                       ))
                     ) : (
                       <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-                        <div className="text-turquoise-400 mb-4">
+                        <div className="text-gray-400 mb-4">
                           <MessageCircle className="h-16 w-16 mx-auto" />
                         </div>
-                        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                        <h3 className="text-lg font-semibold text-gray-600 mb-2">
                           {searchQuery ? 'No conversations found' : 'No messages yet'}
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                        <p className="text-gray-500 text-sm">
                           {searchQuery 
                             ? 'Try adjusting your search terms'
                             : 'Start a conversation with other tango dancers!'
@@ -206,16 +213,16 @@ export default function Messages() {
                   onBack={() => setSelectedRoom(null)}
                 />
               ) : (
-                <Card className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 shadow-xl border border-turquoise-100 dark:border-gray-700 h-full">
+                <Card className="card-shadow h-full">
                   <CardContent className="flex items-center justify-center h-full">
                     <div className="text-center">
-                      <div className="text-turquoise-400 mb-4">
+                      <div className="text-gray-400 mb-4">
                         <MessageCircle className="h-24 w-24 mx-auto" />
                       </div>
-                      <h3 className="text-xl font-semibold bg-gradient-to-r from-turquoise-600 to-cyan-600 bg-clip-text text-transparent dark:from-turquoise-400 dark:to-cyan-400 mb-2">
+                      <h3 className="text-xl font-semibold text-gray-600 mb-2">
                         Select a conversation
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="text-gray-500">
                         Choose a conversation from the sidebar to start chatting
                       </p>
                     </div>

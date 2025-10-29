@@ -6,7 +6,7 @@
  * - Right: Editor tabs (Preview, Deploy, Git, Pages, Shell, Files, AI)
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
@@ -17,23 +17,15 @@ import GitTab from '@/components/visual-editor/GitTab';
 import PagesTab from '@/components/visual-editor/PagesTab';
 import ShellTab from '@/components/visual-editor/ShellTab';
 import FilesTabConnected from '@/components/visual-editor/FilesTabConnected';
-import { ChatInterface } from '@/components/mrBlue/ChatInterface';
+import MrBlueAITab from '@/components/visual-editor/MrBlueAITab';
 import ConsoleTab from '@/components/visual-editor/ConsoleTab';
 import SecretsTab from '@/components/visual-editor/SecretsTab';
-// BuildApprovalModal removed - Autonomous execution (Agent #131 - Oct 24, 2025)
 import CommandPalette from '@/components/visual-editor/CommandPalette';
 import MultiplayerPresence from '@/components/visual-editor/MultiplayerPresence';
 import RemoteCursors from '@/components/visual-editor/RemoteCursors';
-import { ElementInspector } from '@/components/visual-editor/ElementInspector';
-import { AgentAttributionPanel } from '@/components/visual-editor/AgentAttributionPanel';
-import { ActivityLogPanel, logActivity } from '@/components/visual-editor/ActivityLogPanel';
-import { saveOrchestrator } from '@/services/SaveOrchestrator';
-import { GripVertical, Save } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { GripVertical } from 'lucide-react';
+import { useKeyboardShortcuts, ShortcutAction } from '@/hooks/useKeyboardShortcuts';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
-import { injectOverlayScript } from '@/lib/visual-editor/iframeOverlay';
-import { listenToIframe, sendToIframe, type ElementSelection, type StyleMutation } from '@/lib/visual-editor/iframeMessaging';
-import { useVisualEditor } from '@/contexts/VisualEditorContext';
 
 interface SelectedElement {
   tag: string;
@@ -47,26 +39,34 @@ interface SelectedElement {
 export default function VisualEditorPage() {
   const [location, navigate] = useLocation();
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState<EditorTab>('chat'); // 🔧 FIX #1: Mr Blue first!
-  const [selectedElement, setSelectedElement] = useState<ElementSelection | null>(null);
-  const [pendingStyles, setPendingStyles] = useState<StyleMutation[]>([]);
+  const [activeTab, setActiveTab] = useState<EditorTab>('ai');
+  const [selectedElement, setSelectedElement] = useState<SelectedElement | null>(null);
   const [previewUrl, setPreviewUrl] = useState('/');
   const [leftWidth, setLeftWidth] = useState(60); // percentage
   const [isDragging, setIsDragging] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  // Build approval removed - autonomous execution (Agent #131 - Oct 24, 2025)
-  
-  // 🎨 VISUAL EDITOR CONTEXT: Bridge to Mr Blue (Oct 23, 2025)
-  const visualEditorContext = useVisualEditor();
-  
-  // 🔧 FIX #2 (Oct 27): Inject SaveOrchestrator into context for ChatInterface
-  useEffect(() => {
-    if (visualEditorContext && !visualEditorContext.saveOrchestrator) {
-      // Monkey-patch the context to add saveOrchestrator
-      (visualEditorContext as any).saveOrchestrator = saveOrchestrator;
+
+  // Keyboard shortcuts
+  const handleShortcut = (action: ShortcutAction) => {
+    const tabMap: Record<string, EditorTab> = {
+      'tab-1': 'preview',
+      'tab-2': 'console',
+      'tab-3': 'deploy',
+      'tab-4': 'git',
+      'tab-5': 'shell',
+      'tab-6': 'files',
+      'tab-7': 'secrets',
+      'tab-8': 'ai'
+    };
+
+    if (action in tabMap) {
+      setActiveTab(tabMap[action]);
+    } else if (action === 'close') {
+      navigate('/');
+    } else if (action === 'refresh') {
+      setPreviewUrl(prev => prev + '?t=' + Date.now());
     }
-  }, [visualEditorContext, saveOrchestrator]);
+  };
 
   // Cmd+K for Command Palette
   useEffect(() => {
@@ -79,6 +79,11 @@ export default function VisualEditorPage() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  useKeyboardShortcuts({
+    onShortcut: handleShortcut,
+    enabled: true
+  });
 
   // Multiplayer collaboration - ACTIVATED!
   const { broadcastCursor, broadcastSelection, broadcastPageChange } = useMultiplayer({
@@ -163,7 +168,7 @@ export default function VisualEditorPage() {
         duration: 3000
       });
 
-      // Code generated successfully - response handled by toast
+      console.log('Generated code:', response);
     } catch (error) {
       toast({
         title: "Generation Failed",
@@ -188,230 +193,21 @@ export default function VisualEditorPage() {
     return routeMap[urlPath] || 'client/src/pages/HomePage.tsx';
   };
 
-  // Inject overlay script when iframe loads
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) {
-      console.log('⏳ Iframe ref not yet available');
-      return;
-    }
-
-    const injectScript = () => {
-      try {
-        const doc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (!doc || !doc.body) {
-          console.warn('⏳ Iframe document not ready yet');
-          return false;
-        }
-
-        // Check if script already injected
-        const existing = doc.getElementById('visual-editor-overlay');
-        if (existing) {
-          console.log('✅ Visual Editor overlay already injected');
-          return true;
-        }
-
-        const script = doc.createElement('script');
-        script.id = 'visual-editor-overlay';
-        script.textContent = injectOverlayScript();
-        doc.head.appendChild(script);
-        console.log('🎨 Visual Editor overlay script injected successfully');
-        return true;
-      } catch (error) {
-        console.error('❌ Failed to inject overlay script:', error);
-        return false;
-      }
-    };
-
-    // Try immediate injection with delay to ensure iframe is ready
-    const attemptInjection = () => {
-      const success = injectScript();
-      if (!success) {
-        // Retry after a short delay
-        setTimeout(injectScript, 100);
-      }
-    };
-
-    // Try now
-    attemptInjection();
-    
-    // Also listen for load event
-    const handleLoad = () => {
-      console.log('📍 Iframe load event fired');
-      injectScript();
-    };
-
-    iframe.addEventListener('load', handleLoad);
-
-    return () => {
-      iframe.removeEventListener('load', handleLoad);
-    };
-  }, [previewUrl]); // Don't include iframeRef.current - refs don't trigger re-renders!
-
   // Listen for messages from preview iframe
   useEffect(() => {
-    return listenToIframe((message) => {
-      if (message.type === 'ELEMENT_SELECTED') {
-        setSelectedElement(message.element);
-        
-        // 🔥 UPDATE CONTEXT: This makes element visible to Mr Blue! (Oct 23, 2025)
-        visualEditorContext.setSelectedElement(message.element);
-        visualEditorContext.setPreviewPath(previewUrl);
-        
-        // 🔧 FIX #1: Don't auto-switch tabs - keep user on current tab
-        // setActiveTab('inspector');
-        logActivity({
-          type: 'selection',
-          description: `Selected ${message.element.tagName}${message.element.id ? '#' + message.element.id : ''}`
-        });
-      } else if (message.type === 'ELEMENT_TEXT_CHANGED') {
-        logActivity({
-          type: 'edit',
-          description: `Edited text in ${message.element.tagName}`
-        });
-        
-        // ✅ FIX #2 (Oct 27): Queue text change to SaveOrchestrator (not visualEditorContext!)
-        saveOrchestrator.addChange({
-          type: 'content',
-          description: `Edit text in ${message.element.tagName}`,
-          data: {
-            xpath: message.element.xpath,
-            tagName: message.element.tagName,
-            oldText: message.element.textContent || '',
-            newText: message.newText
-          }
-        });
-        console.log(`✅ [Direct Edit] Queued text change, badge now shows ${saveOrchestrator.getPendingChanges().length}`);
-        
-        toast({
-          title: 'Text Updated',
-          description: 'Click SAVE to apply changes',
-          duration: 2000
-        });
-      } else if (message.type === 'DELETE_ELEMENT_REQUEST') {
-        // Confirm deletion
-        if (confirm(`Delete this ${message.element.tagName} element?`)) {
-          if (iframeRef.current) {
-            sendToIframe(iframeRef.current, { 
-              type: 'CONFIRM_DELETE',
-              xpath: message.element.xpath 
-            });
-            setSelectedElement(null);
-            
-            // ✅ FIX #2 (Oct 27): Queue deletion to SaveOrchestrator
-            saveOrchestrator.addChange({
-              type: 'structure',
-              description: `Delete ${message.element.tagName}`,
-              data: {
-                xpath: message.element.xpath,
-                tagName: message.element.tagName,
-                operation: 'delete'
-              }
-            });
-            console.log(`✅ [Direct Edit] Queued deletion, badge now shows ${saveOrchestrator.getPendingChanges().length}`);
-            
-            toast({
-              title: 'Element Deleted',
-              description: 'Click SAVE to commit deletion',
-              duration: 3000
-            });
-          }
-        }
-      } else if (message.type === 'READY') {
-        console.log('✅ Visual Editor iframe ready and interactive');
-        toast({
-          title: 'Visual Editor Ready',
-          description: 'Click any element to select it',
-          duration: 2000
-        });
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data.type === 'ELEMENT_SELECTED') {
+        setSelectedElement(e.data.element);
+        setActiveTab('ai');
       }
-    });
-  }, [toast]);
+    };
 
-  // Apply style mutation
-  const handleApplyStyle = (mutation: StyleMutation) => {
-    if (iframeRef.current) {
-      sendToIframe(iframeRef.current, { type: 'APPLY_STYLE', mutation });
-      setPendingStyles(prev => [...prev, mutation]);
-      
-      // Add to SaveOrchestrator
-      saveOrchestrator.addChange({
-        type: 'style',
-        description: `${mutation.property}: ${mutation.value}`,
-        data: mutation
-      });
-      
-      logActivity({
-        type: 'style',
-        description: `Applied style: ${mutation.property}`
-      });
-      
-      toast({
-        title: 'Style Applied',
-        description: `${mutation.property}: ${mutation.value}`,
-      });
-    }
-  };
-
-  // Save all changes via SaveOrchestrator (Agent #8 Integration)
-  const handleSave = async () => {
-    const pendingChanges = saveOrchestrator.getPendingChanges();
-    
-    if (pendingChanges.length === 0) {
-      toast({
-        title: 'No Changes',
-        description: 'Make some changes first',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    // 🤖 AUTONOMOUS EXECUTION: No approval needed (Agent #131 - Oct 24, 2025)
-    const aiBuildChanges = pendingChanges.filter(c => c.type === 'ai-build');
-    
-    if (aiBuildChanges.length > 0) {
-      console.log('🤖 [Autonomous] Executing', aiBuildChanges.length, 'AI builds immediately (no approval)');
-      toast({
-        title: 'Autonomous Execution',
-        description: `Mr Blue is applying ${aiBuildChanges.length} changes...`,
-      });
-    }
-
-    // Proceed with save (all changes including AI builds)
-    try {
-      toast({
-        title: 'Saving Changes...',
-        description: `Saving ${pendingChanges.length} changes`,
-      });
-      
-      const result = await saveOrchestrator.saveAll();
-      
-      if (result.success) {
-        setPendingStyles([]);
-        logActivity({
-          type: 'style',
-          description: result.message
-        });
-        toast({
-          title: 'Changes Saved',
-          description: result.message,
-        });
-      } else {
-        throw new Error(result.message);
-      }
-    } catch (error) {
-      toast({
-        title: 'Save Failed',
-        description: error instanceof Error ? error.message : 'Unknown error',
-        variant: 'destructive',
-      });
-    }
-  };
-
-  // handleApproveBuild removed - autonomous execution (Agent #131 - Oct 24, 2025)
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   return (
-      <div className="h-screen flex flex-col bg-gray-900">
+    <div className="h-screen flex flex-col bg-gray-900">
       {/* Remote cursors overlay */}
       <RemoteCursors page={previewUrl} />
       {/* Header */}
@@ -422,26 +218,10 @@ export default function VisualEditorPage() {
           </div>
           <div>
             <h1 className="text-white font-semibold">Visual Editor</h1>
-            <p className="text-xs text-gray-400">Cmd+Click to Select • Double-Click to Edit • Delete to Remove</p>
+            <p className="text-xs text-gray-400">AI-Powered Development Environment</p>
           </div>
         </div>
-        
-        {/* ✅ FIX #1 (Oct 27): Single SAVE button - removed duplicate */}
-        <Button 
-          onClick={handleSave}
-          disabled={saveOrchestrator.getPendingChanges().length === 0}
-          className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-semibold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          data-testid="button-save-all"
-        >
-          <Save className="h-4 w-4 mr-2" />
-          SAVE
-          {saveOrchestrator.getPendingChanges().length > 0 && (
-            <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-xs font-bold">
-              {saveOrchestrator.getPendingChanges().length}
-            </span>
-          )}
-        </Button>
-        
+
         <div className="flex items-center gap-4">
           <MultiplayerPresence page={previewUrl} />
           <div className="text-sm text-gray-400">
@@ -458,7 +238,6 @@ export default function VisualEditorPage() {
           style={{ width: `${leftWidth}%` }}
         >
           <iframe
-            ref={iframeRef}
             src={previewUrl}
             title="Live Preview"
             className="w-full h-full border-none"
@@ -489,14 +268,8 @@ export default function VisualEditorPage() {
           />
 
           {/* Tab Content */}
-          <div className="flex-1 overflow-auto p-4 space-y-4">
-            {activeTab === 'inspector' && (
-              <>
-                <ElementInspector selectedElement={selectedElement} />
-                <AgentAttributionPanel selectedElement={selectedElement} />
-                <ActivityLogPanel />
-              </>
-            )}
+          <div className="flex-1 overflow-auto">
+            {activeTab === 'preview' && <PreviewTab currentPath={previewUrl} />}
             {activeTab === 'console' && <ConsoleTab />}
             {activeTab === 'deploy' && <DeployTab />}
             {activeTab === 'git' && <GitTab />}
@@ -504,11 +277,12 @@ export default function VisualEditorPage() {
             {activeTab === 'shell' && <ShellTab />}
             {activeTab === 'files' && <FilesTabConnected />}
             {activeTab === 'secrets' && <SecretsTab />}
-            {activeTab === 'chat' && (
-              <div className="h-full">
-                {/* 🎯 WEEK 0 UNIFICATION: Use single ChatInterface component (Oct 24, 2025) */}
-                <ChatInterface />
-              </div>
+            {activeTab === 'ai' && (
+              <MrBlueAITab
+                selectedElement={selectedElement}
+                currentPage={previewUrl}
+                onGenerateCode={handleGenerateCode}
+              />
             )}
           </div>
 
@@ -526,10 +300,8 @@ export default function VisualEditorPage() {
       <CommandPalette
         isOpen={commandPaletteOpen}
         onClose={() => setCommandPaletteOpen(false)}
-        onTabChange={(tab) => setActiveTab(tab as EditorTab)}
+        onTabChange={setActiveTab}
       />
-
-      {/* 🤖 BUILD APPROVAL MODAL REMOVED - Autonomous execution enabled (Agent #131 - Oct 24, 2025) */}
     </div>
   );
 }

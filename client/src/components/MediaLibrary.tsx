@@ -42,10 +42,15 @@ export default function MediaLibrary({ memoryId, onClose, onMediaSelected, selec
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch user's media library
   const { data: mediaLibrary = [], isLoading } = useQuery({
-    queryKey: ['/api/media/library', { limit: '100' }],
+    queryKey: ['/api/media/library'],
+    queryFn: async () => {
+      const response = await fetch('/api/media/library?limit=100');
+      if (!response.ok) throw new Error('Failed to fetch media library');
+      const result = await response.json();
+      return result.data || [];
+    }
   });
 
   // Attach media to memory mutation

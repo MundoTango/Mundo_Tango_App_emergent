@@ -43,10 +43,15 @@ export function EventRoleInvitationWorkflow({ eventId, isEventCreator }: EventRo
   const [selectedRole, setSelectedRole] = useState('');
   const queryClient = useQueryClient();
 
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   // Fetch current event participants
   const { data: participants, isLoading } = useQuery({
-    queryKey: [`/api/events/${eventId}/participants`],
+    queryKey: ['/api/events', eventId, 'participants'],
+    queryFn: async () => {
+      const response = await fetch(`/api/events/${eventId}/participants`);
+      if (!response.ok) throw new Error('Failed to fetch participants');
+      const result = await response.json();
+      return result.data || [];
+    },
   });
 
   // Invite participant mutation

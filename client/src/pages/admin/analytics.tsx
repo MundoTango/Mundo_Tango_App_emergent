@@ -1,4 +1,4 @@
-// Mundo Tango ESA LIFE CEO - Phase 19: Analytics Dashboard
+// ESA LIFE CEO 61x21 - Phase 19: Analytics Dashboard
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -123,9 +123,16 @@ export default function AdminAnalyticsPage() {
   const [dateRange, setDateRange] = useState('7d');
   const [selectedMetric, setSelectedMetric] = useState('users');
 
-  // MB.MD SIMULTANEOUS: Use default fetcher  
+  // Fetch analytics data
   const { data: analytics, isLoading, refetch } = useQuery({
-    queryKey: [`/api/admin/analytics?range=${dateRange}`],
+    queryKey: ['/api/admin/analytics', { dateRange }],
+    queryFn: async () => {
+      const response = await fetch(`/api/admin/analytics?range=${dateRange}`, {
+        credentials: 'include'
+      });
+      if (!response.ok) throw new Error('Failed to fetch analytics');
+      return response.json();
+    }
   });
 
   // Mock data for demonstration

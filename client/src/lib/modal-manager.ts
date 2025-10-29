@@ -1,5 +1,5 @@
 // MT Ocean Modal Manager
-// Mundo Tango ESA LIFE CEO - Centralized Modal State Management
+// ESA LIFE CEO 61x21 - Centralized Modal State Management
 
 import { create } from 'zustand';
 import { ReactNode } from 'react';

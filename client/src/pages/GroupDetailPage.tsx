@@ -208,6 +208,7 @@ export default function GroupDetailPage() {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
+              </div>
             </div>
           </div>
         </div>

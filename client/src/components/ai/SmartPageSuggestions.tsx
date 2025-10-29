@@ -40,7 +40,6 @@ export function SmartPageSuggestions({
   const { user } = useAuth();
 
   // Get journey prediction - ESA Agent #71 (Journey Prediction)
-  // NOTE: Keeping custom queryFn - API endpoint /api/ai-intelligence/journey/predict not yet implemented
   const { data: prediction, isLoading } = useQuery<PagePrediction>({
     queryKey: ['/api/ai-intelligence/journey/predict', currentRoute, user?.id],
     queryFn: async () => {

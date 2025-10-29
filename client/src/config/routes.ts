@@ -1,5 +1,5 @@
 /**
- * Mundo Tango ESA LIFE CEO AGENTS FRAMEWORK
+ * ESA LIFE CEO 61x21 AGENTS FRAMEWORK
  * Route Registry - Type-Safe Route Management System
  * 
  * Purpose: Centralized route configuration with TypeScript enforcement
@@ -10,116 +10,113 @@
  */
 
 import { ComponentType, lazy } from 'react';
-// Phase 14 Batch 3: Lazy load ALL routes for massive LCP improvement (17s → 8-10s target)
-// MB.MD FIX: MTStatusPreview removed - file doesn't exist (was breaking server startup)
-const Forgotpassword = lazy(() => import('@/pages/auth/forgot-password'));
-const Resetpassword = lazy(() => import('@/pages/auth/reset-password'));
-const Profile = lazy(() => import('@/pages/profile'));
-const UserSettings = lazy(() => import('@/pages/UserSettings'));
-const AccountDelete = lazy(() => import('@/pages/AccountDelete'));
-const Onboarding = lazy(() => import('@/pages/onboarding'));
-const ResumePage = lazy(() => import('@/pages/ResumePage'));
-const PublicResumePage = lazy(() => import('@/pages/PublicResumePage'));
-const PublicProfilePage = lazy(() => import('@/pages/PublicProfilePage'));
-const ProfileSwitcher = lazy(() => import('@/pages/ProfileSwitcher'));
-const EnhancedEvents = lazy(() => import('@/pages/EnhancedEvents'));
-const Eventdetail = lazy(() => import('@/pages/event-detail'));
-const Teacher = lazy(() => import('@/pages/teacher'));
-const Organizer = lazy(() => import('@/pages/organizer'));
-const Housingmarketplace = lazy(() => import('@/pages/housing-marketplace'));
-const HostDashboard = lazy(() => import('@/pages/HostDashboard'));
-const HostOnboarding = lazy(() => import('@/pages/HostOnboarding'));
-const GuestOnboarding = lazy(() => import('@/pages/GuestOnboarding'));
-const Hostbookings = lazy(() => import('@/pages/host-bookings'));
-const Mybookings = lazy(() => import('@/pages/my-bookings'));
-const Listingdetail = lazy(() => import('@/pages/listing-detail'));
-const Hostcalendar = lazy(() => import('@/pages/host-calendar'));
-const RecommendationsBrowsePage = lazy(() => import('@/pages/RecommendationsBrowsePage'));
-const EnhancedFriends = lazy(() => import('@/pages/EnhancedFriends'));
-const FriendshipPage = lazy(() => import('@/pages/FriendshipPage'));
-const Messages = lazy(() => import('@/pages/Messages'));
-const Groups = lazy(() => import('@/pages/groups'));
-const GroupDetailPageMT = lazy(() => import('@/pages/GroupDetailPageMT'));
-const RoleInvitations = lazy(() => import('@/pages/RoleInvitations'));
-const Favorites = lazy(() => import('@/pages/Favorites'));
-const Community = lazy(() => import('@/pages/community'));
-const Communityworldmap = lazy(() => import('@/pages/community-world-map'));
-const CreateCommunity = lazy(() => import('@/pages/CreateCommunity'));
-const Tangocommunities = lazy(() => import('@/pages/tango-communities'));
-const TangoStories = lazy(() => import('@/pages/TangoStories'));
-const LiveStreaming = lazy(() => import('@/pages/LiveStreaming'));
-const Gamification = lazy(() => import('@/pages/Gamification'));
-const Search = lazy(() => import('@/pages/search'));
-const Subscribe = lazy(() => import('@/pages/Subscribe'));
-const Pricing = lazy(() => import('@/pages/pricing'));
-const BillingDashboard = lazy(() => import('@/pages/BillingDashboard'));
-const Checkout = lazy(() => import('@/pages/Checkout'));
-const PaymentMethods = lazy(() => import('@/pages/PaymentMethods'));
-const Invoices = lazy(() => import('@/pages/Invoices'));
-const Subscription = lazy(() => import('@/pages/Subscription'));
-const Dashboard = lazy(() => import('@/pages/admin/dashboard'));
-const Users = lazy(() => import('@/pages/admin/users'));
-const Moderation = lazy(() => import('@/pages/admin/moderation'));
-const Analytics = lazy(() => import('@/pages/admin/analytics'));
-const AdminCenter = lazy(() => import('@/pages/AdminCenter'));
-const PromoCodesAdmin = lazy(() => import('@/pages/PromoCodesAdmin'));
-const SubscriptionAnalytics = lazy(() => import('@/pages/SubscriptionAnalytics'));
-const AgentMetrics = lazy(() => import('@/pages/admin/AgentMetrics'));
-const Projects = lazy(() => import('@/pages/admin/projects'));
-const EpicsList = lazy(() => import('@/pages/admin/EpicsList'));
-const StoriesList = lazy(() => import('@/pages/admin/StoriesList'));
-const EpicDetail = lazy(() => import('@/pages/admin/EpicDetail'));
-const StoryDetail = lazy(() => import('@/pages/admin/StoryDetail'));
-const Sprints = lazy(() => import('@/pages/admin/sprints'));
-const ESAMind = lazy(() => import('@/pages/admin/ESAMind'));
-const MrBlueDashboard = lazy(() => import('@/pages/admin/MrBlueDashboard'));
-const TenantManagement = lazy(() => import('@/pages/admin/TenantManagement'));
-const AgentLearnings = lazy(() => import('@/pages/admin/AgentLearnings'));
-const DeploymentConfig = lazy(() => import('@/pages/admin/DeploymentConfig'));
-const AgentCollaborationVisualizer = lazy(() => import('@/pages/admin/AgentCollaborationVisualizer'));
-const MultiAIDashboard = lazy(() => import('@/pages/admin/MultiAIDashboard'));
-const MultiAIAnalytics = lazy(() => import('@/pages/admin/MultiAIAnalytics'));
-const UISubAgents = lazy(() => import('@/pages/admin/UISubAgents')); // Phase 11: UI Sub-Agents Dashboard
-const HealthMonitor = lazy(() => import('@/pages/admin/HealthMonitor')); // MB.MD Track 2: Auto-Healing Monitor
-const PageStateMonitor = lazy(() => import('@/pages/admin/PageStateMonitor')); // MB.MD Track 3: Page State Tracker
-const AutoFixDashboard = lazy(() => import('@/pages/admin/AutoFixDashboard')); // MB.MD Track 4: Auto-Fix Proposals
-const PerformanceDashboard = lazy(() => import('@/pages/admin/PerformanceDashboard')); // MB.MD Track 6: Performance Monitor
-const AgentCoordination = lazy(() => import('@/pages/admin/AgentCoordination')); // MB.MD Track 8: Agent Coordination
-// VEMBStatusDashboard disabled - page doesn't exist yet
-// const VEMBStatusDashboard = lazy(() => import('@/pages/admin/VEMBStatusDashboard')); // MB.MD: Visual Editor & Mr Blue Status Monitor
-const FinOpsDashboard = lazy(() => import('@/pages/FinOpsDashboard'));
-const AnalyticsDashboard = lazy(() => import('@/pages/AnalyticsDashboard'));
-const AgentFrameworkDashboard = lazy(() => import('@/pages/AgentFrameworkDashboard'));
-const ProjectTracker = lazy(() => import('@/pages/ProjectTracker'));
-const LiveGlobalStatistics = lazy(() => import('@/pages/LiveGlobalStatistics'));
-const HierarchyDashboard = lazy(() => import('@/pages/HierarchyDashboard'));
-const LifeCEOEnhanced = lazy(() => import('@/pages/LifeCEOEnhanced'));
-const LifeCeoPerformance = lazy(() => import('@/pages/LifeCeoPerformance'));
-const MonitoringDashboard = lazy(() => import('@/pages/MonitoringDashboard'));
-const MonitoringTest = lazy(() => import('@/pages/MonitoringTest'));
-const MediaUploadTest = lazy(() => import('@/pages/MediaUploadTest'));
-const Featurenavigation = lazy(() => import('@/pages/feature-navigation'));
-const Databasesecurity = lazy(() => import('@/pages/database-security'));
-const HelpSupport = lazy(() => import('@/pages/HelpSupport'));
-const Codeofconduct = lazy(() => import('@/pages/code-of-conduct'));
-const PrivacyAnalytics = lazy(() => import('@/pages/PrivacyAnalytics'));
-const TravelPlanner = lazy(() => import('@/pages/TravelPlanner'));
-const MobileAppDashboard = lazy(() => import('@/pages/MobileAppDashboard'));
-const Notifications = lazy(() => import('@/pages/Notifications'));
-const ErrorBoundaryPage = lazy(() => import('@/pages/ErrorBoundaryPage'));
-const MemoriesDebug = lazy(() => import('@/pages/_debug/MemoriesDebug'));
-const MemoriesTest = lazy(() => import('@/pages/_debug/MemoriesTest'));
-const PostingDemo = lazy(() => import('@/pages/_debug/PostingDemo'));
-const ModernMemoriesPage = lazy(() => import('@/pages/_debug/ModernMemoriesPage'));
-const AgentLearningDashboard = lazy(() => import('@/pages/AgentLearningDashboard'));
-const AgentIntelligenceNetwork = lazy(() => import('@/pages/AgentIntelligenceNetwork'));
-const AgentDetail = lazy(() => import('@/pages/AgentDetail'));
+// Direct imports - all routes (lazy loading disabled)
+import Forgotpassword from '@/pages/auth/forgot-password';
+import Resetpassword from '@/pages/auth/reset-password';
+import Profile from '@/pages/profile';
+import UserSettings from '@/pages/UserSettings';
+import AccountDelete from '@/pages/AccountDelete';
+import Onboarding from '@/pages/onboarding';
+import ResumePage from '@/pages/ResumePage';
+import PublicResumePage from '@/pages/PublicResumePage';
+import PublicProfilePage from '@/pages/PublicProfilePage';
+import ProfileSwitcher from '@/pages/ProfileSwitcher';
+import EnhancedEvents from '@/pages/EnhancedEvents';
+import Eventdetail from '@/pages/event-detail';
+import Teacher from '@/pages/teacher';
+import Organizer from '@/pages/organizer';
+import Housingmarketplace from '@/pages/housing-marketplace';
+import HostDashboard from '@/pages/HostDashboard';
+import HostOnboarding from '@/pages/HostOnboarding';
+import GuestOnboarding from '@/pages/GuestOnboarding';
+import Hostbookings from '@/pages/host-bookings';
+import Mybookings from '@/pages/my-bookings';
+import Listingdetail from '@/pages/listing-detail';
+import Hostcalendar from '@/pages/host-calendar';
+import RecommendationsBrowsePage from '@/pages/RecommendationsBrowsePage';
+import EnhancedFriends from '@/pages/EnhancedFriends';
+import FriendshipPage from '@/pages/FriendshipPage';
+import Messages from '@/pages/Messages';
+import Groups from '@/pages/groups';
+import GroupDetailPageMT from '@/pages/GroupDetailPageMT';
+import RoleInvitations from '@/pages/RoleInvitations';
+import Favorites from '@/pages/Favorites';
+import Community from '@/pages/community';
+import Communityworldmap from '@/pages/community-world-map';
+import CreateCommunity from '@/pages/CreateCommunity';
+import Tangocommunities from '@/pages/tango-communities';
+import TangoStories from '@/pages/TangoStories';
+import LiveStreaming from '@/pages/LiveStreaming';
+import Gamification from '@/pages/Gamification';
+import Search from '@/pages/search';
+import Subscribe from '@/pages/Subscribe';
+import Pricing from '@/pages/pricing';
+import BillingDashboard from '@/pages/BillingDashboard';
+import Checkout from '@/pages/Checkout';
+import PaymentMethods from '@/pages/PaymentMethods';
+import Invoices from '@/pages/Invoices';
+import Subscription from '@/pages/Subscription';
+import Dashboard from '@/pages/admin/dashboard';
+import Users from '@/pages/admin/users';
+import Moderation from '@/pages/admin/moderation';
+import Analytics from '@/pages/admin/analytics';
+import AdminCenter from '@/pages/AdminCenter';
+import PromoCodesAdmin from '@/pages/PromoCodesAdmin';
+import SubscriptionAnalytics from '@/pages/SubscriptionAnalytics';
+import AgentMetrics from '@/pages/admin/AgentMetrics';
+import Projects from '@/pages/admin/projects';
+import EpicsList from '@/pages/admin/EpicsList';
+import StoriesList from '@/pages/admin/StoriesList';
+import EpicDetail from '@/pages/admin/EpicDetail';
+import StoryDetail from '@/pages/admin/StoryDetail';
+import Sprints from '@/pages/admin/sprints';
+import ESAMind from '@/pages/admin/ESAMind';
+import MrBlueDashboard from '@/pages/admin/MrBlueDashboard';
+import TenantManagement from '@/pages/admin/TenantManagement';
+import AgentLearnings from '@/pages/admin/AgentLearnings';
+import DeploymentConfig from '@/pages/admin/DeploymentConfig';
+import AgentCollaborationVisualizer from '@/pages/admin/AgentCollaborationVisualizer';
+import MultiAIDashboard from '@/pages/admin/MultiAIDashboard';
+import MultiAIAnalytics from '@/pages/admin/MultiAIAnalytics';
+import UISubAgents from '@/pages/admin/UISubAgents'; // Phase 11: UI Sub-Agents Dashboard
+import HealthMonitor from '@/pages/admin/HealthMonitor'; // MB.MD Track 2: Auto-Healing Monitor
+import PageStateMonitor from '@/pages/admin/PageStateMonitor'; // MB.MD Track 3: Page State Tracker
+import AutoFixDashboard from '@/pages/admin/AutoFixDashboard'; // MB.MD Track 4: Auto-Fix Proposals
+import PerformanceDashboard from '@/pages/admin/PerformanceDashboard'; // MB.MD Track 6: Performance Monitor
+import AgentCoordination from '@/pages/admin/AgentCoordination'; // MB.MD Track 8: Agent Coordination
+import FinOpsDashboard from '@/pages/FinOpsDashboard';
+import AnalyticsDashboard from '@/pages/AnalyticsDashboard';
+import AgentFrameworkDashboard from '@/pages/AgentFrameworkDashboard';
+import ProjectTracker from '@/pages/ProjectTracker';
+import LiveGlobalStatistics from '@/pages/LiveGlobalStatistics';
+import HierarchyDashboard from '@/pages/HierarchyDashboard';
+import LifeCEOEnhanced from '@/pages/LifeCEOEnhanced';
+import LifeCeoPerformance from '@/pages/LifeCeoPerformance';
+import MonitoringDashboard from '@/pages/MonitoringDashboard';
+import MonitoringTest from '@/pages/MonitoringTest';
+import MediaUploadTest from '@/pages/MediaUploadTest';
+import Featurenavigation from '@/pages/feature-navigation';
+import Databasesecurity from '@/pages/database-security';
+import HelpSupport from '@/pages/HelpSupport';
+import Codeofconduct from '@/pages/code-of-conduct';
+import PrivacyAnalytics from '@/pages/PrivacyAnalytics';
+import TravelPlanner from '@/pages/TravelPlanner';
+import MobileAppDashboard from '@/pages/MobileAppDashboard';
+import Notifications from '@/pages/Notifications';
+import ErrorBoundaryPage from '@/pages/ErrorBoundaryPage';
+import MemoriesDebug from '@/pages/_debug/MemoriesDebug';
+import MemoriesTest from '@/pages/_debug/MemoriesTest';
+import PostingDemo from '@/pages/_debug/PostingDemo';
+import ModernMemoriesPage from '@/pages/_debug/ModernMemoriesPage';
+import AgentLearningDashboard from '@/pages/AgentLearningDashboard';
+import AgentIntelligenceNetwork from '@/pages/AgentIntelligenceNetwork';
+import AgentDetail from '@/pages/AgentDetail';
 
-// Critical pages only - loaded eagerly for instant navigation
-const Login = lazy(() => import('@/pages/auth/login'));
-const Register = lazy(() => import('@/pages/auth/register'));
-const Home = lazy(() => import('@/pages/home'));
-const ESAMemoryFeed = lazy(() => import('@/pages/ESAMemoryFeed'));
+// Direct imports (critical pages only)
+import Login from '@/pages/auth/login';
+import Register from '@/pages/auth/register';
+import Home from '@/pages/home';
+import ESAMemoryFeed from '@/pages/ESAMemoryFeed';
 
 // Lazy imports (non-critical pages)
 
@@ -692,14 +689,6 @@ export const productionRoutes: RouteConfig[] = [
     loadingMessage: 'Loading Mr Blue Dashboard...',
     description: 'Mr Blue AI Companion Dashboard - All 8 Agents (Super Admin Only)'
   },
-  // MB.MD FIX: Temporarily disabled - MTStatusPreview file doesn't exist
-  // {
-  //   path: '/mt-status',
-  //   component: MTStatusPreview,
-  //   mode: 'production',
-  //   loadingMessage: 'Loading MT Status Preview...',
-  //   description: 'Mundo Tango Master Rebuild Plan Status - MB.MD Methodology Dashboard'
-  // },
   {
     path: '/admin/health-monitor',
     component: HealthMonitor,
@@ -735,14 +724,6 @@ export const productionRoutes: RouteConfig[] = [
     loadingMessage: 'Loading Agent Coordination...',
     description: 'MB.MD Track 8: Agent Registry, Learning Systems & Collaboration'
   },
-  // VE/MB Status Dashboard disabled - page doesn't exist yet
-  // {
-  //   path: '/admin/ve-mb-status',
-  //   component: VEMBStatusDashboard,
-  //   mode: 'production',
-  //   loadingMessage: 'Loading VE/MB Status Dashboard...',
-  //   description: 'MB.MD: Visual Editor & Mr Blue AI System Health Monitor - Real-time diagnostics, dependency checks, and quick fixes'
-  // },
   {
     path: '/admin/tenants',
     component: TenantManagement,

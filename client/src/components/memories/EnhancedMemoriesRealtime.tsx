@@ -62,9 +62,17 @@ export default function EnhancedMemoriesRealtime() {
   const [typingUsers, setTypingUsers] = useState<Map<string, string>>(new Map());
 
   // Fetch posts with real-time updates
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const { data: posts, isLoading } = useQuery({
-    queryKey: ['/api/posts/feed', { filterTags: activeTags.length > 0 ? activeTags.join(',') : undefined }],
+    queryKey: ['/api/posts/feed', { filterTags: activeTags }],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (activeTags.length > 0) {
+        params.append('filterTags', activeTags.join(','));
+      }
+      const response = await fetch(`/api/posts/feed?${params.toString()}`);
+      const result = await response.json();
+      return result.data || [];
+    },
     refetchInterval: 30000, // Refresh every 30 seconds as backup to real-time
   });
 

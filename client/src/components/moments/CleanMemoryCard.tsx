@@ -16,7 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { renderWithMentions } from '@/utils/renderWithMentions';
-// Mundo Tango ESA LIFE CEO - Layer 28: Recommendations System
+// ESA LIFE CEO 61x21 - Layer 28: Recommendations System
 import RecommendationBadge from '@/components/recommendations/RecommendationBadge';
 
 interface MemoryCardProps {
@@ -77,9 +77,26 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
   };
 
   // Load comments - CRITICAL FIX: Use correct API endpoint based on post type
-  // MB.MD SIMULTANEOUS: Using default fetcher from queryClient.ts
   const commentsQuery = useQuery({
     queryKey: [`/api/posts/${post.id}/comments`],
+    queryFn: async () => {
+      // Use unified posts endpoint for all posts
+      const endpoint = `/api/posts/${post.id}/comments`;
+      console.log(`🔍 Fetching comments from: ${endpoint}`);
+      
+      const response = await fetch(endpoint, {
+        credentials: 'include'
+      });
+      
+      console.log(`📝 Comments response status: ${response.status}`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch comments: ${response.statusText}`);
+      }
+      const result = await response.json();
+      console.log(`📝 Comments data:`, result);
+      return result;
+    },
     enabled: showComments,
     refetchOnWindowFocus: false
   });
@@ -339,7 +356,7 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
           <div className="mt-3">
             <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{renderWithMentions(post.content)}</p>
             
-            {/* Mundo Tango ESA LIFE CEO - Layer 28: Recommendation Badge */}
+            {/* ESA LIFE CEO 61x21 - Layer 28: Recommendation Badge */}
             {post.recommendation && (
               <RecommendationBadge
                 type={post.recommendation.type}
@@ -358,11 +375,11 @@ export default function CleanMemoryCard({ post, currentUser, onLike, onComment, 
               </div>
             )}
 
-            {/* Mundo Tango ESA LIFE CEO - Enhanced Media Display with Video Support */}
+            {/* ESA LIFE CEO 61x21 - Enhanced Media Display with Video Support */}
             {(() => {
               // Processing media for post
               
-              // Mundo Tango ESA LIFE CEO - AGGRESSIVE media collection
+              // ESA LIFE CEO 61x21 - AGGRESSIVE media collection
               const allMediaUrls = [];
               
               // Check ALL possible fields where media might be stored
