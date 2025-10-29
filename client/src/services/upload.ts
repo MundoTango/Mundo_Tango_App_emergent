@@ -1,4 +1,5 @@
 // Upload service for media files
+// Trigger build: Following MB.MD recommendations for automated builds
 export interface UploadResponse {
   success: boolean;
   data?: {
