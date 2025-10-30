@@ -35,7 +35,7 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "node server/minimal-mt-server.js"
+args = "npm run dev"
 waitForPort = 5000
 
 [agent]

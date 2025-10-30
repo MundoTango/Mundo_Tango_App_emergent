@@ -36,8 +36,9 @@ if (global.gc) {
 import uploadRoutes from "./routes/uploadRoutes";
 import debugRoutes from "./routes/debugRoutes";
 import internalUploadRoutes from "./routes/upload";
-import cspReportsRouter from "./routes/csp-reports";
-import ttsRoutes from "./routes/ttsRoutes";
+// TEMPORARILY DISABLED - Missing files in this branch
+// import cspReportsRouter from "./routes/csp-reports";
+// import ttsRoutes from "./routes/ttsRoutes";
 import { registerRoutes } from "./routes";
 import { streamVideo, isVideoFile } from './videoStreaming';
 import { register } from "./lib/prometheus-metrics";
@@ -51,11 +52,13 @@ import {
   csrfProtection,
   sessionSecurityConfig 
 } from "./middleware/security";
-import { requestLogger } from "./middleware/requestLogger";
+// TEMPORARILY DISABLED - Missing files in this branch
+// import { requestLogger } from "./middleware/requestLogger";
 import { getConnectionStatus, pool } from "./db";
 
 // AGENT #143: Initialize observability (gated behind env flag)
-import { initObservability, shutdownObservability } from "./observability";
+// TEMPORARILY DISABLED - Missing files in this branch
+// import { initObservability, shutdownObservability } from "./observability";
 
 const app = express();
 
@@ -120,7 +123,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Apply security headers
 // MB.MD Phase 5: Request logging middleware (before routes)
-app.use(requestLogger);
+// TEMPORARILY DISABLED - Missing requestLogger middleware
+// app.use(requestLogger);
 
 app.use(securityHeaders);
 app.use(sanitizeInput);
@@ -237,21 +241,25 @@ app.use(internalUploadRoutes); // ESA Layer 13: Internal upload system
 app.use('/api/debug', debugRoutes);
 
 // OpenAI TTS routes (Oct 22, 2025 - Premium voice quality)
-app.use(ttsRoutes);
+// TEMPORARILY DISABLED - Missing ttsRoutes
+// app.use(ttsRoutes);
 
 // GPT-4o Realtime API routes (Oct 22, 2025 - Two-way voice conversation)
-import { setupRealtimeWebSocket } from './routes/realtimeRoutes';
+// TEMPORARILY DISABLED - Missing realtimeRoutes
+// import { setupRealtimeWebSocket } from './routes/realtimeRoutes';
 
 // MB.MD Phase 5: CSP violation reporting
-app.use(cspReportsRouter);
+// TEMPORARILY DISABLED - Missing csp-reports
+// app.use(cspReportsRouter);
 
 // Mundo Tango ESA LIFE CEO - Add chunked upload routes for large videos
 import chunkedUploadRoutes from './routes/chunkedUploadRoutes';
 app.use(chunkedUploadRoutes);
 
 // Model Monitoring & Auto-Update Routes (Stream G - Oct 22, 2025)
-import modelMonitorRoutes from './routes/modelMonitorRoutes';
-app.use('/api/models', modelMonitorRoutes);
+// TEMPORARILY DISABLED - Missing modelMonitorRoutes
+// import modelMonitorRoutes from './routes/modelMonitorRoutes';
+// app.use('/api/models', modelMonitorRoutes);
 
 // Open Source Agent Routes (Layer 59 - Oct 28, 2025)
 import openSourceRoutes from './routes/openSourceRoutes';
@@ -288,7 +296,8 @@ const startServer = async () => {
     // AGENT #143: Initialize observability (gated behind env flag)
     if (process.env.ENABLE_OBSERVABILITY === 'true') {
       console.log('📊 [Observability] Initializing OpenTelemetry...');
-      await initObservability();
+      // TEMPORARILY DISABLED - Missing observability module
+      // await initObservability();
     } else {
       console.log('📊 [Observability] Disabled (set ENABLE_OBSERVABILITY=true to enable)');
     }
@@ -298,8 +307,9 @@ const startServer = async () => {
     console.log('✅ Routes registered successfully');
     
     // Setup GPT-4o Realtime API WebSocket (Oct 22, 2025)
-    setupRealtimeWebSocket(httpServer);
-    console.log('✅ Realtime API WebSocket initialized');
+    // TEMPORARILY DISABLED - Missing realtimeRoutes
+    // setupRealtimeWebSocket(httpServer);
+    console.log('✅ Realtime API WebSocket initialization skipped (missing routes)');
     
     // TRACK 3A: Initialize Hot Reload Manager (MB.MD 100% Plan - Oct 26, 2025)
     const io = require('./routes').io; // Get Socket.io instance from routes
@@ -374,7 +384,8 @@ const startServer = async () => {
 process.on('SIGTERM', async () => {
   console.log('📊 [Observability] Shutting down...');
   if (process.env.ENABLE_OBSERVABILITY === 'true') {
-    await shutdownObservability();
+    // TEMPORARILY DISABLED - Missing observability module
+    // await shutdownObservability();
   }
   process.exit(0);
 });
@@ -382,7 +393,8 @@ process.on('SIGTERM', async () => {
 process.on('SIGINT', async () => {
   console.log('📊 [Observability] Shutting down...');
   if (process.env.ENABLE_OBSERVABILITY === 'true') {
-    await shutdownObservability();
+    // TEMPORARILY DISABLED - Missing observability module
+    // await shutdownObservability();
   }
   process.exit(0);
 });
