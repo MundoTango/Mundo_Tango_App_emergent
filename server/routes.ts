@@ -2,7 +2,8 @@ import express, { Express } from "express";
 import { createServer, type Server } from "http";
 import { ParsedQs } from "qs";
 import eventsRoutes from './routes/eventsRoutes';
-import eventRoutes from './routes/eventRoutes'; // MB.MD TRACK B: Event CRUD API (7 endpoints) - Oct 20, 2025
+// MB.MD TRACK B: Event CRUD API (7 endpoints) - Oct 20, 2025
+// NOTE: Using eventsRoutes (plural) - eventRoutes was duplicate import
 import profileRoutes from './routes/profileRoutes'; // MB.MD TRACK B: Profile API (6 endpoints) - Oct 20, 2025
 import groupRoutes from './routes/groupRoutes'; // MB.MD TRACK B: Group API (8 endpoints) - Oct 20, 2025
 import * as path from 'path';
@@ -1409,7 +1410,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/api/stripe', stripeWebhook); // Stripe webhook endpoint
   
   // MB.MD TRACK B (S3): Core Features API - Oct 20, 2025
-  app.use('/api', eventRoutes); // Event CRUD API: GET/POST/PATCH/DELETE /api/events
+  app.use('/api', eventsRoutes); // Event CRUD API: GET/POST/PATCH/DELETE /api/events
   app.use('/api', profileRoutes); // Profile API: GET/PATCH /api/profile, follow/unfollow
   app.use('/api', groupRoutes); // Group API: GET/POST/PATCH /api/groups, join/leave
   app.use(postsRoutes); // Posts API: GET/POST/PUT/DELETE /api/posts (registered Oct 20, 2025)
